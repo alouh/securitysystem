@@ -75,9 +75,9 @@ public class SeServiceController {
             seDevice.setSdId(server1.getSdId());
             List<SeDevice> seDeviceList = seDeviceService.findEntityByParam(seDevice);
             if(seDeviceList.size()==1) {
-                server1.setSdName(seDeviceList.get(0).getSdName());
+                /*server1.setSdName(seDeviceList.get(0).getSdName());
                 server1.setSdIp(seDeviceList.get(0).getSdIp());
-                server1.setSdUser(seDeviceList.get(0).getSdUser());
+                server1.setSdUser(seDeviceList.get(0).getSdUser());*/
             }
         }
         return seServerPager;

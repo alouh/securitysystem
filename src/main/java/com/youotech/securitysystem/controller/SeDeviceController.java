@@ -39,21 +39,9 @@ public class SeDeviceController {
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
         String sdIp = URLDecoder.decode(request.getParameter("sdIp"));
         String sdType = URLDecoder.decode(request.getParameter("sdType"));
-        String sdType1 = request.getParameter("sdType1");
-        String sdUser = URLDecoder.decode(request.getParameter("sdUser"));
         SeDevice seDevice = new SeDevice();
-        seDevice.setSdRemarks(0);//有效的
         int start = (pageindex - 1) * pageSize;
         int end = pageSize;
-        if (StringUtils.isNotBlank(sdIp)) {
-            seDevice.setSdIp(URLDecoder.decode(request.getParameter("sdIp"), "UTF-8"));
-        }
-        if (StringUtils.isNotBlank(sdType1)) {
-            seDevice.setSdType(URLDecoder.decode(request.getParameter("sdType"), "UTF-8"));
-        }
-        if (StringUtils.isNotBlank(sdUser)) {
-            seDevice.setSdUser(URLDecoder.decode(request.getParameter("sdUser"), "UTF-8"));
-        }
         Pager<SeDevice> seUserPager = seDeviceService.findByParamPage(seDevice, start, end);
         return seUserPager;
     }
@@ -69,37 +57,9 @@ public class SeDeviceController {
     @ResponseBody
     public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
         SeDevice seDevice = new SeDevice();
-        String sdName = request.getParameter("sdName");
         String sdType = request.getParameter("sdType");
-        String sdOs = request.getParameter("sdOs");
-        String sdOsType = request.getParameter("sdOsType");
-        String sdMac = request.getParameter("sdMac");
-        String sdDept = request.getParameter("sdDept");
-        String sdUser = request.getParameter("sdUser");
-        String sdIp = request.getParameter("sdIp");
-        seDevice.setSdRemarks(0);
-        seDevice.setSdUser(sdUser);
         seDevice.setSdType(sdType);
-        seDevice.setSdIp(sdIp);
-        seDevice.setSdName(sdName);
-        seDevice.setSdDept(sdDept);
-        seDevice.setSdSource("手动维护");
         seDevice.setSdDate(new Date());
-        if (StringUtils.isNotBlank(sdOs)) {
-            seDevice.setSdOs(sdOs);
-        }else {
-            seDevice.setSdOs("无");
-        }
-        if (StringUtils.isNotBlank(sdOsType)) {
-            seDevice.setSdOstype(sdOsType);
-        }else {
-            seDevice.setSdOstype("无");
-        }
-        if (StringUtils.isNotBlank(sdMac)) {
-            seDevice.setSdMac(sdMac);
-        }else {
-            seDevice.setSdMac("00-00-00-00-00");
-        }
         seDeviceService.save(seDevice);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", true);

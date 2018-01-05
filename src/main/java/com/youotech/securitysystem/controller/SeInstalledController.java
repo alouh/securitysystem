@@ -70,8 +70,8 @@ public class SeInstalledController {
             seDevice.setSdId(seInstalled1.getSdId());
             List<SeDevice> seDeviceList = seDeviceService.findEntityByParam(seDevice);
             if (seDeviceList.size() > 0) {
-                seInstalled1.setSdName(seDeviceList.get(0).getSdName());
-                seInstalled1.setSdIp(seDeviceList.get(0).getSdIp());
+                /*seInstalled1.setSdName(seDeviceList.get(0).getSdName());
+                seInstalled1.setSdIp(seDeviceList.get(0).getSdIp());*/
             }
         }
 

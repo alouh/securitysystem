@@ -35,13 +35,19 @@ public class SeDeviceServiceImpl implements SeDeviceService {
     public Integer save(SeDevice entity) {
         LOGGER.info("【SeDeviceServiceImpl.save】入参" + entity);
         int count = 0;
-        SeDevice seDevice = new SeDevice();
-        seDevice.setSdName(entity.getSdName());
-        seDevice.setSdRemarks(0);
-        List<SeDevice> seDeviceList = seDeviceMapper.findByParam(seDevice);
-        if (seDeviceList.size() > 0) {
+        List<SeDevice> seDeviceList = seDeviceMapper.findByParam(new SeDevice());
+        if (entity.getSdType().equals("")){
             LOGGER.error("【SeDeviceServiceImpl.save】新增设备失败");
-            throw new BizException("设备名称已存在，请重新输入");
+            throw new BizException("设备类型不能为空，请重新输入");
+        }
+        for (SeDevice seDevice : seDeviceList)
+        {
+            String type = seDevice.getSdType();
+            String newType = entity.getSdType();
+            if (newType.equals(type)){
+                LOGGER.error("【SeDeviceServiceImpl.save】新增设备失败");
+                throw new BizException("设备类型已存在，请重新输入");
+            }
         }
         try {
             count = seDeviceMapper.insertSelective(entity);
@@ -117,10 +123,7 @@ public class SeDeviceServiceImpl implements SeDeviceService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("start", start);
         map.put("end", limit);
-        map.put("sdIp", entity.getSdIp());
         map.put("sdType", entity.getSdType());
-        map.put("sdUser", entity.getSdUser());
-        map.put("sdRemarks", entity.getSdRemarks());
         List<SeDevice> seDeviceList = seDeviceMapper.findEntityByParamFuzzy(entity);
         List<SeDevice> seDeviceList1 = seDeviceMapper.findByParamPage(map);
         Pager<SeDevice> seUserPager = new Pager<SeDevice>(start, limit, seDeviceList1, seDeviceList.size());

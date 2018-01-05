@@ -78,17 +78,17 @@ function findSeDevice() {
  * 新增设备
  */
 function addDevice() {
-    var sdName = $("#sdName_add").val().trim();
+    //var sdName = $("#sdName_add").val().trim();
     var sdType = $("#sdType_add").val();
-    var sdOs = null;
+    /*var sdOs = null;
     var sdOsType = null;
     var sdMac = null;
     if (sdType != "网络设备") {
         sdOs = $("#sdOs_add").val();
         sdOsType = $("#sdOsType_add").val();
         sdMac = $("#sdMac_add").val().trim()
-    }
-    var sdDept = $("#sdDept_add").val().trim();
+    }*/
+    /*var sdDept = $("#sdDept_add").val().trim();
     var sdUser = $("#sdUser_add").val().trim();
     var sdIp = $("#sdIp_add").val().trim();
 
@@ -101,20 +101,20 @@ function addDevice() {
         $("#messageText").text('IP格式不正确');
         $("#message").modal("show");
         return false;
-    }
+    }*/
 
     $.ajax({
         url: './seDevice/addDevice',
         type: 'post',
         data: {
-            'sdName': sdName,
+            //'sdName': sdName,
             'sdType': sdType,
-            'sdOs': sdOs,
+            /*'sdOs': sdOs,
             'sdOsType': sdOsType,
             'sdMac': sdMac,
             'sdDept': sdDept,
             'sdUser': sdUser,
-            'sdIp': sdIp
+            'sdIp': sdIp*/
         },
         dataType: 'json',
         success: function (result) {
