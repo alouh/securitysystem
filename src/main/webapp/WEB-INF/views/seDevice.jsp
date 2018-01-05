@@ -68,14 +68,22 @@
                     <input class="form-control" id="sdIp" type="hidden"/>
                 </div>
             </div>
+            <div class="form-group" style="width:280px; margin-left: 30px">
+                <div class="col-sm-10">
+                    <select id="sdType_add" name="sdType_add" class="selectpicker show-tick form-control">
+                        <option value="便携设备" selected="selected">便携设备</option>
+                        <option value="无线WiFi">无线WiFi</option>
+                        <option value="大容量存储">大容量存储</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-8">
                     <input class="form-control" id="sdUser" type="hidden"/>
                 </div>
             </div>
 
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#seDevice_add">
+            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addDevice()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
             </button>
             <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
@@ -90,7 +98,7 @@
 
 <!-- 设备新增台账modal -->
 
-<div class="modal fade" id="seDevice_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<%--<div class="modal fade" id="seDevice_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      data-backdrop="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -117,7 +125,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>--%>
 
 
 <%--<!-- 信息删除确认modal -->
