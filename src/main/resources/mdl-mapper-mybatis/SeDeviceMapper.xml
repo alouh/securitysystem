@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youotech.securitysystem.dao.SeDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeDevice" >
+    <id column="SD_ID" property="sdId" jdbcType="INTEGER" />
+    <result column="SD_NAME" property="sdName" jdbcType="VARCHAR" />
+    <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR" />
+    <result column="SD_OS" property="sdOs" jdbcType="VARCHAR" />
+    <result column="SD_OSTYPE" property="sdOstype" jdbcType="VARCHAR" />
+    <result column="SD_IP" property="sdIp" jdbcType="VARCHAR" />
+    <result column="SD_MAC" property="sdMac" jdbcType="VARCHAR" />
+    <result column="SD_USER" property="sdUser" jdbcType="VARCHAR" />
+    <result column="SD_SOURCE" property="sdSource" jdbcType="VARCHAR" />
+    <result column="SD_DATE" property="sdDate" jdbcType="TIMESTAMP" />
+    <result column="SD_DEPT" property="sdDept" jdbcType="VARCHAR" />
+      <result column="SD_REMARKS" property="sdRemarks" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SD_ID, SD_TYPE,SD_DATE
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from SE_DEVICE
+        where SD_ID = #{sdId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SE_DEVICE
+    where SD_ID = #{sdId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    insert into SE_DEVICE (SD_ID, SD_NAME, SD_TYPE, 
+      SD_OS, SD_OSTYPE, SD_IP, 
+      SD_MAC, SD_USER, SD_SOURCE, 
+      SD_DATE, SD_DEPT,SD_REMARKS)
+    values (#{sdId,jdbcType=INTEGER}, #{sdName,jdbcType=VARCHAR}, #{sdType,jdbcType=VARCHAR}, 
+      #{sdOs,jdbcType=VARCHAR}, #{sdOstype,jdbcType=VARCHAR}, #{sdIp,jdbcType=VARCHAR}, 
+      #{sdMac,jdbcType=VARCHAR}, #{sdUser,jdbcType=VARCHAR}, #{sdSource,jdbcType=VARCHAR}, 
+      #{sdDate,jdbcType=TIMESTAMP}, #{sdDept,jdbcType=VARCHAR},#{sdRemarks,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeDevice">
+        insert into SE_DEVICE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sdId != null">
+                SD_ID,
+            </if>
+            <if test="sdType != null">
+                SD_TYPE,
+            </if>
+            <if test="sdDate != null">
+                SD_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sdId != null">
+                #{sdId,jdbcType=INTEGER},
+            </if>
+            <if test="sdType != null">
+                #{sdType,jdbcType=VARCHAR},
+            </if>
+            <if test="sdDate != null">
+                #{sdDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeDevice">
+        update SE_DEVICE
+        <set>
+            <if test="sdType != null">
+                SD_TYPE = #{sdType,jdbcType=VARCHAR},
+            </if>
+            <if test="sdDate != null">
+                SD_DATE = #{sdDate,jdbcType=TIMESTAMP},
+            </if>
+
+        </set>
+        where SD_ID = #{sdId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    update SE_DEVICE
+    set SD_TYPE = #{sdType,jdbcType=VARCHAR},
+      SD_DATE = #{sdDate,jdbcType=TIMESTAMP}
+    where SD_ID = #{sdId,jdbcType=INTEGER}
+  </update>
+    <!--批量插入自动获取的设备信息-->
+    <insert id="autoInsert" parameterType="java.util.List" >
+        INSERT INTO SE_DEVICE(SD_TYPE,SD_DATE)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.deviceType,jdbcType=VARCHAR},CURDATE())
+        </foreach>
+    </insert>
+
+    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeDevice" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_DEVICE
+        <trim prefix="where" prefixOverrides="and">
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="sdType != null">
+                and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ORDER BY SD_ID
+    </select>
+    <select id="findEntityByParamFuzzy" parameterType="com.youotech.securitysystem.bo.SeDevice"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_DEVICE
+        <trim prefix="where" prefixOverrides="and">
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="sdType != null">
+                and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            </if>
+            <if test="sdDate != null">
+                and SD_DATE = #{sdDate,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        ORDER BY SD_ID
+    </select>
+
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeDevice">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_DEVICE
+        <trim prefix="where" prefixOverrides="and">
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="sdType != null">
+                and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            </if>
+            <if test="sdDate != null">
+                and SD_DATE = #{sdDate,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        ORDER BY SD_ID
+        limit ${start},${end}
+    </select>
+
+
+    <delete id="deleteByIds" parameterType="java.lang.Integer">
+        DELETE FROM SE_DEVICE WHERE SD_ID IN
+        <foreach collection="list" item="sdids" open="(" separator="," close=")">
+            #{sdids}
+        </foreach>
+    </delete>
+
+    <update id="updateByIds" parameterType="java.lang.Integer">
+        update SE_DEVICE
+        set SD_REMARKS = 1 WHERE SD_ID IN
+        <foreach collection="list" item="sdids" open="(" separator="," close=")">
+            #{sdids}
+        </foreach>
+    </update>
+
+</mapper>

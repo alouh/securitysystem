@@ -1,0 +1,63 @@
+.index_body{ display: flex; height: 100%; }
+
+/*小标题样式*/
+.place{height:40px; background:url(../images/righttop.gif) repeat-x;}
+.place span{line-height:40px;float:left; margin-left:12px;}
+.placeul li{float:left; line-height:40px; padding-left:7px; padding-right:12px; background:url(../images/rlist.gif) no-repeat right;}
+.placeul li:last-child{background:none;}
+.placeul a{font-size: 12px; color: #aeb4b6;}
+.more { width: 70px; height: 26px; background-color: #2B806B; border-radius: 20px; line-height: 26px!important; text-align: center; font-size: 12px; color: #fff; margin: 7px 16px; }
+
+/*主要内容*/
+.cont_left{ flex: 2; display: flex; flex-direction: column; margin: 4px; border: 1px solid #cdcdcd; box-sizing: border-box; }
+.cont_left_cont{ flex: 1; border-bottom: 1px solid #cdcdcd; box-sizing: border-box; position: relative;}
+.cont_left_cont ul li:hover { background-color: #e6e6e6; }
+.cont_left_cont:last-child{ border-bottom: none; }
+.cont_left_cont .slider ul li img{
+	background-size: 100% 100%;
+}
+.left_right{ width: 100%; height: 100%; display: flex; }
+.sleft,.sright{ flex: 1; position: relative;width: 100%;height: 100%; }
+.sleft{ border-right: 1px solid #cdcdcd; box-sizing: border-box; }
+.cont_right{ flex: 1; margin: 4px 4px 4px 0; border: 1px solid #cdcdcd; box-sizing: border-box; }
+.cont_right_body{ width: 100%; height: 100%; display: flex; flex-direction: column; }
+.cont_right_TopCont{ flex: 2; border-bottom: 1px solid #cdcdcd; box-sizing: border-box; }
+.cont_right_botCont{ flex: 1; position: relative; }
+.cont,.aisle{ position: absolute; top:40px; left: 0; right: 0; bottom: 0; margin: 8px; overflow: hidden; overflow-y: scroll; }
+.aisle ul li img{ width: 45px; height: 45px; }
+.aisle ul li{ width: 70px; height: 64px; text-align: center; float: left; margin: 10px; overflow: hidden; }
+.aisle ul li:hover{ cursor: pointer; color: #2B806B; background-color: #e6e6e6; }
+.cont_img{ position: absolute; top:40px; left: 0; right: 0; bottom: 0; margin: 8px;  }
+
+.cont_imgbox,.txtcont{ width: 100%; height: 100%; position: relative; }
+.cont_imgbox_cont{ position: absolute; top: 0; left: 208px; right: 0; bottom: 0; }
+.cont_imgbox_cont h3{ font-size: 16px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-break: break-all; height: 22px; line-height: 22px; /*color: #696666;*/ }
+.txt_box { position: absolute; top: 26px; bottom: 2px; left: 0; right: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 11; -webkit-box-orient: vertical; word-break: break-all; font-size: 14px; color: #696666; }
+.imgbox{ width: 200px; height: 100%; border: 1px solid #f0f0f0; box-sizing: border-box; display: inline-block; }
+.imgbox img{ width: 100%; height: 100%; }
+.cont ul li .qizi{ vertical-align: middle; margin-right: 10px; width: 22px; height: 22px; background-image: url(../images/qizi.png);background-repeat: no-repeat;background-size: 22px 22px;}
+.cont ul li span{ margin-bottom: 8px; font-size: 16px; overflow: hidden; text-align: justify; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-break: break-all; color: #696666; }
+.cont ul li:hover{ cursor: pointer; }
+.cont ul li span:hover{ color: #2B806B; }
+.scrollbar-none::-webkit-scrollbar{ /*隐藏滚动条*/ width:0; height:0; }
+.cont_right_botCont_cont{ position: absolute; top:40px; left: 0; right: 0; bottom: 0; margin: 8px; overflow: hidden; overflow-y: scroll; }
+.cont_right_botCont_cont ul li .laba{ vertical-align: middle; margin-right: 10px; width: 22px; height: 22px; background-image: url(../images/laba.png);background-repeat: no-repeat;background-size: 22px 22px;}
+.cont_right_botCont_cont ul li span{ margin-bottom: 12px; font-size: 16px; overflow: hidden; text-align: justify; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-break: break-all; color: #696666; }
+.cont_right_botCont_cont ul li:hover{ cursor: pointer; }
+.cont_right_botCont_cont ul li span:hover{ color: #2B806B; }
+
+.box-title span{font-size: 12px; color: #aeb4b6;}
+
+
+
+.focus span{width:10px;height:10px;margin-right:10px;border-radius:50%;background:#666;font-size:0}
+.focus span.current{background:#fff}
+
+
+.newcont_box{ position: absolute; top: 40px; left: 0; right: 0; bottom: 0; overflow: hidden; overflow-y: scroll;margin: 8px; }
+.newcont_box ul li{ height: 26px; line-height: 26px; padding: 0 10px; }
+.newcont_box ul li:hover{ cursor: pointer; background-color: #e6e6e6; }
+.newcont_box ul li:hover .new_list{ color: #2B806B; }
+.newcont_box ul li .new_list{ width: 470px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-break: break-all; }
+
+

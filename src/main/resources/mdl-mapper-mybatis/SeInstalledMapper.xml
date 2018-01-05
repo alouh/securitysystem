@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youotech.securitysystem.dao.SeInstalledMapper" >
+  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeInstalled" >
+    <id column="SI_ID" property="siId" jdbcType="INTEGER" />
+    <result column="SD_ID" property="sdId" jdbcType="INTEGER" />
+    <result column="SI_TYPE" property="siType" jdbcType="VARCHAR" />
+    <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR" />
+    <result column="SI_DATE" property="siDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <resultMap id="vrvSoftMap" type="com.youotech.securitysystem.bo.SeInstalled">
+        <id column="MacAddress" property="sdMac" jdbcType="VARCHAR"/>
+        <id column="SoftwareName" property="siSname" jdbcType="VARCHAR"/>
+        <id column="FindTime" property="siDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.SeInstalled">
+        <id column="SI_ID" property="siId" jdbcType="INTEGER"/>
+        <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
+        <result column="SI_TYPE" property="siType" jdbcType="VARCHAR"/>
+        <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR"/>
+        <result column="SI_DATE" property="siDate" jdbcType="TIMESTAMP"/>
+        <result column="SD_NAME" property="sdName" jdbcType="VARCHAR"/>
+        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
+        <result column="SD_OS" property="sdOs" jdbcType="VARCHAR"/>
+        <result column="SD_OSTYPE" property="sdOstype" jdbcType="VARCHAR"/>
+        <result column="SD_IP" property="sdIp" jdbcType="VARCHAR"/>
+        <result column="SD_MAC" property="sdMac" jdbcType="VARCHAR"/>
+        <result column="SD_USER" property="sdUser" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="insteadMap" type="com.youotech.securitysystem.bo.SeInstalled">
+        <id column="SD_ID" property="sdId" jdbcType="INTEGER"/>
+        <id column="SoftwareType" property="siType" jdbcType="VARCHAR"/>
+        <id column="SoftwareName" property="siSname" jdbcType="VARCHAR"/>
+        <id column="FindTime" property="siDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+  <sql id="Base_Column_List" >
+    SI_ID, SD_ID, SI_TYPE, SI_SNAME, SI_DATE
+  </sql>
+    <sql id="Base_List">
+        SI_ID, SD_ID, SI_TYPE, SI_SNAME, SI_DATE, SD_NAME, SD_TYPE, SD_OS, SD_OSTYPE, SD_IP, SD_MAC, SD_USER
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from SE_INSTALLED
+        where SI_ID = #{siId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SE_INSTALLED
+    where SI_ID = #{siId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    insert into SE_INSTALLED (SI_ID, SD_ID, SI_TYPE, 
+      SI_SNAME, SI_DATE)
+    values (#{siId,jdbcType=INTEGER}, #{sdId,jdbcType=INTEGER}, #{siType,jdbcType=VARCHAR}, 
+      #{siSname,jdbcType=VARCHAR}, #{siDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+        insert into SE_INSTALLED
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siId != null">
+                SI_ID,
+            </if>
+            <if test="sdId != null">
+                SD_ID,
+            </if>
+            <if test="siType != null">
+                SI_TYPE,
+            </if>
+            <if test="siSname != null">
+                SI_SNAME,
+            </if>
+            <if test="siDate != null">
+                SI_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siId != null">
+                #{siId,jdbcType=INTEGER},
+            </if>
+            <if test="sdId != null">
+                #{sdId,jdbcType=INTEGER},
+            </if>
+            <if test="siType != null">
+                #{siType,jdbcType=VARCHAR},
+            </if>
+            <if test="siSname != null">
+                #{siSname,jdbcType=VARCHAR},
+            </if>
+            <if test="siDate != null">
+                #{siDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+        update SE_INSTALLED
+        <set>
+            <if test="sdId != null">
+                SD_ID = #{sdId,jdbcType=INTEGER},
+            </if>
+            <if test="siType != null">
+                SI_TYPE = #{siType,jdbcType=VARCHAR},
+            </if>
+            <if test="siSname != null">
+                SI_SNAME = #{siSname,jdbcType=VARCHAR},
+            </if>
+            <if test="siDate != null">
+                SI_DATE = #{siDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where SI_ID = #{siId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    update SE_INSTALLED
+    set SD_ID = #{sdId,jdbcType=INTEGER},
+      SI_TYPE = #{siType,jdbcType=VARCHAR},
+      SI_SNAME = #{siSname,jdbcType=VARCHAR},
+      SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+    where SI_ID = #{siId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllVRV" resultMap="vrvSoftMap" >
+        <!--检索从#{0}到#{0} + #{1}的记录-->
+        SELECT TOP ${arg1} Device.MacAddress,Software.SoftwareName,Software.FindTime FROM Software LEFT JOIN Device ON Device.DeviceID = Software.DeviceID WHERE Software.SoftwareName != '' AND  SoftwareID not in (select top ${arg0} SoftwareID from Software order by SoftwareID asc)
+  </select>
+    <insert id="autoInsert" parameterType="java.util.List">
+        INSERT INTO SE_INSTALLED(SD_ID,SI_TYPE,SI_SNAME,SI_DATE)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.sdId,jdbcType=VARCHAR},#{item.siType,jdbcType=VARCHAR},#{item.siSname,jdbcType=VARCHAR},#{item.siDate,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+    <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_INSTALLED
+        <trim prefix="where" prefixOverrides="and">
+            <if test="siId != null">
+                and SI_ID = #{siId,jdbcType=INTEGER}
+            </if>
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="siType != null">
+                and SI_TYPE = #{siType,jdbcType=VARCHAR}
+            </if>
+            <if test="siSname != null">
+                and SI_SNAME LIKE CONCAT('%', #{siSname,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="siDate != null">
+                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_INSTALLED
+        <trim prefix="where" prefixOverrides="and">
+            <if test="siId != null">
+                and SI_ID = #{siId,jdbcType=INTEGER}
+            </if>
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="siType != null">
+                and SI_TYPE = #{siType,jdbcType=VARCHAR}
+            </if>
+            <if test="siSname != null">
+                and SI_SNAME LIKE CONCAT('%', #{siSname,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="siDate != null">
+                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        limit ${start},${end}
+    </select>
+    <select id="insteadDeviceID" parameterType="com.youotech.securitysystem.bo.SeInstalled" resultMap="insteadMap">
+        SELECT SD_ID,#{siType,jdbcType=VARCHAR} AS 'SoftwareType',#{siSname,jdbcType=VARCHAR} AS 'SoftwareName',#{siDate,jdbcType=VARCHAR} AS 'FindTime' FROM SE_DEVICE WHERE SD_MAC = #{sdMac,jdbcType=VARCHAR} LIMIT 1
+    </select>
+
+    <select id="findByParamPagePlus" resultMap="BaseMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+        SELECT
+        <include refid="Base_List"/>
+        FROM SE_INSTALLED t, SE_DEVICE t1
+        <trim prefix="where" prefixOverrides="and">
+            t.SD_ID=t1.SD_ID
+            <if test="siId != null">
+                and SI_ID = #{siId,jdbcType=INTEGER}
+            </if>
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="siType != null">
+                and SI_TYPE = #{siType,jdbcType=VARCHAR}
+            </if>
+            <if test="siSname != null">
+                and SI_SNAME LIKE CONCAT('%', #{siSname,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="siDate != null">
+                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        limit ${start},${end}
+    </select>
+
+    <!--查询总记录数-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM Software;
+    </select>
+    <!--根据设备ID查询记录-->
+    <select id="selectBySdId" resultType="java.lang.String">
+        SELECT SI_SNAME FROM SE_INSTALLED WHERE SD_ID=#{arg0}
+    </select>
+    <!--删除SE_INSTALLED中的所有数据-->
+    <delete id="deleteInstalled">
+        DELETE FROM SE_INSTALLED;
+    </delete>
+</mapper>

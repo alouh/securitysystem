@@ -1,0 +1,5 @@
+.pop{position: fixed;right:10px;bottom:10px;box-shadow: 0 5px 15px rgba(0,0,0,.5);}
+.popHead{background:#fff;width:260px;border:1px solid #e0e0e0;font-size:14px;padding: 10px;}
+.popClose{float: right;color: #f25656;}
+.popHead span{font-size: 15px;}
+.popContext{height: 80px;padding: 15px;}

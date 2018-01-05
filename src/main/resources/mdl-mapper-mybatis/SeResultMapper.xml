@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youotech.securitysystem.dao.SeResultMapper">
+    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeResult">
+        <id column="ST_ID" property="stId" jdbcType="INTEGER"/>
+        <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
+        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
+        <result column="ST_REASON" property="stReason" jdbcType="VARCHAR"/>
+        <result column="ST_DATE" property="stDate" jdbcType="TIMESTAMP"/>
+        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
+        <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
+        <result column="SR_RULES" property="srRules" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.SeResult">
+        <id column="ST_ID" property="stId" jdbcType="INTEGER"/>
+        <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
+        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
+        <result column="ST_REASON" property="stReason" jdbcType="VARCHAR"/>
+        <result column="ST_DATE" property="stDate" jdbcType="TIMESTAMP"/>
+        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
+        <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
+        <result column="SR_RULES" property="srRules" jdbcType="INTEGER"/>
+        <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
+        <result column="SD_NAME" property="sdName" jdbcType="VARCHAR"/>
+        <result column="SD_OS" property="sdOs" jdbcType="VARCHAR"/>
+        <result column="SD_OSTYPE" property="sdOsType" jdbcType="VARCHAR"/>
+        <result column="SD_USER" property="sdUser" jdbcType="VARCHAR"/>
+        <result column="SD_IP" property="sdIp" jdbcType="VARCHAR"/>
+        <result column="SD_MAC" property="sdMac" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="statisticsMap" type="com.youotech.securitysystem.bo.SeStatistics">
+        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
+        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
+        <result column="count" property="ssCount" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--批量插入端口信息-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO SE_RESULT(SD_ID, SR_TYPE, ST_REASON, ST_DATE,SD_TYPE,SR_RNAME,SR_RULES)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.sdId,jdbcType=INTEGER},#{item.srType,jdbcType=INTEGER},#{item.stReason,jdbcType=VARCHAR},curdate(),#{item.sdType,jdbcType=VARCHAR},#{item.srRname,jdbcType=VARCHAR},#{item.srRules,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <sql id="Base_Column_List">
+    ST_ID, SD_ID, SR_TYPE, ST_REASON, ST_DATE,SD_TYPE,SR_RNAME,SR_RULES
+  </sql>
+    <sql id="Base_List">
+        ST_ID, SD_ID, SR_TYPE, ST_REASON, ST_DATE,SD_TYPE,SR_RNAME,SR_RULES,SD_NAME,SD_OS,SD_OSTYPE,SD_USER,SD_IP
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from SE_RESULT
+        where ST_ID = #{stId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SE_RESULT
+    where ST_ID = #{stId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeResult">
+    insert into SE_RESULT (ST_ID, SD_ID, SR_TYPE, 
+      ST_REASON, ST_DATE,SR_RNAME,SR_RULES)
+    values (#{stId,jdbcType=INTEGER}, #{sdId,jdbcType=INTEGER}, #{srType,jdbcType=INTEGER}, 
+      #{stReason,jdbcType=VARCHAR}, #{stDate,jdbcType=TIMESTAMP},#{srRname,jdbcType=VARCHAR},#{srRules,jdbcType=INTEGER},)
+  </insert>
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeResult">
+        insert into SE_RESULT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stId != null">
+                ST_ID,
+            </if>
+            <if test="sdId != null">
+                SD_ID,
+            </if>
+            <if test="srType != null">
+                SR_TYPE,
+            </if>
+            <if test="stReason != null">
+                ST_REASON,
+            </if>
+            <if test="stDate != null">
+                ST_DATE,
+            </if>
+            <if test="sdType != null">
+                SD_TYPE,
+            </if>
+            <if test="srRname != null">
+                SR_RNAME,
+            </if>
+            <if test="srRules != null">
+                SR_RULES,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stId != null">
+                #{stId,jdbcType=INTEGER},
+            </if>
+            <if test="sdId != null">
+                #{sdId,jdbcType=INTEGER},
+            </if>
+            <if test="srType != null">
+                #{srType,jdbcType=INTEGER},
+            </if>
+            <if test="stReason != null">
+                #{stReason,jdbcType=VARCHAR},
+            </if>
+            <if test="stDate != null">
+                #{stDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sdType != null">
+                #{sdType,jdbcType=VARCHAR},
+            </if>
+            <if test="srRname != null">
+                #{srRname,jdbcType=VARCHAR},
+            </if>
+            <if test="srRules != null">
+                #{srRules,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeResult">
+        update SE_RESULT
+        <set>
+            <if test="sdId != null">
+                SD_ID = #{sdId,jdbcType=INTEGER},
+            </if>
+            <if test="srType != null">
+                SR_TYPE = #{srType,jdbcType=INTEGER},
+            </if>
+            <if test="stReason != null">
+                ST_REASON = #{stReason,jdbcType=VARCHAR},
+            </if>
+            <if test="stDate != null">
+                ST_DATE = #{stDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sdType != null">
+                SD_TYPE = #{sdType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ST_ID = #{stId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeResult">
+    update SE_RESULT
+    set SD_ID = #{sdId,jdbcType=INTEGER},
+      SR_TYPE = #{srType,jdbcType=INTEGER},
+      ST_REASON = #{stReason,jdbcType=VARCHAR},
+      ST_DATE = #{stDate,jdbcType=TIMESTAMP},
+       SD_TYPE = #{sdType,jdbcType=VARCHAR}
+    where ST_ID = #{stId,jdbcType=INTEGER}
+  </update>
+
+    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeResult" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_RESULT
+        <trim prefix="where" prefixOverrides="and">
+            <if test="stId != null">
+                and ST_ID = #{stId,jdbcType=INTEGER}
+            </if>
+            <if test="sdId != null">
+                and SD_ID = #{sdId,jdbcType=INTEGER}
+            </if>
+            <if test="srType != null">
+                and SR_TYPE = #{srType,jdbcType=INTEGER}
+            </if>
+            <if test="stReason != null">
+                and ST_REASON = #{stReason,jdbcType=VARCHAR}
+            </if>
+            <if test="stDate != null">
+                and ST_DATE = #{stDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="sdType != null">
+                and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ORDER BY ST_DATE DESC
+    </select>
+
+    <select id="findDetailStatisticsPager" resultMap="BaseMap">
+    SELECT t1.*,t2.SD_NAME,t2.SD_OS,t2.SD_OSTYPE,t2.SD_USER,t2.SD_IP
+    FROM SE_RESULT t1,SE_DEVICE t2 where t1.SD_ID=t2.SD_ID
+    and t1.SR_TYPE= #{srType,jdbcType=INTEGER}
+    and t1.ST_DATE= #{stDate,jdbcType=TIMESTAMP}
+    <if test="sdType != null">
+        and t1.SD_TYPE= #{sdType,jdbcType=VARCHAR}
+    </if>
+    <if test="sdIp != null">
+        and t2.SD_IP LIKE CONCAT('%', #{sdIp,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="srRname != null">
+        and t1.SR_RNAME LIKE CONCAT('%', #{srRname,jdbcType=VARCHAR}, '%')
+    </if>
+    limit ${start},${end}
+</select>
+
+    <select id="findDetailStatistics" resultMap="BaseMap">
+        SELECT t1.*,t2.SD_NAME,t2.SD_OS,t2.SD_OSTYPE,t2.SD_USER,t2.SD_IP
+        FROM SE_RESULT t1,SE_DEVICE t2 where t1.SD_ID=t2.SD_ID
+        and t1.SR_TYPE= #{srType,jdbcType=INTEGER}
+        and t1.ST_DATE= #{stDate,jdbcType=TIMESTAMP}
+        <if test="sdType != null">
+            and t1.SD_TYPE= #{sdType,jdbcType=VARCHAR}
+        </if>
+        <if test="sdIp != null">
+            and t2.SD_IP LIKE CONCAT('%', #{sdIp,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="srRname != null">
+            and t1.SR_RNAME LIKE CONCAT('%', #{srRname,jdbcType=VARCHAR}, '%')
+        </if>
+
+    </select>
+    <!--统计结果表中的数据-->
+    <select id="statistics" resultMap="statisticsMap">
+        SELECT SD_TYPE,SR_TYPE,count(*) AS count FROM SE_RESULT WHERE SD_TYPE='终端设备'AND SR_TYPE=0 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*)AS count  FROM SE_RESULT WHERE SD_TYPE='终端设备'AND SR_TYPE=1 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*) AS count  FROM SE_RESULT WHERE SD_TYPE='终端设备'AND SR_TYPE=2 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*) AS count  FROM SE_RESULT WHERE SD_TYPE='终端设备'AND SR_TYPE=3 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*) AS count FROM SE_RESULT WHERE SD_TYPE='主机设备'AND SR_TYPE=0 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*)AS count  FROM SE_RESULT WHERE SD_TYPE='主机设备'AND SR_TYPE=1 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*) AS count  FROM SE_RESULT WHERE SD_TYPE='主机设备'AND SR_TYPE=2 AND ST_DATE = curdate() UNION SELECT SD_TYPE,SR_TYPE,count(*) AS count  FROM SE_RESULT WHERE SD_TYPE='主机设备'AND SR_TYPE=3 AND ST_DATE = curdate()
+    </select>
+
+    <select id="findAllLoopPager" resultMap="BaseMap">
+        SELECT
+        tt.*, t2.SD_NAME,
+        t2.SD_OS,
+        t2.SD_OSTYPE,
+        t2.SD_USER,
+        t2.SD_IP,
+        t2.SD_MAC
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        SE_RESULT t
+        WHERE
+        t.SR_TYPE IN (2, 3)
+        /* GROUP BY
+        t.SD_ID*/
+        ) tt,
+        SE_DEVICE t2
+        WHERE
+        tt.SD_ID = t2.SD_ID
+        <if test="sdIp != null">
+            and t2.SD_IP LIKE CONCAT('%', #{sdIp,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="sdType != null">
+            and tt.SD_TYPE = #{sdType,jdbcType=VARCHAR}
+        </if>
+        <if test="stDate != null">
+            and tt.ST_DATE = #{stDate,jdbcType=TIMESTAMP}
+        </if>
+        GROUP BY
+        tt.SD_ID
+        limit ${start},${end}
+    </select>
+
+    <select id="findAllLoop" resultMap="BaseMap">
+        SELECT
+        tt.*, t2.SD_NAME,
+        t2.SD_OS,
+        t2.SD_OSTYPE,
+        t2.SD_USER,
+        t2.SD_IP,
+        t2.SD_MAC
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        SE_RESULT t
+        WHERE
+        t.SR_TYPE IN (2, 3)
+        /* GROUP BY
+        t.SD_ID*/
+        ) tt,
+        SE_DEVICE t2
+        WHERE
+        tt.SD_ID = t2.SD_ID
+        <if test="sdIp != null">
+            and t2.SD_IP LIKE CONCAT('%', #{sdIp,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="sdType != null">
+            and tt.SD_TYPE = #{sdType,jdbcType=VARCHAR}
+        </if>
+        <if test="stDate != null">
+            and tt.ST_DATE = #{stDate,jdbcType=TIMESTAMP}
+        </if>
+        GROUP BY
+        tt.SD_ID
+    </select>
+
+    <select id="showDetailStatisticsPager" resultMap="BaseMap">
+        SELECT t1.*,t2.SD_NAME,t2.SD_OS,t2.SD_OSTYPE,t2.SD_USER,t2.SD_IP,t2.SD_MAC
+        FROM SE_RESULT t1,SE_DEVICE t2 where t1.SD_ID=t2.SD_ID
+        and t1.SR_TYPE= #{srType,jdbcType=INTEGER}
+        and t1.ST_DATE= #{stDate,jdbcType=TIMESTAMP}
+        and t1.SD_ID= #{sdId,jdbcType=INTEGER}
+        limit ${start},${end}
+    </select>
+
+    <select id="showDetailStatistics" resultMap="BaseMap">
+        SELECT t1.*,t2.SD_NAME,t2.SD_OS,t2.SD_OSTYPE,t2.SD_USER,t2.SD_IP,t2.SD_MAC
+        FROM SE_RESULT t1,SE_DEVICE t2 where t1.SD_ID=t2.SD_ID
+        and t1.SR_TYPE= #{srType,jdbcType=INTEGER}
+        and t1.ST_DATE= #{stDate,jdbcType=TIMESTAMP}
+        and t1.SD_ID= #{sdId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

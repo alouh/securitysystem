@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youotech.securitysystem.dao.SeStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeStatistics">
+        <id column="SS_ID" property="ssId" jdbcType="INTEGER"/>
+        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
+        <result column="SS_COUNT" property="ssCount" jdbcType="INTEGER"/>
+        <result column="SS_DATE" property="ssDate" jdbcType="TIMESTAMP"/>
+        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    SS_ID, SR_TYPE, SS_COUNT, SS_DATE,SD_TYPE
+  </sql>
+
+    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.StatisticsCount">
+        <id column="SS_DATE" property="scDate" jdbcType="TIMESTAMP"/>
+        <result column="TCP" property="tcpCount" jdbcType="INTEGER"/>
+        <result column="UDP" property="udpCount" jdbcType="INTEGER"/>
+        <result column="软件" property="sofeWareCount" jdbcType="INTEGER"/>
+        <result column="漏洞/补丁" property="loopholeCount" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from SE_STATISTICS
+        where SS_ID = #{ssId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SE_STATISTICS
+    where SS_ID = #{ssId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeStatistics">
+    insert into SE_STATISTICS (SR_TYPE, SS_COUNT, SS_DATE,SD_TYPE)values
+        (#{srType,jdbcType=INTEGER}, #{ssCount,jdbcType=INTEGER},curdate(),#{sdType,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeStatistics">
+        insert into SE_STATISTICS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ssId != null">
+                SS_ID,
+            </if>
+            <if test="srType != null">
+                SR_TYPE,
+            </if>
+            <if test="ssCount != null">
+                SS_COUNT,
+            </if>
+            <if test="ssDate != null">
+                SS_DATE,
+            </if>
+            <if test="sdType != null">
+                SD_TYPE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ssId != null">
+                #{ssId,jdbcType=INTEGER},
+            </if>
+            <if test="srType != null">
+                #{srType,jdbcType=INTEGER},
+            </if>
+            <if test="ssCount != null">
+                #{ssCount,jdbcType=INTEGER},
+            </if>
+            <if test="ssDate != null">
+                #{ssDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sdType != null">
+                #{sdType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeStatistics">
+        update SE_STATISTICS
+        <set>
+            <if test="srType != null">
+                SR_TYPE = #{srType,jdbcType=INTEGER},
+            </if>
+            <if test="ssCount != null">
+                SS_COUNT = #{ssCount,jdbcType=INTEGER},
+            </if>
+            <if test="ssDate != null">
+                SS_DATE = #{ssDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sdType != null">
+                SD_TYPE = #{sdType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where SS_ID = #{ssId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeStatistics">
+    update SE_STATISTICS
+    set SR_TYPE = #{srType,jdbcType=INTEGER},
+      SS_COUNT = #{ssCount,jdbcType=INTEGER},
+      SS_DATE = #{ssDate,jdbcType=TIMESTAMP}
+    where SS_ID = #{ssId,jdbcType=INTEGER}
+  </update>
+
+    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeStatistics" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_STATISTICS
+        <trim prefix="where" prefixOverrides="and">
+            <if test="ssId != null">
+                and SS_ID = #{ssId,jdbcType=INTEGER}
+            </if>
+            <if test="srType != null">
+                and SR_TYPE = #{srType,jdbcType=INTEGER}
+            </if>
+            <if test="ssCount != null">
+                and SS_COUNT = #{ssCount,jdbcType=INTEGER}
+            </if>
+            <if test="ssDate != null">
+                and SS_DATE = #{ssDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="sdType != null">
+                and SD_TYPE = #{sdType,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        ORDER BY SS_DATE
+    </select>
+    <select id="findEntityByParamPlus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM SE_STATISTICS
+        WHERE
+        <if test="srType != null">
+            SR_TYPE = #{srType,jdbcType=INTEGER}
+        </if>
+        <if test="sdType != null">
+            and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+        </if>
+        and SS_DATE BETWEEN #{startDate,jdbcType=TIMESTAMP} and #{endDate,jdbcType=TIMESTAMP}
+
+        ORDER BY SS_DATE
+    </select>
+
+    <select id="findreversalByParam" resultMap="BaseMap">
+            SELECT
+            t.SS_DATE,
+            MAX(
+            CASE
+            WHEN SR_TYPE='0' THEN
+            SS_COUNT
+            END
+            ) AS TCP,
+            MAX(
+            CASE
+            WHEN SR_TYPE='1' THEN
+            SS_COUNT
+            END
+            ) AS UDP,
+            MAX(
+            CASE
+            WHEN SR_TYPE='2' THEN
+            SS_COUNT
+            END
+            ) AS '软件',
+            MAX(
+            CASE
+            WHEN SR_TYPE='3' THEN
+            SS_COUNT
+            END
+            ) AS '漏洞/补丁'
+            FROM
+
+            ( SELECT
+            <include refid="Base_Column_List"/>
+            FROM SE_STATISTICS
+        WHERE
+        SS_DATE BETWEEN #{startDate,jdbcType=TIMESTAMP} and #{endDate,jdbcType=TIMESTAMP}
+        <if test="sdType != null">
+            and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+        </if>
+
+        ORDER BY SS_DATE)t
+
+        GROUP BY SS_DATE  limit ${start},${end}
+    </select>
+
+</mapper>
