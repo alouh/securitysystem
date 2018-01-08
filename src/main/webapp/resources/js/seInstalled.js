@@ -1,21 +1,21 @@
+$(function () {
+    findSeInstalled();
+});
+
+/**
+ * @return {string}
+ */
 var GetQueryString = function (key) {
     var search = decodeURIComponent(location.search);
     var reg = new RegExp(".*" + key + "\\=" + "([^&]*)(&?.*|)", "g");
     return search.replace(reg, "$1");
-}
-$(function () {
-    findSeInstalled();
-});
+};
 /**
  * 软件、漏洞/补丁安装明细
  */
 function findSeInstalled() {
-    var sdId = GetQueryString("id");
-    var siSname = $("#siSname").val().trim();
-    var siType = $("#siType").val();
-    if (siType == 0) {
-        siType = null;
-    }
+    var siId = GetQueryString("id");
+    var siSname = $("#siSname_add").val().trim();
     var heightTable = document.documentElement.clientHeight - 45;
     $('#tb_seInstalled').bootstrapTable('destroy');
     $("#tb_seInstalled").bootstrapTable({
@@ -33,10 +33,8 @@ function findSeInstalled() {
             return {
                 pageindex: this.pageNumber,
                 pageSize: params.limit,
-                siType: encodeURI(siType),
-                siType1: siType,
                 siSname: encodeURI(siSname),
-                sdId: encodeURI(sdId)
+                siId: encodeURI(siId)
             }
         },
         silent: true,
@@ -50,14 +48,9 @@ function findSeInstalled() {
         cardView: false,
         detailView: false,
         columns: [
-            /*     {field: 'state', checkbox: true, align: 'center', valign: 'middle'},*/
+            {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'siId', title: '明细id', visible: false, valign: 'middle'},
-            {
-                field: 'sdName', title: '设备名称', align: 'center', width: '150px'
-            },
-            {field: 'sdIp', title: 'IP地址', align: 'center', width: '150px'},
-            {field: 'siType', title: '类型', align: 'center', width: '120px'},
-            {field: 'siSname', title: '名称', align: 'center',width: '320px'},
+            {field: 'siSname', title: '通知号码1', align: 'center',width: '120px'},
             {
                 field: 'siDate', title: '维护日期', align: 'center', width: '120px',
                 formatter: function (value) {
@@ -69,13 +62,79 @@ function findSeInstalled() {
 
 }
 
+
+/**
+ * 新增设备
+ */
+function addDevice() {
+    var siSname = $("#siSname_add").val();
+
+    $.ajax({
+        url: './seInstalled/addDevice',
+        type: 'post',
+        data: {
+            'siSname': siSname
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                $("#seDevice_add").modal("hide");
+                pop("消息提示","新增成功","2000");
+                findSeInstalled();
+            } else {
+                $("#messageText").text(result.msg);
+                $("#message").modal("show");
+                return false;
+            }
+        }
+    });
+
+}
+/**
+ * 批量刪除
+ */
+function delSeDevice() {
+    var rows = $("#tb_seInstalled").bootstrapTable('getSelections');
+    if (rows.length < 1) {
+        $("#messageText").text("请选择一条数据进行删除！");
+        $("#message").modal("show");
+        return false;
+    }
+    $("#delcfmModels").modal("show");
+}
+function dels() {
+    var rows = $("#tb_seInstalled").bootstrapTable('getSelections');
+    var ids = "";
+    for (var i = 0; i < rows.length; i++) {
+        ids += "," + rows[i].siId;
+    }
+    $.ajax({
+        url: './seInstalled/delDeviceByIds',
+        type: 'post',
+        data: {'siIds': ids.substring(1)},
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                $("#delcfmModels").modal("hide");
+                pop("消息提示","删除成功","2000");
+                findSeInstalled();
+            } else {
+                $("#messageText").text(result.msg);
+                pop("消息提示","删除失败","2000");
+                $("#message").modal("show");
+                return false;
+            }
+        }
+    })
+}
+
 /**
  * date转换成String
  * @param time
  * @returns {string}
  */
 function get_Date(time) {
-    if (time == undefined || time == null || time == "") {
+    if (time === undefined || time == null || time === "") {
         return "";
     } else {
         var date = new Date(time);
@@ -109,8 +168,4 @@ function get_Date(time) {
          }*/
         return str;
     }
-}
-
-function returnDevice() {
-    window.location.href = "seDevice";
 }

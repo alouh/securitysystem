@@ -84,12 +84,12 @@ function findRules() {
         cardView: false,
         detailView: false,
         columns: [
-            {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
+            /*{field: 'state', checkbox: true, align: 'center', valign: 'middle'},*/
             {field: 'srId', title: 'id', visible: false, valign: 'middle'},
             {field: 'sdType', title: 'USB设备类型', align: 'center'},
             {field: 'srType', title: '终端IP', align: 'center'},
             {
-                field: 'srDate', title: '创建日期', align: 'center',
+                field: 'srDate', title: '接入日期', align: 'center',
                 formatter: function (value) {
                     return get_Date(value);
                 }
@@ -97,120 +97,6 @@ function findRules() {
         ]
     });
 }
-/**
- * 修改
- */
-/*function seRulesUpdate() {
-    var rows = $("#tb_seRules").bootstrapTable('getSelections');
-    if (rows.length != 1) {
-        $("#messageText").text("请选择一条数据进行修改");
-        $("#message").modal("show");
-        return false;
-    }
-    var sdType = rows[0].sdType;
-    $('#sdType_update').selectpicker("val", sdType);
-        $('#sdOs_update').selectpicker("val", rows[0].sdOs);
-        $('#sdOsType_update').selectpicker("val", rows[0].sdOstype);
-    var srType = rows[0].srType;
-    $('#srType_update').selectpicker("val", srType);
-    if ("0" == srType || "1" == srType) {
-        $("#No33").show();
-        $("#No44").hide();
-    } else {
-        $("#No44").show();
-        $("#No33").hide();
-    }
-    var srRname = rows[0].srRname;
-    $("#srRname_update").val(srRname);
-    $('#seRules_update').modal('show');
-}
-function updateRules() {
-    var rows = $("#tb_seRules").bootstrapTable('getSelections');
-    var srId = rows[0].srId;
-    var sdType = $("#sdType_update").val();
-    var sdOs = $("#sdOs_update").val();
-    var sdOsType = $("#sdOsType_update").val();
-
-    var srType = $("#srType_update").val();
-    var srRules;
-    if ("0" == srType || "1" == srType) {
-        srRules = $("#srRules_update1").val();
-    } else {
-        srRules = $("#srRules_update2").val();
-    }
-
-    var srRname = $("#srRname_update").val();
-
-    if (null == srRname || "" == srRname) {
-        $("#messageText").text("请填完数据再提交");
-        $("#message").modal("show");
-        return false;
-    }
-
-    $.ajax({
-        url: './seRules/updateRules',
-        type: 'post',
-        data: {
-            'srId': srId,
-            'sdType': sdType,
-            'sdOsType': sdOsType,
-            'sdOs': sdOs,
-            'srType': srType,
-            'srRules': srRules,
-            'srRname': srRname
-        },
-        dataType: 'json',
-        success: function (result) {
-            if (result.success) {
-                $("#seRules_update").modal("hide");
-                pop("消息提示", "修改成功", "2000");
-                findRules();
-            } else {
-                $("#messageText").text(result.msg);
-                pop("消息提示", "修改失败", "2000");
-                $("#message").modal("show");
-                return false;
-            }
-        }
-    });
-}*/
-/**
- * 批量刪除
- */
-/*function delSeRules() {
-    var rows = $("#tb_seRules").bootstrapTable('getSelections');
-    if (rows.length < 1) {
-        $("#messageText").text("请选择一条数据进行删除！");
-        $("#message").modal("show");
-        return false;
-    }
-    $("#delcfmModels").modal("show");
-}
-function dels() {
-    var rows = $("#tb_seRules").bootstrapTable('getSelections');
-    var ids = "";
-    for (var i = 0; i < rows.length; i++) {
-        ids += "," + rows[i].srId;
-    }
-    $.ajax({
-        url: './seRules/delRulesByIds',
-        type: 'post',
-        data: {'srIds': ids.substring(1)},
-        dataType: 'json',
-        success: function (result) {
-            if (result.success) {
-                $("#delcfmModels").modal("hide");
-                pop("消息提示", "删除成功", "2000");
-                findRules();
-            } else {
-                $("#messageText").text(result.msg);
-                pop("消息提示", "删除失败", "2000");
-                $("#message").modal("show");
-                return false;
-            }
-        }
-    })
-}*/
 
 /**
  * date转换成String
@@ -253,54 +139,3 @@ function get_Date(time) {
         return str;
     }
 }
-
-/**
- *新增安全审计规则
- */
-/*function addRules() {
-    var sdType = $("#sdType_add").val();
-    var sdOs = $("#sdOs_add").val();
-    var sdOsType = $("#sdOsType_add").val();
-    var srType = $("#srType_add").val();
-    var srRules;
-    if ("0" == srType || "1" == srType) {
-        srRules = $("#srRules_add1").val();
-    } else {
-        srRules = $("#srRules_add2").val();
-    }
-
-    var srRname = $("#srRname_add").val();
-
-    if (null == srRname || "" == srRname) {
-        $("#messageText").text("请填完数据再提交");
-        $("#message").modal("show");
-        return false;
-    }
-
-    $.ajax({
-        url: './seRules/addRules',
-        type: 'post',
-        data: {
-            'sdType': sdType,
-            'sdOsType': sdOsType,
-            'sdOs': sdOs,
-            'srType': srType,
-            'srRules': srRules,
-            'srRname': srRname
-        },
-        dataType: 'json',
-        success: function (result) {
-            if (result.success) {
-                $("#seRules_add").modal("hide");
-                pop("消息提示", "新增成功", "2000");
-                findRules();
-            } else {
-                $("#messageText").text(result.msg);
-                pop("消息提示", "新增失败", "2000");
-                $("#message").modal("show");
-                return false;
-            }
-        }
-    });
-
-}*/

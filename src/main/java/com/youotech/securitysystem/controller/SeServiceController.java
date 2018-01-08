@@ -51,19 +51,6 @@ public class SeServiceController {
         String type = request.getParameter("type");
         String svDates = URLDecoder.decode(request.getParameter("svDate"));
         SeServer seServer = new SeServer();
-        if ("1".equals(type)) {
-            seServer.setSvHttp(1);
-        } else if ("2".equals(type)) {
-            seServer.setSvHttp(0);
-        } else if ("3".equals(type)) {
-            seServer.setSvSsh(1);
-        } else if ("4".equals(type)) {
-            seServer.setSvSsh(0);
-        } else if ("5".equals(type)) {
-            seServer.setSvTelnet(0);
-        } else if ("6".equals(type)) {
-            seServer.setSvTelnet(1);
-        }
         Date svDate=null;
         if(StringUtils.isNotBlank(svDates)){
             svDate=sdf.parse(svDates);
@@ -72,7 +59,6 @@ public class SeServiceController {
         Pager<SeServer> seServerPager = seServerService.findByParamPagePlus(seServer, start, end,svDates);
         for (SeServer server1 : seServerPager.getRows()) {
             SeDevice seDevice = new SeDevice();
-            seDevice.setSdId(server1.getSdId());
             List<SeDevice> seDeviceList = seDeviceService.findEntityByParam(seDevice);
             if(seDeviceList.size()==1) {
                 /*server1.setSdName(seDeviceList.get(0).getSdName());

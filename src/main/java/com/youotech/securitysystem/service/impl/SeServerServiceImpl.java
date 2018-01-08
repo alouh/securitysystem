@@ -94,18 +94,14 @@ public class SeServerServiceImpl implements SeServerService {
 
     @Override
     public Pager<SeServer> findByParamPagePlus(SeServer entity, Integer start, Integer limit,String svDates) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("start", start);
         map.put("end", limit);
-        map.put("svHttp",entity.getSvHttp());
-        map.put("svSsh",entity.getSvSsh());
-        map.put("svTelnet",entity.getSvTelnet());
         map.put("svDate", entity.getSvDate());
         map.put("svDates", svDates);//分页查询入参
         List<SeServer> seServerList=seServerMapper.findByParam(entity);
         List<SeServer> seDeviceList1 = seServerMapper.findByParamPage(map);
-        Pager<SeServer> seServerPager = new Pager<SeServer>(start, limit, seDeviceList1, seServerList.size());
-        return seServerPager;
+        return new Pager<>(start, limit, seDeviceList1, seServerList.size());
     }
 
 	@Override

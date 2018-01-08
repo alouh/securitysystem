@@ -50,8 +50,8 @@
             <span><img src="<%=basePath%>resources/images/leftico01.png"/></span>首页
         </div>
         <ul class="menuson">
-            <li class="active"><cite></cite>
-                <a href="index" target="rightFrame">首页</a><i></i>
+            <li><cite></cite>
+                <a href="seRules" target="rightFrame">外接非法USB设备终端</a><i></i>
             </li>
         </ul>
     </dd>
@@ -68,31 +68,36 @@
     </dd>--%>
 
     <dd>
-        <div class="title"><span><img src="<%=basePath%>resources/images/leftico03.png"/></span>白名单管理</div>
+        <div class="title"><span><img src="<%=basePath%>resources/images/leftico03.png"/></span>参数配置</div>
         <ul class="menuson">
             <li><cite></cite>
-                <a href="seDevice" target="rightFrame">白名单</a><i></i></li>
+                <a href="seDevice" target="rightFrame">白名单配置</a><i></i>
+            </li>
+            <li><cite></cite>
+                <a href="seInstalled" target="rightFrame">短信平台配置</a><i></i>
+            </li>
         </ul>
     </dd>
 
-    <dd>
+    <%--<dd>
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico04.png"/></span>功能管理</div>
         <ul class="menuson">
             <li><cite></cite>
-                <a href="seServer" target="rightFrame">短信平台</a><i></i>
+                <a href="seInstalled" target="rightFrame">短信平台</a><i></i>
             </li>
         </ul>
 
-    </dd>
+    </dd>--%>
 
-    <dd>
+    <%--<dd>
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico04.png"/></span>安全管理</div>
         <ul class="menuson">
             <li><cite></cite>
-                <a href="seRules" target="rightFrame">外接非法USB设备终端</a><i></i></li>
+                <a href="seRules" target="rightFrame">外接非法USB设备终端</a><i></i>
+            </li>
         </ul>
 
-    </dd>
+    </dd>--%>
 </dl>
 
 </body>

@@ -34,6 +34,15 @@ public class SeInstalledServiceImpl implements SeInstalledService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Integer save(SeInstalled entity) {
         LOGGER.info("【SeInstalledServiceImpl.save】入参" + entity);
+
+        List<SeInstalled> seInstalleds = seInstalledMapper.findByParamFuzzy(new SeInstalled());
+        for (SeInstalled seInstalled : seInstalleds){
+            String phoneNum = seInstalled.getSiSname();
+            if (entity.getSiSname().equals(phoneNum)){
+                LOGGER.error("【SeDeviceServiceImpl.save】新增设备失败");
+                throw new BizException("号码已存在，请重新输入");
+            }
+        }
         int count = 0;
         try {
             count = seInstalledMapper.insertSelective(entity);
@@ -63,7 +72,19 @@ public class SeInstalledServiceImpl implements SeInstalledService {
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean deleteByIds(List<Integer> ids) {
-        return null;
+
+        LOGGER.info("【SeInstalledServiceImpl.deleteByIds】【批量更改设备入参】" + ids);
+        if (ids.size() == 0) {
+            LOGGER.error("【SeInstalledServiceImpl.deleteByIds】【传入设备ID不能为空！】");
+            return false;
+        }
+        try {
+            seInstalledMapper.deleteByIds(ids);
+        } catch (Exception e) {
+            LOGGER.error("SeInstalledServiceImpl.deleteByIds--批量更改设备失败，请联系管理员。" + e.getCause());
+            throw new BizException("批量删除设备删除失败，请联系管理员。");
+        }
+        return true;
     }
 
     @Override
@@ -93,9 +114,7 @@ public class SeInstalledServiceImpl implements SeInstalledService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("start", start);
         map.put("end", limit);
-        map.put("siType", entity.getSiType());
         map.put("siSname", entity.getSiSname());
-        map.put("sdId", entity.getSdId());
         List<SeInstalled> seInstalledList = seInstalledMapper.findByParamPage(map);
         List<SeInstalled> seInstalledList1 = seInstalledMapper.findByParamFuzzy(entity);
         Pager<SeInstalled> seInstalledPager = new Pager<SeInstalled>(start, limit, seInstalledList, seInstalledList1.size());
@@ -134,7 +153,7 @@ public class SeInstalledServiceImpl implements SeInstalledService {
         return seInstalledMapper.selectCount();
     }
 
-    @Override
+    /*@Override
     public List<String> selectBySdId(int sdId) {
         LOGGER.info("[SeInstalledServiceImpl.selectBySdId]" + sdId);
         List<String> list = seInstalledMapper.selectBySdId(sdId);
@@ -142,7 +161,7 @@ public class SeInstalledServiceImpl implements SeInstalledService {
             list = new ArrayList<>();
         }
         return list;
-    }
+    }*/
     @Override
 	public int deleteInstalled(){
     	return seInstalledMapper.deleteInstalled();

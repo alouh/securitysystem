@@ -61,7 +61,7 @@ public class SeDeviceController {
         seDevice.setSdType(sdType);
         seDevice.setSdDate(new Date());
         seDeviceService.save(seDevice);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
     }

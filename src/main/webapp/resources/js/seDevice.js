@@ -2,20 +2,6 @@ $(function () {
     findSeDevice();
 });
 
-$(function () {
-    $("#sdType_add").change(function () {
-        var sdType = $("#sdType_add").val();
-        if ("网络设备" == sdType) {
-            $("#No1").hide();
-            $("#No2").hide();
-            $("#No3").hide();
-        } else {
-            $("#No1").show();
-            $("#No2").show();
-            $("#No3").show();
-        }
-    });
-});
 /**
  * 台账管理
  */
@@ -23,7 +9,7 @@ function findSeDevice() {
     var sdIp = $("#sdIp").val().trim();
     var sdType = $("#sdType").val();
     var sdUser = $("#sdUser").val().trim();
-    if (sdType == 0) {
+    if (sdType === 0) {
         sdType = null;
     }
     var heightTable = document.documentElement.clientHeight - 45;
@@ -78,43 +64,13 @@ function findSeDevice() {
  * 新增设备
  */
 function addDevice() {
-    //var sdName = $("#sdName_add").val().trim();
     var sdType = $("#sdType_add").val();
-    /*var sdOs = null;
-    var sdOsType = null;
-    var sdMac = null;
-    if (sdType != "网络设备") {
-        sdOs = $("#sdOs_add").val();
-        sdOsType = $("#sdOsType_add").val();
-        sdMac = $("#sdMac_add").val().trim()
-    }*/
-    /*var sdDept = $("#sdDept_add").val().trim();
-    var sdUser = $("#sdUser_add").val().trim();
-    var sdIp = $("#sdIp_add").val().trim();
-
-    if (null == sdName || "" == sdName || "" == sdDept || null == sdName || "" == sdUser || null == sdUser || "" == sdIp || null == sdIp) {
-        $("#messageText").text("请填完数据再提交");
-        $("#message").modal("show");
-        return false;
-    }
-    if (!(isValidIP(sdIp))) {
-        $("#messageText").text('IP格式不正确');
-        $("#message").modal("show");
-        return false;
-    }*/
 
     $.ajax({
         url: './seDevice/addDevice',
         type: 'post',
         data: {
-            //'sdName': sdName,
-            'sdType': sdType,
-            /*'sdOs': sdOs,
-            'sdOsType': sdOsType,
-            'sdMac': sdMac,
-            'sdDept': sdDept,
-            'sdUser': sdUser,
-            'sdIp': sdIp*/
+            'sdType': sdType
         },
         dataType: 'json',
         success: function (result) {
@@ -184,7 +140,7 @@ function detailview(sdid) {
  * @returns {string}
  */
 function get_Date(time) {
-    if (time == undefined || time == null || time == "") {
+    if (time === undefined || time == null || time === "") {
         return "";
     } else {
         var date = new Date(time);
@@ -226,6 +182,6 @@ function get_Date(time) {
  * @returns {boolean}
  */
 function isValidIP(ip) {
-    var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+    var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
     return reg.test(ip);
 }

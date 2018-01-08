@@ -65,12 +65,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">安全审计维护</h3>
+        <h3 class="panel-title">外接非法USB设备终端</h3>
     </div>
     <div class="panel-body" id="toolbar">
         <form role="formSearch" class="form-inline">
-            <div class="form-group" style="width:280px">
-                <label class="col-sm-3 control-label" for="sdType">设备类型：</label>
+            <div class="form-group" style="width:400px">
+                <label class="col-sm-3 control-label" for="sdType">USB设备类型：</label>
                 <div class="col-sm-8">
                     <select id="sdType" name="sdType" class="selectpicker show-tick form-control">
                         <option value="0" selected="selected">全部</option>
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="form-group" style="width:280px; margin-left: 30px">
-                <label class="col-sm-3 control-label" for="srType">审计类型：</label>
+                <label class="col-sm-3 control-label" for="srType">终端IP：</label>
                 <div class="col-sm-8">
                     <%--<select id="srType" name="srType" class="selectpicker show-tick form-control">
                         <option value="10" selected="selected">全部</option>

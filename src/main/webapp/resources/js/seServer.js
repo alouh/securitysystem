@@ -55,44 +55,9 @@ function findServer() {
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'svId', title: 'id', visible: false, valign: 'middle'},
-            {field: 'sdName', title: '设备名称', align: 'center'},
-            {field: 'sdIp', title: '设备IP', align: 'center'},
-            {field: 'sdUser', title: '使用人', align: 'center'},
+            {field: 'sdIp', title: '通知号码', align: 'center'},
             {
-                field: 'svTelnet', title: 'Telnet服务', align: 'center',
-                formatter: function (value) {
-                    if (value == 0) {
-                        return "关闭";
-                    } else if (value == 1) {
-                        return "开启";
-                    } else {
-                        return value;
-                    }
-                }
-            },
-            {field: 'svSsh', title: 'SSH服务', align: 'center',
-                formatter: function (value) {
-                    if (value == 0) {
-                        return "关闭";
-                    } else if (value == 1) {
-                        return "开启";
-                    } else {
-                        return value;
-                    }
-                }
-            },
-            {field: 'svHttp', title: 'HTTP服务', align: 'center',
-                formatter: function (value) {
-                    if (value == 0) {
-                        return "关闭";
-                    } else if (value == 1) {
-                        return "开启";
-                    } else {
-                        return value;
-                    }
-                }},
-            {
-                field: 'svDate', title: '扫描时间', align: 'center',
+                field: 'svDate', title: '维护日期', align: 'center',
                 formatter: function (value) {
                     return get_Date(value);
                 }

@@ -17,7 +17,6 @@ public interface SeInstalledService extends CommerService<SeInstalled> {
      *
      * @return
      */
-    @DataSource("sqlserver")
     List<SeInstalled> selectAllVRV(int start, int increase);
 
     /**
@@ -26,7 +25,6 @@ public interface SeInstalledService extends CommerService<SeInstalled> {
      * @param seInstalleds
      * @return
      */
-    @DataSource("mysql")
     int autoInsert(List<SeInstalled> seInstalleds);
 
     /**
@@ -35,7 +33,6 @@ public interface SeInstalledService extends CommerService<SeInstalled> {
      * @param seInstalled
      * @return
      */
-    @DataSource("mysql")
     SeInstalled insteadDeviceID(SeInstalled seInstalled);
 
     /**
@@ -43,7 +40,6 @@ public interface SeInstalledService extends CommerService<SeInstalled> {
      *
      * @return
      */
-    @DataSource("sqlserver")
     int selectCount();
 
     /**
@@ -52,11 +48,9 @@ public interface SeInstalledService extends CommerService<SeInstalled> {
      * @param sdId
      * @return
      */
-    @DataSource("mysql")
-    List<String> selectBySdId(int sdId);
+    /*List<String> selectBySdId(int sdId);*/
 	/**
 	 * 删除所有SE_INSTALLED中的数据
 	 */
-	@DataSource("mysql")
 	int deleteInstalled();
 }

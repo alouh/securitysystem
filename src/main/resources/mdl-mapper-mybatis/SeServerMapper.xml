@@ -10,7 +10,7 @@
         <result column="SV_DATE" property="svDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    SV_ID, SD_ID, SV_TELNET, SV_SSH, SV_HTTP, SV_DATE
+    SV_ID, SD_IP, SV_DATE
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select

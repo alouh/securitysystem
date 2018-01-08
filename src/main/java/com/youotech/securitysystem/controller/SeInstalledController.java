@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 软件/补丁/漏洞安装明细
@@ -52,30 +51,13 @@ public class SeInstalledController {
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
         int start = (pageindex - 1) * pageSize;
         int end = pageSize;
-        String siType = URLDecoder.decode(request.getParameter("siType"), "UTF-8");
-        String siType1 = request.getParameter("siType1");
-        String siSname = URLDecoder.decode(request.getParameter("siSname"), "UTF-8");
-        Integer sdId = Integer.valueOf(URLDecoder.decode(request.getParameter("sdId"), "UTF-8"));
+        /*String siSname = URLDecoder.decode(request.getParameter("siSname"), "UTF-8");*/
         SeInstalled seInstalled = new SeInstalled();
-        seInstalled.setSdId(sdId);
-        if (StringUtils.isNotBlank(siSname)) {
+        /*if (StringUtils.isNotBlank(siSname)) {
             seInstalled.setSiSname(siSname);
-        }
-        if (StringUtils.isNotBlank(siType1)) {
-            seInstalled.setSiType(siType);
-        }
-        Pager<SeInstalled> seInstalledPager = seInstalledService.findByParamPage(seInstalled, start, end);
-        for (SeInstalled seInstalled1 : seInstalledPager.getRows()) {
-            SeDevice seDevice = new SeDevice();
-            seDevice.setSdId(seInstalled1.getSdId());
-            List<SeDevice> seDeviceList = seDeviceService.findEntityByParam(seDevice);
-            if (seDeviceList.size() > 0) {
-                /*seInstalled1.setSdName(seDeviceList.get(0).getSdName());
-                seInstalled1.setSdIp(seDeviceList.get(0).getSdIp());*/
-            }
-        }
+        }*/
 
-        return seInstalledPager;
+        return seInstalledService.findByParamPage(seInstalled, start, end);
     }
 
 
@@ -159,5 +141,47 @@ public class SeInstalledController {
         }
         Pager<SeResult> seResultPager = seResultService.showDetailStatisticsPager(sdType, srType, stDate,sdId,start,end);
         return  seResultPager;
+    }
+
+    /**
+     * 手动维护 添加设备
+     *
+     * @param request
+     * @return
+     * @throws BizException
+     */
+    @RequestMapping("addDevice")
+    @ResponseBody
+    public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
+        SeInstalled seInstalled = new SeInstalled();
+        String siSname = request.getParameter("siSname");
+        seInstalled.setSiSname(siSname);
+        seInstalled.setSiDate(new Date());
+        seInstalledService.save(seInstalled);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
+
+    /**
+     * 批量刪除设备（伪删除）
+     * @param request
+     * @return
+     * @throws BizException
+     */
+    @RequestMapping("delDeviceByIds")
+    @ResponseBody
+    public Map<String, Object> delDeviceByIds(HttpServletRequest request) throws BizException {
+        Map<String, Object> map = new HashMap<>();
+        String sdId = request.getParameter("siIds");
+        String[] sdIds = sdId.split(",");
+        Integer[] intTemp = new Integer[sdIds.length];
+        for (int i = 0; i < sdIds.length; i++) {
+            intTemp[i] = Integer.parseInt(sdIds[i]);
+        }
+        List<Integer> ids = Arrays.asList(intTemp);
+        seInstalledService.deleteByIds(ids);
+        map.put("success", true);
+        return map;
     }
 }

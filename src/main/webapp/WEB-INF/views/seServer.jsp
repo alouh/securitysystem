@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <title>网络设备服务开放详情</title>
+    <title>短信平台</title>
     <link rel="stylesheet" href="<%=basePath%>resources/plug/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="<%=basePath%>resources/plug/bootstrap-table/bootstrap-table.css"/>
     <link rel="stylesheet" href="<%=basePath%>resources/css/bootstrap-datetimepicker.min.css"/>
@@ -34,16 +34,6 @@
     <script src="<%=basePath%>resources/plug/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-datetimepicker.min.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var picker1 = $('#svDate').datetimepicker({
-                format: 'yyyy-mm-dd',
-                language: 'zh-CN',
-                minView: "month",
-                autoclose: true
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -59,7 +49,7 @@
                     <input class="form-control" id="sdIp" type="text"/>
                 </div>
             </div>--%>
-            <div class="form-group" style="width:280px;">
+            <%--<div class="form-group" style="width:280px;">
                 <label class="col-sm-3 control-label" for="type">服务状态：</label>
                 <div class="col-sm-8">
                     <select id="type" name="type" class="selectpicker show-tick form-control">
@@ -72,11 +62,11 @@
                         <option value="6">Telnet开放</option>
                     </select>
                 </div>
-            </div>
+            </div>--%>
             <div class="form-group">
                 <label for="svDate" class="col-sm-3 control-label">时间：</label>
                 <div class="col-sm-7">
-                    <input name="svDate" id="svDate" type='text' class="form-control input-sm"  readonly="readonly" style="width: 210px"/>
+                    <input name="svDate" id="svDate" type="text" class="form-control input-sm" style="width: 210px"/>
                 </div>
             </div>
 
