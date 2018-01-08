@@ -29,7 +29,7 @@
 <body style="background:url(<%=basePath%>resources/images/topbg.gif) repeat-x;">
 
 <div class="topleft">
-    <a href="main.html" target="_parent">
+    <a href="home" target="_parent">
         <img src="<%=basePath%>resources/images/logo3.png" title="系统首页" />
     </a>
         <div class="logo_name">网络及信息系统安全过程管理</div>

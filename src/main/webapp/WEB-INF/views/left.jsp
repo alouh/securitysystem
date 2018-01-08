@@ -56,7 +56,7 @@
         </ul>
     </dd>
 
-    <dd>
+    <%--<dd>
         <div class="title">
             <span><img src="<%=basePath%>resources/images/leftico02.png"/></span>系统管理
         </div>
@@ -65,7 +65,7 @@
                 <a href="seUser" target="rightFrame">账号管理</a><i></i></li>
 
         </ul>
-    </dd>
+    </dd>--%>
 
     <dd>
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico03.png"/></span>白名单管理</div>
