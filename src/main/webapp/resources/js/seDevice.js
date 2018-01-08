@@ -61,7 +61,7 @@ function findSeDevice() {
         detailView: false,
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'sdId', title: '序号', align: 'center',width:'120px'},
+            {field: 'sdId', title: '序号', visible: false, valign: 'middle'},
             {field: 'sdType', title: '设备类型', align: 'center',width:'120px'},
             {
                 field: 'sdDate', title: '维护日期', align: 'center',width:'120px',

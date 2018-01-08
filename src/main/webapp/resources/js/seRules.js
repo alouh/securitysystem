@@ -86,38 +86,8 @@ function findRules() {
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'srId', title: 'id', visible: false, valign: 'middle'},
-            {field: 'sdType', title: '设备类型', align: 'center'},
-            {field: 'sdOs', title: '操作系统', align: 'center'},
-            {field: 'sdOstype', title: '系统版本', align: 'center'},
-            {
-                field: 'srType', title: '审计类型', align: 'center',
-                formatter: function (value) {
-                    if (value == 0) {
-                        return "TCP端口";
-                    } else if (value == 1) {
-                        return "UDP端口";
-                    } else if (value == 2) {
-                        return "软件";
-                    } else if (value == 3) {
-                        return "漏洞/补丁";
-                    } else {
-                        return value;
-                    }
-                }
-            },
-            {field: 'srRname', title: '审计内容', align: 'center'},
-            {
-                field: 'srRules', title: '审计规则', align: 'center',
-                formatter: function (value) {
-                    if (value == 1) {
-                        return "必关闭";
-                    } else if (value == 2) {
-                        return "必安装";
-                    } else {
-                        return value;
-                    }
-                }
-            },
+            {field: 'sdType', title: 'USB设备类型', align: 'center'},
+            {field: 'srType', title: '终端IP', align: 'center'},
             {
                 field: 'srDate', title: '创建日期', align: 'center',
                 formatter: function (value) {
@@ -130,7 +100,7 @@ function findRules() {
 /**
  * 修改
  */
-function seRulesUpdate() {
+/*function seRulesUpdate() {
     var rows = $("#tb_seRules").bootstrapTable('getSelections');
     if (rows.length != 1) {
         $("#messageText").text("请选择一条数据进行修改");
@@ -203,11 +173,11 @@ function updateRules() {
             }
         }
     });
-}
+}*/
 /**
  * 批量刪除
  */
-function delSeRules() {
+/*function delSeRules() {
     var rows = $("#tb_seRules").bootstrapTable('getSelections');
     if (rows.length < 1) {
         $("#messageText").text("请选择一条数据进行删除！");
@@ -240,7 +210,7 @@ function dels() {
             }
         }
     })
-}
+}*/
 
 /**
  * date转换成String
@@ -287,7 +257,7 @@ function get_Date(time) {
 /**
  *新增安全审计规则
  */
-function addRules() {
+/*function addRules() {
     var sdType = $("#sdType_add").val();
     var sdOs = $("#sdOs_add").val();
     var sdOsType = $("#sdOsType_add").val();
@@ -333,4 +303,4 @@ function addRules() {
         }
     });
 
-}
+}*/

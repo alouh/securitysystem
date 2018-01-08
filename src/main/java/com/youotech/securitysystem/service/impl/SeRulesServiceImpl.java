@@ -110,28 +110,13 @@ public class SeRulesServiceImpl implements SeRulesService {
 
     @Override
     public Pager<SeRules> findByParamPage(SeRules entity, Integer start, Integer limit) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("start", start);
         map.put("end", limit);
         map.put("srType", entity.getSrType());
         map.put("sdType", entity.getSdType());
         List<SeRules> seRulesList1=seRulesMapper.findByParam(entity);
         List<SeRules> seRulesList = seRulesMapper.findByParamPage(map);
-        Pager<SeRules> seRulesPager = new Pager<SeRules>(start, limit, seRulesList, seRulesList1.size());
-        return seRulesPager;
+        return new Pager<>(start, limit, seRulesList, seRulesList1.size());
     }
-
-	/**
-	 * 根据设备信息查找安全审计规则
-	 * @return
-	 */
-	@Override
-	public List<SeRules> findByDevice() {
-		List<SeRules> seRulesList = seRulesMapper.findByDevice();
-		if (CollectionUtils.isEmpty(seRulesList)) {
-			LOGGER.info("【SeResultServiceImpl.findEntityByParam安全审计规则信息为空！】");
-			return new ArrayList<>();
-		}
-		return seRulesList;
-	}
 }

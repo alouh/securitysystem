@@ -4,21 +4,17 @@
     <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeRules">
         <id column="SR_ID" property="srId" jdbcType="INTEGER"/>
         <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
-        <result column="SD_OS" property="sdOs" jdbcType="VARCHAR"/>
-        <result column="SD_OSTYPE" property="sdOstype" jdbcType="VARCHAR"/>
-        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
-        <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
-        <result column="SR_RULES" property="srRules" jdbcType="INTEGER"/>
+        <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
         <result column="SR_DATE" property="srDate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <resultMap id="scanPortMap" type="com.youotech.securitysystem.bo.SeRules">
-        <result column="SD_OS" property="sdOs" jdbcType="VARCHAR"/>
+        <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
         <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
         <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
         <result column="SR_RULEs" property="srRules" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    SR_ID, SD_TYPE, SD_OS, SD_OSTYPE, SR_TYPE, SR_RNAME, SR_RULES, SR_DATE
+    SR_ID, SD_TYPE, SR_TYPE, SR_DATE
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -31,12 +27,8 @@
     where SR_ID = #{srId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeRules">
-    insert into SE_RULES (SR_ID, SD_TYPE, SD_OS, 
-      SD_OSTYPE, SR_TYPE, SR_RNAME, 
-      SR_RULES, SR_DATE)
-    values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{sdOs,jdbcType=VARCHAR}, 
-      #{sdOstype,jdbcType=VARCHAR}, #{srType,jdbcType=INTEGER}, #{srRname,jdbcType=VARCHAR}, 
-      #{srRules,jdbcType=INTEGER}, #{srDate,jdbcType=TIMESTAMP})
+    insert into SE_RULES (SR_ID, SD_TYPE, SR_TYPE, SR_DATE)
+    values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{srType,jdbcType=VARCHAR},#{srDate,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeRules">
         insert into SE_RULES
@@ -47,20 +39,8 @@
             <if test="sdType != null">
                 SD_TYPE,
             </if>
-            <if test="sdOs != null">
-                SD_OS,
-            </if>
-            <if test="sdOstype != null">
-                SD_OSTYPE,
-            </if>
             <if test="srType != null">
                 SR_TYPE,
-            </if>
-            <if test="srRname != null">
-                SR_RNAME,
-            </if>
-            <if test="srRules != null">
-                SR_RULES,
             </if>
             <if test="srDate != null">
                 SR_DATE,
@@ -73,20 +53,8 @@
             <if test="sdType != null">
                 #{sdType,jdbcType=VARCHAR},
             </if>
-            <if test="sdOs != null">
-                #{sdOs,jdbcType=VARCHAR},
-            </if>
-            <if test="sdOstype != null">
-                #{sdOstype,jdbcType=VARCHAR},
-            </if>
             <if test="srType != null">
-                #{srType,jdbcType=INTEGER},
-            </if>
-            <if test="srRname != null">
-                #{srRname,jdbcType=VARCHAR},
-            </if>
-            <if test="srRules != null">
-                #{srRules,jdbcType=INTEGER},
+                #{srType,jdbcType=VARCHAR},
             </if>
             <if test="srDate != null">
                 #{srDate,jdbcType=TIMESTAMP},
@@ -99,20 +67,8 @@
             <if test="sdType != null">
                 SD_TYPE = #{sdType,jdbcType=VARCHAR},
             </if>
-            <if test="sdOs != null">
-                SD_OS = #{sdOs,jdbcType=VARCHAR},
-            </if>
-            <if test="sdOstype != null">
-                SD_OSTYPE = #{sdOstype,jdbcType=VARCHAR},
-            </if>
             <if test="srType != null">
-                SR_TYPE = #{srType,jdbcType=INTEGER},
-            </if>
-            <if test="srRname != null">
-                SR_RNAME = #{srRname,jdbcType=VARCHAR},
-            </if>
-            <if test="srRules != null">
-                SR_RULES = #{srRules,jdbcType=INTEGER},
+                SR_TYPE = #{srType,jdbcType=VARCHAR},
             </if>
             <if test="srDate != null">
                 SR_DATE = #{srDate,jdbcType=TIMESTAMP},
@@ -123,11 +79,7 @@
     <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeRules">
     update SE_RULES
     set SD_TYPE = #{sdType,jdbcType=VARCHAR},
-      SD_OS = #{sdOs,jdbcType=VARCHAR},
-      SD_OSTYPE = #{sdOstype,jdbcType=VARCHAR},
-      SR_TYPE = #{srType,jdbcType=INTEGER},
-      SR_RNAME = #{srRname,jdbcType=VARCHAR},
-      SR_RULES = #{srRules,jdbcType=INTEGER},
+      SR_TYPE = #{srType,jdbcType=VARCHAR},
       SR_DATE = #{srDate,jdbcType=TIMESTAMP}
     where SR_ID = #{srId,jdbcType=INTEGER}
   </update>
@@ -142,20 +94,8 @@
             <if test="sdType != null">
                 and  SD_TYPE = #{sdType,jdbcType=VARCHAR}
             </if>
-            <if test="sdOs != null">
-                and  SD_OS = #{sdOs,jdbcType=VARCHAR}
-            </if>
-            <if test="sdOstype != null">
-                and  SD_OSTYPE = #{sdOstype,jdbcType=VARCHAR}
-            </if>
             <if test="srType != null">
-                and  SR_TYPE = #{srType,jdbcType=INTEGER}
-            </if>
-            <if test="srRname != null">
-                and  SR_RNAME = #{srRname,jdbcType=VARCHAR}
-            </if>
-            <if test="srRules != null">
-                and SR_RULES = #{srRules,jdbcType=INTEGER}
+                and  SR_TYPE = #{srType,jdbcType=VARCHAR}
             </if>
             <if test="srDate != null">
                 and SR_DATE = #{srDate,jdbcType=TIMESTAMP}
@@ -174,20 +114,8 @@
             <if test="sdType != null">
                 and SD_TYPE = #{sdType,jdbcType=VARCHAR}
             </if>
-            <if test="sdOs != null">
-                and SD_OS = #{sdOs,jdbcType=VARCHAR}
-            </if>
-            <if test="sdOstype != null">
-                and SD_OSTYPE = #{sdOstype,jdbcType=VARCHAR}
-            </if>
             <if test="srType != null">
-                and SR_TYPE = #{srType,jdbcType=INTEGER}
-            </if>
-            <if test="srRname != null">
-                and SR_RNAME = #{srRname,jdbcType=VARCHAR}
-            </if>
-            <if test="srRules != null">
-                and  SR_RULES = #{srRules,jdbcType=INTEGER}
+                and SR_TYPE = #{srType,jdbcType=VARCHAR}
             </if>
             <if test="srDate != null">
                 and SR_DATE = #{srDate,jdbcType=TIMESTAMP}
@@ -204,8 +132,4 @@
             #{srIds}
         </foreach>
     </delete>
-
-    <select id="findByDevice" resultMap="scanPortMap">
-        SELECT concat(SD_OS,' ',SD_OSTYPE) AS 'SD_OS',SR_TYPE,SR_RNAME,SR_RULES FROM SE_RULES WHERE SD_TYPE='终端设备';
-    </select>
 </mapper>

@@ -79,7 +79,8 @@
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico04.png"/></span>功能管理</div>
         <ul class="menuson">
             <li><cite></cite>
-                <a href="seServer" target="rightFrame">短信平台</a><i></i></li>
+                <a href="seServer" target="rightFrame">短信平台</a><i></i>
+            </li>
         </ul>
 
     </dd>

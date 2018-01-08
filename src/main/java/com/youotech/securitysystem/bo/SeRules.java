@@ -11,7 +11,7 @@ public class SeRules {
 
     private String sdOstype;
 
-    private Integer srType;
+    private String srType;
 
     private String srRname;
 
@@ -51,11 +51,11 @@ public class SeRules {
         this.sdOstype = sdOstype == null ? null : sdOstype.trim();
     }
 
-    public Integer getSrType() {
+    public String getSrType() {
         return srType;
     }
 
-    public void setSrType(Integer srType) {
+    public void setSrType(String srType) {
         this.srType = srType;
     }
 

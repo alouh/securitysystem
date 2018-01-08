@@ -24,6 +24,4 @@ public interface SeRulesMapper {
 
     int deleteByIds(List<Integer> userIds);
 
-    //根据设备信息查找规则
-    List<SeRules> findByDevice();
 }

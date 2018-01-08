@@ -45,7 +45,8 @@ public class SeRulesController {
         String sdType1 = URLDecoder.decode(request.getParameter("sdType1"));
         SeRules seRules = new SeRules();
         if (StringUtils.isNotBlank(srType)) {
-            seRules.setSrType(Integer.valueOf(srType));
+            /*seRules.setSrType(Integer.valueOf(srType));*/
+            seRules.setSrType(srType);
         }
         if (StringUtils.isNotBlank(sdType1)) {
             seRules.setSdType(URLDecoder.decode(request.getParameter("sdType"), "UTF-8"));
@@ -77,7 +78,8 @@ public class SeRulesController {
         seRules.setSdOstype(sdOsType);
 
         if (StringUtils.isNotBlank(srType)) {
-            seRules.setSrType(Integer.valueOf(srType));
+            /*seRules.setSrType(Integer.valueOf(srType));*/
+            seRules.setSrType(srType);
         }
         if (StringUtils.isNotBlank(srRules)) {
             seRules.setSrRules(Integer.valueOf(srRules));
@@ -126,7 +128,8 @@ public class SeRulesController {
             seRules.setSrId(Integer.valueOf(srId));
         }
         if (StringUtils.isNotBlank(srType)) {
-            seRules.setSrType(Integer.valueOf(srType));
+            /*seRules.setSrType(Integer.valueOf(srType));*/
+            seRules.setSrType(srType);
         }
         if (StringUtils.isNotBlank(srRules)) {
             seRules.setSrRules(Integer.valueOf(srRules));
