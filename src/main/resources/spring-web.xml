@@ -56,14 +56,9 @@
     <mvc:view-controller path="/top" view-name="top"/>
     <mvc:view-controller path="/left" view-name="left"/>
     <mvc:view-controller path="/updatePwd" view-name="updatePwd"/>
-    <mvc:view-controller path="/seUser" view-name="seUser"/>
     <mvc:view-controller path="/seDevice" view-name="seDevice"/>
-    <mvc:view-controller path="/seServer" view-name="seServer"/>
     <mvc:view-controller path="/seInstalled" view-name="seInstalled"/>
-    <mvc:view-controller path="/installedStatistics" view-name="installedStatistics"/>
     <mvc:view-controller path="/seRules" view-name="seRules"/>
-    <mvc:view-controller path="/seStatistics" view-name="seStatistics"/>
-    <mvc:view-controller path="/seResult" view-name="seResult"/>
 
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>

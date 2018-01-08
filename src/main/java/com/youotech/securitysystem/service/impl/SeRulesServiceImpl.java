@@ -97,8 +97,8 @@ public class SeRulesServiceImpl implements SeRulesService {
         LOGGER.info("【SeRulesServiceImpl.findEntityByParam条件查询动态信息】入参" + entity);
         List<SeRules> seRulesList = seRulesMapper.findByParam(entity);
         if (CollectionUtils.isEmpty(seRulesList)) {
-            LOGGER.info("【SeResultServiceImpl.findEntityByParam安全审计规则信息为空！】");
-            return new ArrayList<SeRules>();
+            LOGGER.info("【SeRulesServiceImpl.findEntityByParam安全审计规则信息为空！】");
+            return new ArrayList<>();
         }
         return seRulesList;
     }

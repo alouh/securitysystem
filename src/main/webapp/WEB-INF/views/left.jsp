@@ -50,7 +50,10 @@
             <span><img src="<%=basePath%>resources/images/leftico01.png"/></span>首页
         </div>
         <ul class="menuson">
-            <li><cite></cite>
+            <%--<li class="active"><cite></cite>
+                <a href="index" target="rightFrame">首页</a><i></i>
+            </li>--%>
+            <li class="active"><cite></cite>
                 <a href="seRules" target="rightFrame">外接非法USB设备终端</a><i></i>
             </li>
         </ul>
