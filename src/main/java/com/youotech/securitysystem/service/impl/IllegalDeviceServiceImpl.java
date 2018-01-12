@@ -34,7 +34,7 @@ public class IllegalDeviceServiceImpl implements IllegalDeviceService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Integer save(IllegalDevice entity) {
         LOGGER.info("【IllegalDeviceServiceImpl.save】入参" + entity);
-        int count = 0;
+        int count;
         try {
             count = illegalDeviceMapper.insertSelective(entity);
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class IllegalDeviceServiceImpl implements IllegalDeviceService {
             LOGGER.error("【IllegalDeviceServiceImpl.save】新增安全审计规则失败");
             throw new BizException("新增安全审计规则失败,请联系管理员");
         }
-        return entity.getSrId();
+        return entity.getId_Id();
     }
 
     @Override
@@ -111,12 +111,18 @@ public class IllegalDeviceServiceImpl implements IllegalDeviceService {
     @Override
     public Pager<IllegalDevice> findByParamPage(IllegalDevice entity, Integer start, Integer limit) {
         Map<String, Object> map = new HashMap<>();
+
         map.put("start", start);
         map.put("end", limit);
-        map.put("srType", entity.getSrType());
-        map.put("sdType", entity.getSdType());
+        map.put("id_Type", entity.getId_Type());
+        map.put("id_Ip", entity.getId_Ip());
+        map.put("id_Mac", entity.getId_Mac());
+        map.put("id_UsrName", entity.getId_UsrName());
+        map.put("id_HostName", entity.getId_HostName());
+
         List<IllegalDevice> illegalDeviceList1=illegalDeviceMapper.findByParam(entity);
         List<IllegalDevice> illegalDeviceList = illegalDeviceMapper.findByParamPage(map);
+
         return new Pager<>(start, limit, illegalDeviceList, illegalDeviceList1.size());
     }
 }

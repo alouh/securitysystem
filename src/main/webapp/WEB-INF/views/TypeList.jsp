@@ -41,7 +41,7 @@
     </div>
     <div class="panel-body" id="toolbar">
         <form role="formSearch" class="form-inline">
-            <div class="form-group">
+            <%--<div class="form-group">
                 <div class="col-sm-8">
                     <input class="form-control" id="sdIp" type="hidden"/>
                 </div>
@@ -59,9 +59,14 @@
                 <div class="col-sm-8">
                     <input class="form-control" id="sdUser" type="hidden"/>
                 </div>
-            </div>
+            </div>--%>
 
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addType()">
+            <%--<button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addType()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
+            </button>--%>
+
+            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#typeList_add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
             </button>
 
@@ -72,6 +77,47 @@
         </form>
     </div>
     <table id="tb_typeList" style="table-layout: auto" class="table table-condensed table-bordered table-hover table-striped"></table>
+</div>
+
+<%--新增USB设备类型--%>
+<div class="modal fade" id="typeList_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">新增USB设备类型</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Type_add">USB设备类型：</label>
+                        <div class="col-sm-8">
+                            <input id="tl_Type_add" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Path_add">注册表路径：</label>
+                        <div class="col-sm-8">
+                            <input id="tl_Path_add" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Allow_add">禁用/允许：</label>
+                        <div class="col-sm-8">
+                            <select id="tl_Allow_add" name="sdOsType_add" class="selectpicker show-tick form-control">
+                                <option value="禁用">禁用</option>
+                                <option value="允许">允许</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="upload" onclick="addType()">确定</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <%@ include file="jeryCzc.jsp" %>

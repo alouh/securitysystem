@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 补丁、软件、漏洞安装详情
- * Created by chenzc on 2017-11-23.
+ * 短信平台配置
+ * Created by HanJiafeng on 2017-11-27.
  */
 @Service("sMPlatformService")
 public class SMPlatformServiceImpl implements SMPlatformService {
@@ -37,13 +37,13 @@ public class SMPlatformServiceImpl implements SMPlatformService {
 
         List<SMPlatform> sMPlatforms = sMPlatformMapper.findByParamFuzzy(new SMPlatform());
         for (SMPlatform sMPlatform : sMPlatforms){
-            String phoneNum = sMPlatform.getSiSname();
-            if (entity.getSiSname().equals(phoneNum)){
+            String phoneNum = sMPlatform.getPn_Number();
+            if (entity.getPn_Number().equals(phoneNum)){
                 LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
                 throw new BizException("号码已存在，请重新输入");
             }
         }
-        int count = 0;
+        int count;
         try {
             count = sMPlatformMapper.insertSelective(entity);
         } catch (Exception e) {
@@ -54,7 +54,7 @@ public class SMPlatformServiceImpl implements SMPlatformService {
             LOGGER.error("【SMPlatformServiceImpl.save】新增软件/补丁/漏洞异常信息失败");
             throw new BizException("新增软件/补丁/漏洞异常信息失败,请联系管理员");
         }
-        return entity.getSiId();
+        return entity.getPn_Id();
 
     }
 
@@ -111,20 +111,20 @@ public class SMPlatformServiceImpl implements SMPlatformService {
 
     @Override
     public Pager<SMPlatform> findByParamPage(SMPlatform entity, Integer start, Integer limit) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
+
         map.put("start", start);
         map.put("end", limit);
-        map.put("siSname", entity.getSiSname());
+        map.put("pn_Number", entity.getPn_Number());
         List<SMPlatform> sMPlatformList = sMPlatformMapper.findByParamPage(map);
         List<SMPlatform> sMPlatformList1 = sMPlatformMapper.findByParamFuzzy(entity);
-        Pager<SMPlatform> sMPlatformPager = new Pager<SMPlatform>(start, limit, sMPlatformList, sMPlatformList1.size());
-        return sMPlatformPager;
+
+        return new Pager<>(start, limit, sMPlatformList, sMPlatformList1.size());
     }
 
     @Override
     public List<SMPlatform> findByParamFuzzy(SMPlatform entity) {
-        List<SMPlatform> sMPlatformList = sMPlatformMapper.findByParamFuzzy(entity);
-        return sMPlatformList;
+        return sMPlatformMapper.findByParamFuzzy(entity);
     }
 
     @Override

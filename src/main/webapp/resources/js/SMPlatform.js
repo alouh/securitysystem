@@ -14,12 +14,16 @@ var GetQueryString = function (key) {
  * 软件、漏洞/补丁安装明细
  */
 function findSMPlatform() {
-    var siId = GetQueryString("id");
-    var siSname = $("#siSname_add").val().trim();
+
+    /*var siId = GetQueryString("id");
+    var siSname = $("#siSname_add").val().trim();*/
+
+    var pn_Number = $("#pn_Number_add").val();
     var heightTable = document.documentElement.clientHeight - 45;
+
     $('#tb_sMPlatform').bootstrapTable('destroy');
     $("#tb_sMPlatform").bootstrapTable({
-        url: './sMPlatform/showInstalled',
+        url: './sMPlatform/showSMPlatform',
         dataType: 'json',
         method: 'post',
         contentType: "application/x-www-form-urlencoded", // POST请求需要 编码
@@ -31,10 +35,10 @@ function findSMPlatform() {
         sortOrder: 'desc',
         queryParams: function (params) {
             return {
-                pageindex: this.pageNumber,
+                pageIndex: this.pageNumber,
                 pageSize: params.limit,
-                siSname: encodeURI(siSname),
-                siId: encodeURI(siId)
+                pn_Number: pn_Number/*,
+                siId: encodeURI(siId)*/
             }
         },
         silent: true,
@@ -49,10 +53,10 @@ function findSMPlatform() {
         detailView: false,
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'siId', title: '明细id', visible: false, valign: 'middle'},
-            {field: 'siSname', title: '通知号码1', align: 'center',width: '120px'},
+            {field: 'pn_Id', title: 'id', visible: false, valign: 'middle'},
+            {field: 'pn_Number', title: '通知号码', align: 'center'},
             {
-                field: 'siDate', title: '维护日期', align: 'center', width: '120px',
+                field: 'pn_Date', title: '维护日期', align: 'center',
                 formatter: function (value) {
                     return get_Date(value);
                 }
@@ -66,19 +70,19 @@ function findSMPlatform() {
 /**
  * 新增设备
  */
-function addDevice() {
-    var siSname = $("#siSname_add").val();
+function addPhoneNumber() {
+    var number = $("#pn_Number_add").val();
 
     $.ajax({
-        url: './sMPlatform/addDevice',
+        url: './sMPlatform/addPhoneNumber',
         type: 'post',
         data: {
-            'siSname': siSname
+            pn_Number: number
         },
         dataType: 'json',
         success: function (result) {
             if (result.success) {
-                $("#typeList_add").modal("hide");
+                $("#sMPlatform_add").modal("hide");
                 pop("消息提示","新增成功","2000");
                 findSMPlatform();
             } else {
@@ -106,12 +110,12 @@ function dels() {
     var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
     var ids = "";
     for (var i = 0; i < rows.length; i++) {
-        ids += "," + rows[i].siId;
+        ids += "," + rows[i].pn_Id;
     }
     $.ajax({
         url: './sMPlatform/delDeviceByIds',
         type: 'post',
-        data: {'siIds': ids.substring(1)},
+        data: {'pn_Ids': ids.substring(1)},
         dataType: 'json',
         success: function (result) {
             if (result.success) {
@@ -141,9 +145,6 @@ function get_Date(time) {
         var year = date.getFullYear();
         var month = date.getMonth() + 1;    //js从0开始取
         var day = date.getDate();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-        var second = date.getSeconds();
         var str = "";
         str += year;
         if (month < 10) {
@@ -156,16 +157,6 @@ function get_Date(time) {
         } else {
             str += ("-" + day);
         }
-        /*     if (hour < 10) {
-         str += ("&nbsp;0" + hour);
-         } else {
-         str += ("&nbsp;" + hour);
-         }
-         if (minutes < 10) {
-         str += ("&nbsp;:0" + minutes);
-         } else {
-         str += ("&nbsp;:" + minutes);
-         }*/
         return str;
     }
 }

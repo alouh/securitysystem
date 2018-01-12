@@ -1,56 +1,14 @@
 $(function () {
     findRules();
 });
-/**
- * 新增下拉框数据切换
- */
-$(function () {
-/*    $("#sdType_add").change(function () {
-        var sdType = $("#sdType_add").val();
-        if ("主机设备" == sdType) {
-            $("#No1").hide();
-            $("#No2").hide();
-        } else {
-            $("#No1").show();
-            $("#No2").show();
-        }
-    });*/
-
-    $("#srType_add").change(function () {
-        var srType = $("#srType_add").val();
-        if ("0" == srType || "1" == srType) {
-            $("#No3").show();
-            $("#No4").hide();
-        } else {
-            $("#No4").show();
-            $("#No3").hide();
-        }
-    });
-
-    $("#srType_update").change(function () {
-        var srType = $("#srType_update").val();
-        if ("0" == srType || "1" == srType) {
-            $("#No33").show();
-            $("#No44").hide();
-        } else {
-            $("#No44").show();
-            $("#No33").hide();
-        }
-    });
-});
 
 /**
  * 展示安全审计规则列表框
  */
 function findRules() {
-    var sdType = $("#sdType").val();
-    var srType = $("#srType").val();
-    if (sdType == 0) {
-        sdType = null;
-    }
-    if (srType == 10) {
-        srType = null;
-    }
+
+    var id_Ip = $("#id_Ip").val();
+
     var heightTable = document.documentElement.clientHeight - 45;
     $('#tb_illegalDevice').bootstrapTable('destroy');
     $("#tb_illegalDevice").bootstrapTable({
@@ -68,9 +26,7 @@ function findRules() {
             return {
                 pageIndex: this.pageNumber,
                 pageSize: params.limit,
-                sdType: encodeURI(sdType),
-                sdType1: sdType,
-                srType: srType
+                id_Ip:id_Ip
             }
         },
         silent: true,
@@ -80,16 +36,18 @@ function findRules() {
         pageList: [20, 50, 200],
         strictSearch: true,
         clickToSelect: true,
-        uniqueId: 'srId',
+        uniqueId: 'id_Id',
         cardView: false,
         detailView: false,
         columns: [
-            /*{field: 'state', checkbox: true, align: 'center', valign: 'middle'},*/
-            {field: 'srId', title: 'id', visible: false, valign: 'middle'},
-            {field: 'sdType', title: 'USB设备类型', align: 'center'},
-            {field: 'srType', title: '终端IP', align: 'center'},
+            {field: 'id_Id', title: 'id', visible: false, valign: 'middle'},
+            {field: 'id_Type', title: 'USB设备类型', align: 'center'},
+            {field: 'id_Ip', title: '网络地址', align: 'center'},
+            {field: 'id_Mac', title: '物理地址', align: 'center'},
+            {field: 'id_UsrName', title: '用户名称', align: 'center'},
+            {field: 'id_HostName', title: '主机名称', align: 'center'},
             {
-                field: 'srDate', title: '接入日期', align: 'center',
+                field: 'id_Date', title: '接入日期', align: 'center',
                 formatter: function (value) {
                     return get_Date(value);
                 }
@@ -104,16 +62,13 @@ function findRules() {
  * @returns {string}
  */
 function get_Date(time) {
-    if (time == undefined || time == null || time == "") {
+    if (time === undefined || time == null || time === "") {
         return "";
     } else {
         var date = new Date(time);
         var year = date.getFullYear();
         var month = date.getMonth() + 1;    //js从0开始取
         var day = date.getDate();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-        var second = date.getSeconds();
         var str = "";
         str += year;
         if (month < 10) {
@@ -126,16 +81,6 @@ function get_Date(time) {
         } else {
             str += ("-" + day);
         }
-        /*  if (hour < 10) {
-         str += ("&nbsp;0" + hour);
-         } else {
-         str += ("&nbsp;" + hour);
-         }
-         if (minutes < 10) {
-         str += ("&nbsp;:0" + minutes);
-         } else {
-         str += ("&nbsp;:" + minutes);
-         }*/
         return str;
     }
 }

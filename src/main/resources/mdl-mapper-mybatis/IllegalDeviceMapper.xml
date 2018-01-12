@@ -2,34 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.youotech.securitysystem.dao.IllegalDeviceMapper">
     <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.IllegalDevice">
-        <id column="SR_ID" property="srId" jdbcType="INTEGER"/>
-        <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
-        <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
-        <result column="SR_DATE" property="srDate" jdbcType="TIMESTAMP"/>
+        <id column="ID_ID" property="id_Id" jdbcType="INTEGER"/>
+        <result column="ID_IP" property="id_Ip" jdbcType="VARCHAR"/>
+        <result column="ID_TYPE" property="id_Type" jdbcType="VARCHAR"/>
+        <result column="ID_MAC" property="id_Mac" jdbcType="VARCHAR"/>
+        <result column="ID_USRNAME" property="id_UsrName" jdbcType="VARCHAR"/>
+        <result column="ID_HOSTNAME" property="id_HostName" jdbcType="VARCHAR"/>
+        <result column="ID_DATE" property="id_Date" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="scanPortMap" type="com.youotech.securitysystem.bo.IllegalDevice">
-        <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
-        <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
-        <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
-        <result column="SR_RULEs" property="srRules" jdbcType="INTEGER"/>
-    </resultMap>
+
     <sql id="Base_Column_List">
-    SR_ID, SD_TYPE, SR_TYPE, SR_DATE
-  </sql>
+        ID_ID,ID_IP,ID_TYPE,ID_MAC,ID_USRNAME,ID_HOSTNAME,ID_DATE
+    </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from SE_RULES
-        where SR_ID = #{srId,jdbcType=INTEGER}
+        from usb_illegaldevice
+        where ID_ID = #{id_Id,jdbcType=INTEGER}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from SE_RULES
-    where SR_ID = #{srId,jdbcType=INTEGER}
-  </delete>
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
-    insert into SE_RULES (SR_ID, SD_TYPE, SR_TYPE, SR_DATE)
-    values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{srType,jdbcType=VARCHAR},#{srDate,jdbcType=TIMESTAMP})
-  </insert>
+        delete from usb_illegaldevice
+        where ID_ID = #{id_Id,jdbcType=INTEGER}
+    </delete>
+
+    <!--<insert id="insert" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+        insert into usb_illegaldevice (<include refid="Base_Column_List"/>)
+        values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{srType,jdbcType=VARCHAR},#{srDate,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         insert into SE_RULES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -43,7 +44,7 @@
                 SR_TYPE,
             </if>
             <if test="srDate != null">
-                SR_DATE,
+                ID_DATE,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -61,6 +62,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         update SE_RULES
         <set>
@@ -71,7 +73,7 @@
                 SR_TYPE = #{srType,jdbcType=VARCHAR},
             </if>
             <if test="srDate != null">
-                SR_DATE = #{srDate,jdbcType=TIMESTAMP},
+                ID_DATE = #{srDate,jdbcType=TIMESTAMP},
             </if>
         </set>
         where SR_ID = #{srId,jdbcType=INTEGER}
@@ -80,56 +82,75 @@
     update SE_RULES
     set SD_TYPE = #{sdType,jdbcType=VARCHAR},
       SR_TYPE = #{srType,jdbcType=VARCHAR},
-      SR_DATE = #{srDate,jdbcType=TIMESTAMP}
+      ID_DATE = #{srDate,jdbcType=TIMESTAMP}
     where SR_ID = #{srId,jdbcType=INTEGER}
-  </update>
-    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.IllegalDevice" resultMap="BaseResultMap">
+  </update>-->
+
+    <select id="findByParam" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_RULES
+        FROM usb_illegaldevice
         <trim prefix="where" prefixOverrides="and">
-            <if test="srId != null">
-                and SR_ID = #{srId,jdbcType=INTEGER}
+            <if test="id_Id != null">
+                and ID_ID = #{id_Id,jdbcType=INTEGER}
             </if>
-            <if test="sdType != null">
-                and  SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            <if test="id_Ip != null">
+                and ID_IP = #{id_Ip,jdbcType=VARCHAR}
             </if>
-            <if test="srType != null">
-                and  SR_TYPE = #{srType,jdbcType=VARCHAR}
+            <if test="id_Type != null">
+                and ID_TYPE = #{id_Type,jdbcType=VARCHAR}
             </if>
-            <if test="srDate != null">
-                and SR_DATE = #{srDate,jdbcType=TIMESTAMP}
+            <if test="id_Mac != null">
+                and ID_MAC = #{id_Mac,jdbcType=VARCHAR}
+            </if>
+            <if test="id_UsrName != null">
+                and ID_USRNAME = #{id_UsrName,jdbcType=VARCHAR}
+            </if>
+            <if test="id_HostName != null">
+                and ID_HOSTNAME = #{id_HostName,jdbcType=VARCHAR}
+            </if>
+            <if test="id_Date != null">
+                and ID_DATE = #{id_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
-        ORDER BY SR_DATE DESC
     </select>
+
     <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_RULES
+        FROM usb_illegaldevice
         <trim prefix="where" prefixOverrides="and">
-            <if test="srId != null">
-                and SR_ID = #{srId,jdbcType=INTEGER}
+            <if test="id_Id != null">
+                and ID_ID = #{id_Id,jdbcType=INTEGER}
             </if>
-            <if test="sdType != null">
-                and SD_TYPE = #{sdType,jdbcType=VARCHAR}
+            <if test="id_Ip != null">
+                and  ID_IP = #{id_Ip,jdbcType=VARCHAR}
             </if>
-            <if test="srType != null">
-                and SR_TYPE = #{srType,jdbcType=VARCHAR}
+            <if test="id_Type != null">
+                and  ID_TYPE = #{id_Type,jdbcType=VARCHAR}
             </if>
-            <if test="srDate != null">
-                and SR_DATE = #{srDate,jdbcType=TIMESTAMP}
+            <if test="id_Mac != null">
+                and  ID_MAC = #{id_Mac,jdbcType=VARCHAR}
+            </if>
+            <if test="id_UsrName != null">
+                and  ID_USRNAME = #{id_UsrName,jdbcType=VARCHAR}
+            </if>
+            <if test="id_HostName != null">
+                and  ID_HOSTNAME = #{id_HostName,jdbcType=VARCHAR}
+            </if>
+            <if test="id_Date != null">
+                and ID_DATE = #{id_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
-        ORDER BY SR_ID DESC
+        ORDER BY ID_DATE
         limit ${start},${end}
     </select>
 
     <delete id="deleteByIds" parameterType="java.lang.Integer">
-        delete FROM SE_RULES
-        where  SR_ID IN
-        <foreach collection="list" item="srIds" open="(" separator="," close=")">
-            #{srIds}
+        delete FROM usb_illegaldevice
+        where  usb_illegaldevice.ID_ID IN
+        <foreach collection="list" item="id_Ids" open="(" separator="," close=")">
+            #{id_Ids}
         </foreach>
     </delete>
 </mapper>

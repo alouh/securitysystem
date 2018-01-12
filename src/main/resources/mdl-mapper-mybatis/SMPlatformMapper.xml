@@ -1,90 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.youotech.securitysystem.dao.SMPlatformMapper" >
-  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SMPlatform" >
-    <id column="SI_ID" property="siId" jdbcType="INTEGER" />
-    <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR" />
-    <result column="SI_DATE" property="siDate" jdbcType="TIMESTAMP" />
-  </resultMap>
-    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.SMPlatform">
-        <id column="SI_ID" property="siId" jdbcType="INTEGER"/>
-        <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
-        <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR"/>
-        <result column="SI_DATE" property="siDate" jdbcType="TIMESTAMP"/>
+    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SMPlatform" >
+        <id column="PN_id" property="pn_Id" jdbcType="INTEGER" />
+        <result column="PN_NUMBER" property="pn_Number" jdbcType="VARCHAR" />
+        <result column="PN_DATE" property="pn_Date" jdbcType="TIMESTAMP" />
     </resultMap>
-  <sql id="Base_Column_List" >
-    SI_ID, SI_SNAME, SI_DATE
-  </sql>
+
+    <sql id="Base_Column_List" >
+        PN_ID,PN_NUMBER,PN_DATE
+    </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from SE_INSTALLED
-        where SI_ID = #{siId,jdbcType=INTEGER}
+        from usb_phonenumber
+        where PN_ID = #{pn_Id,jdbcType=INTEGER}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from SE_INSTALLED
-    where SI_ID = #{siId,jdbcType=INTEGER}
-  </delete>
+        delete from usb_phonenumber
+        where PN_ID = #{pn_Id,jdbcType=INTEGER}
+    </delete>
+    
     <insert id="insert" parameterType="com.youotech.securitysystem.bo.SMPlatform">
-    insert into SE_INSTALLED (SI_ID, SI_SNAME, SI_DATE)
-    values (#{siId,jdbcType=INTEGER},#{siSname,jdbcType=VARCHAR}, #{siDate,jdbcType=TIMESTAMP})
-  </insert>
+        insert into usb_phonenumber (PN_ID, PN_NUMBER, PN_DATE)
+        values (#{pn_Id,jdbcType=INTEGER},#{pn_Number,jdbcType=VARCHAR}, #{pn_Date,jdbcType=TIMESTAMP})
+    </insert>
+    
     <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
-        insert into SE_INSTALLED
+        insert into usb_phonenumber
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="siId != null">
-                SI_ID,
+            <if test="pn_Id != null">
+                PN_ID,
             </if>
-            <if test="siSname != null">
-                SI_SNAME,
+            <if test="pn_Number != null">
+                PN_NUMBER,
             </if>
-            <if test="siDate != null">
-                SI_DATE,
+            <if test="pn_Date != null">
+                PN_DATE,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="siId != null">
-                #{siId,jdbcType=INTEGER},
+            <if test="pn_Id != null">
+                #{pn_Id,jdbcType=INTEGER},
             </if>
-            <if test="siSname != null">
-                #{siSname,jdbcType=VARCHAR},
+            <if test="pn_Number != null">
+                #{pn_Number,jdbcType=VARCHAR},
             </if>
-            <if test="siDate != null">
-                #{siDate,jdbcType=TIMESTAMP},
+            <if test="pn_Date != null">
+                #{pn_Date,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
+    
     <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
-        update SE_INSTALLED
+        update usb_phonenumber
         <set>
-            <if test="siSname != null">
-                SI_SNAME = #{siSname,jdbcType=VARCHAR},
+            <if test="pn_Number != null">
+                PN_NUMBER = #{pn_Number,jdbcType=VARCHAR},
             </if>
-            <if test="siDate != null">
-                SI_DATE = #{siDate,jdbcType=TIMESTAMP},
+            <if test="pn_Date != null">
+                PN_DATE = #{pn_Date,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where SI_ID = #{siId,jdbcType=INTEGER}
+        where PN_ID = #{pn_Id,jdbcType=INTEGER}
     </update>
+    
     <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SMPlatform">
-    update SE_INSTALLED
-    set SI_SNAME = #{siSname,jdbcType=VARCHAR},
-      SI_DATE = #{siDate,jdbcType=TIMESTAMP}
-    where SI_ID = #{siId,jdbcType=INTEGER}
-  </update>
+        update usb_phonenumber
+        set PN_NUMBER = #{pn_Number,jdbcType=VARCHAR},
+            PN_DATE = #{pn_Date,jdbcType=TIMESTAMP}
+        where PN_ID = #{pn_Id,jdbcType=INTEGER}
+    </update>
+    
     <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_INSTALLED
+        FROM usb_phonenumber
         <trim prefix="where" prefixOverrides="and">
-            <if test="siId != null">
-                and SI_ID = #{siId,jdbcType=INTEGER}
+            <if test="pn_Id != null">
+                and PN_ID = #{pn_Id,jdbcType=INTEGER}
             </if>
-            <if test="siSname != null">
-                and SI_SNAME = #{siSname,jdbcType=VARCHAR}
+            <if test="pn_Number != null">
+                and PN_NUMBER = #{pn_Number,jdbcType=VARCHAR}
             </if>
-            <if test="siDate != null">
-                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            <if test="pn_Date != null">
+                and PN_DATE = #{pn_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
     </select>
@@ -92,45 +94,46 @@
     <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_INSTALLED
+        FROM usb_phonenumber
         <trim prefix="where" prefixOverrides="and">
-            <if test="siId != null">
-                and SI_ID = #{siId,jdbcType=INTEGER}
+            <if test="pn_Id != null">
+                and PN_ID = #{pn_Id,jdbcType=INTEGER}
             </if>
-            <if test="siSname != null">
-                and SI_SNAME = #{siSname,jdbcType=VARCHAR}
+            <if test="pn_Number != null">
+                and PN_NUMBER = #{pn_Number,jdbcType=VARCHAR}
             </if>
-            <if test="siDate != null">
-                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            <if test="pn_Date != null">
+                and PN_DATE = #{pn_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
         limit ${start},${end}
     </select>
+    
     <!--<select id="insteadDeviceID" parameterType="com.youotech.securitysystem.bo.SMPlatform" resultMap="insteadMap">
-        SELECT SD_ID,#{siType,jdbcType=VARCHAR} AS 'SoftwareType',#{siSname,jdbcType=VARCHAR} AS 'SoftwareName',#{siDate,jdbcType=VARCHAR} AS 'FindTime' FROM SE_DEVICE WHERE SD_MAC = #{sdMac,jdbcType=VARCHAR} LIMIT 1
+        SELECT SD_ID,#{siType,jdbcType=VARCHAR} AS 'SoftwareType',#{pn_Number,jdbcType=VARCHAR} AS 'SoftwareName',#{pn_Date,jdbcType=VARCHAR} AS 'FindTime' FROM SE_DEVICE WHERE SD_MAC = #{sdMac,jdbcType=VARCHAR} LIMIT 1
     </select>-->
 
-    <select id="findByParamPagePlus" resultMap="BaseMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <select id="findByParamPagePlus" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_INSTALLED t, SE_DEVICE t1
+        FROM usb_phonenumber t, SE_DEVICE t1
         <trim prefix="where" prefixOverrides="and">
             t.SD_ID=t1.SD_ID
-            <if test="siId != null">
-                and SI_ID = #{siId,jdbcType=INTEGER}
+            <if test="pn_Id != null">
+                and PN_ID = #{pn_Id,jdbcType=INTEGER}
             </if>
-            <if test="siSname != null">
-                and SI_SNAME = #{siSname,jdbcType=VARCHAR}
+            <if test="pn_Number != null">
+                and PN_NUMBER = #{pn_Number,jdbcType=VARCHAR}
             </if>
-            <if test="siDate != null">
-                and SI_DATE = #{siDate,jdbcType=TIMESTAMP}
+            <if test="pn_Date != null">
+                and PN_DATE = #{pn_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
         limit ${start},${end}
     </select>
 
     <delete id="deleteByIds" parameterType="java.lang.Integer">
-        DELETE FROM se_installed WHERE se_installed.SI_ID IN
+        DELETE FROM usb_phonenumber WHERE usb_phonenumber.PN_ID IN
         <foreach collection="list" item="siIds" open="(" separator="," close=")">
             #{siIds}
         </foreach>
@@ -138,10 +141,11 @@
 
     <!--根据设备ID查询记录-->
     <!--<select id="selectBySdId" resultType="java.lang.String">
-        SELECT SI_SNAME FROM SE_INSTALLED WHERE SD_ID=#{arg0}
+        SELECT PN_NUMBER FROM usb_phonenumber WHERE SD_ID=#{arg0}
     </select>-->
     <!--删除SE_INSTALLED中的所有数据-->
     <delete id="deleteInstalled">
-        DELETE FROM SE_INSTALLED;
+        DELETE FROM usb_phonenumber;
     </delete>
+    
 </mapper>

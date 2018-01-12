@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * 台账管理
- * Created by chenzc on 2017-11-23.
+ * Created by HanJiafeng on 2018-01-12.
  */
 @Service("typeListService")
 public class TypeListServiceImpl implements TypeListService {
@@ -36,14 +36,14 @@ public class TypeListServiceImpl implements TypeListService {
         LOGGER.info("【TypeListServiceImpl.save】入参" + entity);
         int count = 0;
         List<TypeList> typeListList = typeListMapper.findByParam(new TypeList());
-        if (entity.getSdType().equals("")){
+        if (entity.getTl_Type().equals("")){
             LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
             throw new BizException("设备类型不能为空，请重新输入");
         }
         for (TypeList typeList : typeListList)
         {
-            String type = typeList.getSdType();
-            String newType = entity.getSdType();
+            String type = typeList.getTl_Type();
+            String newType = entity.getTl_Type();
             if (newType.equals(type)){
                 LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
                 throw new BizException("设备类型已存在，请重新输入");
@@ -59,7 +59,7 @@ public class TypeListServiceImpl implements TypeListService {
             LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
             throw new BizException("新增设备失败,请联系管理员");
         }
-        return entity.getSdId();
+        return entity.getTl_Id();
     }
 
     @Override
@@ -120,14 +120,15 @@ public class TypeListServiceImpl implements TypeListService {
 
     @Override
     public Pager<TypeList> findByParamPage(TypeList entity, Integer start, Integer limit) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("start", start);
         map.put("end", limit);
-        map.put("sdType", entity.getSdType());
+        map.put("tl_Type", entity.getTl_Type());
+        map.put("tl_Path", entity.getTl_Path());
+        map.put("tl_Allow", entity.getTl_Allow());
         List<TypeList> typeListList = typeListMapper.findEntityByParamFuzzy(entity);
         List<TypeList> typeListList1 = typeListMapper.findByParamPage(map);
-        Pager<TypeList> seUserPager = new Pager<TypeList>(start, limit, typeListList1, typeListList.size());
-        return seUserPager;
+        return new Pager<>(start, limit, typeListList1, typeListList.size());
     }
 
     @Override

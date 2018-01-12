@@ -33,33 +33,6 @@
     <script src="<%=basePath%>resources/js/IllegalDevice.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/js/i18n/defaults-zh_CN.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <script type="text/javascript">
-
-        $(function () {
-            $("#illegalDevice_add").on("hidden.bs.modal", function () {
-                $('#sdType_add').selectpicker("val", "终端设备");
-                $('#sdOs_add').selectpicker("val", "WINDOWS SERVER 2008");
-                $('#sdOsType_add').selectpicker("val", "32-BIT");
-                $('#srType_add').selectpicker("val", "0");
-                $('#srRules_add1').selectpicker("val", "1");
-                $('#srRules_add2').selectpicker("val", "2");
-                $("#No1").show();
-                $("#No2").show();
-                $("#No3").show();
-                $("#No4").hide();
-                $("#srRname_add").val("");
-                document.getElementById("counter").innerHTML = 120 - document.getElementById("srRname_add").value.length;
-            });
-            $("#illegalDevice_update").on("show.bs.modal", function () {
-                document.getElementById("counter1").innerHTML = 120 - document.getElementById("srRname_update").value.length;
-            });
-
-
-        });
-        function countChar(textareaName, spanName) {
-            document.getElementById(spanName).innerHTML = 120 - document.getElementById(textareaName).value.length;
-        }
-    </script>
 </head>
 <body>
 
@@ -69,7 +42,7 @@
     </div>
     <div class="panel-body" id="toolbar">
         <form role="formSearch" class="form-inline">
-            <div class="form-group" style="width:400px">
+            <%--<div class="form-group" style="width:400px">
                 <label class="col-sm-3 control-label" for="sdType">USB设备类型：</label>
                 <div class="col-sm-8">
                     <select id="sdType" name="sdType" class="selectpicker show-tick form-control">
@@ -79,11 +52,11 @@
                         <option value="大容量存储设备">大容量存储设备</option>
                     </select>
                 </div>
-            </div>
+            </div>--%>
             <div class="form-group" style="width:280px; margin-left: 30px">
-                <label class="col-sm-3 control-label" for="srType">终端IP：</label>
+                <label class="col-sm-3 control-label" for="id_Ip">终端IP：</label>
                 <div class="col-sm-8">
-                    <input class="form-control" id="srType" type="text"/>
+                    <input class="form-control" id="id_Ip" type="text"/>
                 </div>
             </div>
             <button id="btn-search" type="button" class="btn btn-primary" style="margin-left: 20px;">
