@@ -2,7 +2,7 @@ package com.youotech.securitysystem.bo;
 
 import java.util.Date;
 
-public class SeInstalled {
+public class SMPlatform {
     private Integer siId;
 
     private String siSname;

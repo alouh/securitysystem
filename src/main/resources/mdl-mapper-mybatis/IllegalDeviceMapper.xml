@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.SeRulesMapper">
-    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeRules">
+<mapper namespace="com.youotech.securitysystem.dao.IllegalDeviceMapper">
+    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.IllegalDevice">
         <id column="SR_ID" property="srId" jdbcType="INTEGER"/>
         <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR"/>
         <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
         <result column="SR_DATE" property="srDate" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="scanPortMap" type="com.youotech.securitysystem.bo.SeRules">
+    <resultMap id="scanPortMap" type="com.youotech.securitysystem.bo.IllegalDevice">
         <result column="SR_TYPE" property="srType" jdbcType="VARCHAR"/>
         <result column="SR_TYPE" property="srType" jdbcType="INTEGER"/>
         <result column="SR_RNAME" property="srRname" jdbcType="VARCHAR"/>
@@ -26,11 +26,11 @@
     delete from SE_RULES
     where SR_ID = #{srId,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeRules">
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
     insert into SE_RULES (SR_ID, SD_TYPE, SR_TYPE, SR_DATE)
     values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{srType,jdbcType=VARCHAR},#{srDate,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeRules">
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         insert into SE_RULES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="srId != null">
@@ -61,7 +61,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeRules">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         update SE_RULES
         <set>
             <if test="sdType != null">
@@ -76,14 +76,14 @@
         </set>
         where SR_ID = #{srId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeRules">
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
     update SE_RULES
     set SD_TYPE = #{sdType,jdbcType=VARCHAR},
       SR_TYPE = #{srType,jdbcType=VARCHAR},
       SR_DATE = #{srDate,jdbcType=TIMESTAMP}
     where SR_ID = #{srId,jdbcType=INTEGER}
   </update>
-    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeRules" resultMap="BaseResultMap">
+    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.IllegalDevice" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_RULES
@@ -103,7 +103,7 @@
         </trim>
         ORDER BY SR_DATE DESC
     </select>
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeRules">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_RULES

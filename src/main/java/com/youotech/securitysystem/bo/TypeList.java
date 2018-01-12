@@ -2,7 +2,7 @@ package com.youotech.securitysystem.bo;
 
 import java.util.Date;
 
-public class SeDevice {
+public class TypeList {
     private Integer sdId;
 
     private String sdType;

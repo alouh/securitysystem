@@ -30,7 +30,7 @@
     <script src="<%=basePath%>resources/plug/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>resources/plug/jeryCzc.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
-    <script src="<%=basePath%>resources/js/seInstalled.js"></script>
+    <script src="<%=basePath%>resources/js/SMPlatform.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/js/i18n/defaults-zh_CN.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 </head>
@@ -54,12 +54,12 @@
             </button>
 
             <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#delcfmModelsSeUser" onclick="delSeDevice()">
+                    data-target="#delcfmModelsSeUser" onclick="delTypeList()">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true">移除</span>
             </button>
         </form>
     </div>
-    <table id="tb_seInstalled" class="table table-striped"></table>
+    <table id="tb_sMPlatform" class="table table-striped"></table>
 </div>
 
 <%@ include file="jeryCzc.jsp" %>

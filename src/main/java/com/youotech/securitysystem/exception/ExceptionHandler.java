@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 2017/11/18
  * @time 09:48
  * @desc 统一异常处理
- * @see
+ * @see 1
  */
 public class ExceptionHandler implements HandlerExceptionResolver {
 
@@ -35,7 +35,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
      */
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
-        LOGGER.error(new Date().toLocaleString() + "异常信息：" + ex);
+        LOGGER.error("异常信息：" + ex);
 
         MappingJackson2JsonView view = new MappingJackson2JsonView();
         ObjectMapper objectMapper = new ObjectMapper();

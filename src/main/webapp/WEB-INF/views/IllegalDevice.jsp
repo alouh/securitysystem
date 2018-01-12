@@ -30,13 +30,13 @@
     <script src="<%=basePath%>resources/plug/jeryCzc.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
-    <script src="<%=basePath%>resources/js/seRules.js"></script>
+    <script src="<%=basePath%>resources/js/IllegalDevice.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/js/i18n/defaults-zh_CN.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script type="text/javascript">
 
         $(function () {
-            $("#seRules_add").on("hidden.bs.modal", function () {
+            $("#illegalDevice_add").on("hidden.bs.modal", function () {
                 $('#sdType_add').selectpicker("val", "终端设备");
                 $('#sdOs_add').selectpicker("val", "WINDOWS SERVER 2008");
                 $('#sdOsType_add').selectpicker("val", "32-BIT");
@@ -50,7 +50,7 @@
                 $("#srRname_add").val("");
                 document.getElementById("counter").innerHTML = 120 - document.getElementById("srRname_add").value.length;
             });
-            $("#seRules_update").on("show.bs.modal", function () {
+            $("#illegalDevice_update").on("show.bs.modal", function () {
                 document.getElementById("counter1").innerHTML = 120 - document.getElementById("srRname_update").value.length;
             });
 
@@ -83,13 +83,6 @@
             <div class="form-group" style="width:280px; margin-left: 30px">
                 <label class="col-sm-3 control-label" for="srType">终端IP：</label>
                 <div class="col-sm-8">
-                    <%--<select id="srType" name="srType" class="selectpicker show-tick form-control">
-                        <option value="10" selected="selected">全部</option>
-                        <option value="0">TCP端口</option>
-                        <option value="1">UDP端口</option>
-                        <option value="2">软件</option>
-                        <option value="3">漏洞/补丁</option>
-                    </select>--%>
                     <input class="form-control" id="srType" type="text"/>
                 </div>
             </div>
@@ -98,7 +91,7 @@
             </button>
         </form>
     </div>
-    <table id="tb_seRules" class="table table-striped"></table>
+    <table id="tb_illegalDevice" class="table table-striped"></table>
 </div>
 
 <%@ include file="jeryCzc.jsp" %>

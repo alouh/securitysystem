@@ -1,10 +1,10 @@
 package com.youotech.securitysystem.service.impl;
 
-import com.youotech.securitysystem.bo.SeDevice;
-import com.youotech.securitysystem.bo.SeRules;
-import com.youotech.securitysystem.dao.SeRulesMapper;
+import com.youotech.securitysystem.bo.TypeList;
+import com.youotech.securitysystem.bo.IllegalDevice;
+import com.youotech.securitysystem.dao.IllegalDeviceMapper;
 import com.youotech.securitysystem.exception.BizException;
-import com.youotech.securitysystem.service.SeRulesService;
+import com.youotech.securitysystem.service.IllegalDeviceService;
 import com.youotech.securitysystem.utils.Pager;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -23,33 +23,33 @@ import java.util.Map;
  * 安全审计规则
  * Created by chenzc on 2017-11-23.
  */
-@Service("seRulesService")
-public class SeRulesServiceImpl implements SeRulesService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SeRulesServiceImpl.class);
+@Service("illegalDeviceService")
+public class IllegalDeviceServiceImpl implements IllegalDeviceService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IllegalDeviceServiceImpl.class);
 
     @Autowired
-    private SeRulesMapper seRulesMapper;
+    private IllegalDeviceMapper illegalDeviceMapper;
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
-    public Integer save(SeRules entity) {
-        LOGGER.info("【SeRulesServiceImpl.save】入参" + entity);
+    public Integer save(IllegalDevice entity) {
+        LOGGER.info("【IllegalDeviceServiceImpl.save】入参" + entity);
         int count = 0;
         try {
-            count = seRulesMapper.insertSelective(entity);
+            count = illegalDeviceMapper.insertSelective(entity);
         } catch (Exception e) {
-            LOGGER.error("【SeRulesServiceImpl.save】新增安全审计规则失败");
+            LOGGER.error("【IllegalDeviceServiceImpl.save】新增安全审计规则失败");
             throw new BizException("新增安全审计规则失败！请联系管理员");
         }
         if (count != 1) {
-            LOGGER.error("【SeRulesServiceImpl.save】新增安全审计规则失败");
+            LOGGER.error("【IllegalDeviceServiceImpl.save】新增安全审计规则失败");
             throw new BizException("新增安全审计规则失败,请联系管理员");
         }
         return entity.getSrId();
     }
 
     @Override
-    public List<SeRules> selectByPrimaryKey(Integer id) {
+    public List<IllegalDevice> selectByPrimaryKey(Integer id) {
         return null;
     }
 
@@ -62,13 +62,13 @@ public class SeRulesServiceImpl implements SeRulesService {
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean deleteByIds(List<Integer> ids) {
-        LOGGER.info("【SeRulesServiceImpl.deleteByIds】【批量删除审计规则入参】" + ids);
+        LOGGER.info("【IllegalDeviceServiceImpl.deleteByIds】【批量删除审计规则入参】" + ids);
         if (ids.size() == 0) {
-            LOGGER.error("【SeRulesServiceImpl.deleteByIds】【传入ID不能为空！】");
+            LOGGER.error("【IllegalDeviceServiceImpl.deleteByIds】【传入ID不能为空！】");
             return false;
         }
         try {
-            seRulesMapper.deleteByIds(ids);
+            illegalDeviceMapper.deleteByIds(ids);
         } catch (Exception e) {
             LOGGER.error("SeUserServiceImpl.deleteByIds--批量删除审计规则失败，请联系管理员。" + e.getCause());
             throw new BizException("批量删除审计规则删除失败，请联系管理员。");
@@ -78,11 +78,11 @@ public class SeRulesServiceImpl implements SeRulesService {
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
-    public Boolean update(SeRules entity) {
-        LOGGER.info("【SeRulesServiceImpl.update】【修改审计规则入参】" + entity);
+    public Boolean update(IllegalDevice entity) {
+        LOGGER.info("【IllegalDeviceServiceImpl.update】【修改审计规则入参】" + entity);
         Integer count = 0;
         try {
-            count = seRulesMapper.updateByPrimaryKey(entity);
+            count = illegalDeviceMapper.updateByPrimaryKey(entity);
         } catch (Exception e) {
             throw new BizException("审计规则更新失败，请联系管理员");
         }
@@ -93,30 +93,30 @@ public class SeRulesServiceImpl implements SeRulesService {
     }
 
     @Override
-    public List<SeRules> findEntityByParam(SeRules entity) {
-        LOGGER.info("【SeRulesServiceImpl.findEntityByParam条件查询动态信息】入参" + entity);
-        List<SeRules> seRulesList = seRulesMapper.findByParam(entity);
-        if (CollectionUtils.isEmpty(seRulesList)) {
-            LOGGER.info("【SeRulesServiceImpl.findEntityByParam安全审计规则信息为空！】");
+    public List<IllegalDevice> findEntityByParam(IllegalDevice entity) {
+        LOGGER.info("【IllegalDeviceServiceImpl.findEntityByParam条件查询动态信息】入参" + entity);
+        List<IllegalDevice> illegalDeviceList = illegalDeviceMapper.findByParam(entity);
+        if (CollectionUtils.isEmpty(illegalDeviceList)) {
+            LOGGER.info("【IllegalDeviceServiceImpl.findEntityByParam安全审计规则信息为空！】");
             return new ArrayList<>();
         }
-        return seRulesList;
+        return illegalDeviceList;
     }
 
     @Override
-    public List<SeDevice> findEntityByParamFuzzy(SeDevice entity) {
+    public List<TypeList> findEntityByParamFuzzy(TypeList entity) {
         return null;
     }
 
     @Override
-    public Pager<SeRules> findByParamPage(SeRules entity, Integer start, Integer limit) {
+    public Pager<IllegalDevice> findByParamPage(IllegalDevice entity, Integer start, Integer limit) {
         Map<String, Object> map = new HashMap<>();
         map.put("start", start);
         map.put("end", limit);
         map.put("srType", entity.getSrType());
         map.put("sdType", entity.getSdType());
-        List<SeRules> seRulesList1=seRulesMapper.findByParam(entity);
-        List<SeRules> seRulesList = seRulesMapper.findByParamPage(map);
-        return new Pager<>(start, limit, seRulesList, seRulesList1.size());
+        List<IllegalDevice> illegalDeviceList1=illegalDeviceMapper.findByParam(entity);
+        List<IllegalDevice> illegalDeviceList = illegalDeviceMapper.findByParamPage(map);
+        return new Pager<>(start, limit, illegalDeviceList, illegalDeviceList1.size());
     }
 }

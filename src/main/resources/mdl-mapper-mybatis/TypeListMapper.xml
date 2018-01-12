@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.SeDeviceMapper" >
-  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeDevice" >
+<mapper namespace="com.youotech.securitysystem.dao.TypeListMapper" >
+  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.TypeList" >
     <id column="SD_ID" property="sdId" jdbcType="INTEGER" />
     <result column="SD_NAME" property="sdName" jdbcType="VARCHAR" />
     <result column="SD_TYPE" property="sdType" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     delete from SE_DEVICE
     where SD_ID = #{sdId,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.TypeList">
     insert into SE_DEVICE (SD_ID, SD_NAME, SD_TYPE, 
       SD_OS, SD_OSTYPE, SD_IP, 
       SD_MAC, SD_USER, SD_SOURCE, 
@@ -38,7 +38,7 @@
       #{sdMac,jdbcType=VARCHAR}, #{sdUser,jdbcType=VARCHAR}, #{sdSource,jdbcType=VARCHAR}, 
       #{sdDate,jdbcType=TIMESTAMP}, #{sdDept,jdbcType=VARCHAR},#{sdRemarks,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.TypeList">
         insert into SE_DEVICE
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="sdId != null">
@@ -63,7 +63,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.TypeList">
         update SE_DEVICE
         <set>
             <if test="sdType != null">
@@ -76,7 +76,7 @@
         </set>
         where SD_ID = #{sdId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.TypeList">
     update SE_DEVICE
     set SD_TYPE = #{sdType,jdbcType=VARCHAR},
       SD_DATE = #{sdDate,jdbcType=TIMESTAMP}
@@ -91,7 +91,7 @@
         </foreach>
     </insert>
 
-    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeDevice" resultMap="BaseResultMap">
+    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.TypeList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_DEVICE
@@ -105,7 +105,7 @@
         </trim>
         ORDER BY SD_ID
     </select>
-    <select id="findEntityByParamFuzzy" parameterType="com.youotech.securitysystem.bo.SeDevice"
+    <select id="findEntityByParamFuzzy" parameterType="com.youotech.securitysystem.bo.TypeList"
             resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -124,7 +124,7 @@
         ORDER BY SD_ID
     </select>
 
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeDevice">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.TypeList">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_DEVICE

@@ -1,25 +1,21 @@
 $(function () {
-    findSeInstalled();
+    findTypeList();
 });
 
 /**
- * @return {string}
+ * 台账管理
  */
-var GetQueryString = function (key) {
-    var search = decodeURIComponent(location.search);
-    var reg = new RegExp(".*" + key + "\\=" + "([^&]*)(&?.*|)", "g");
-    return search.replace(reg, "$1");
-};
-/**
- * 软件、漏洞/补丁安装明细
- */
-function findSeInstalled() {
-    var siId = GetQueryString("id");
-    var siSname = $("#siSname_add").val().trim();
+function findTypeList() {
+    var sdIp = $("#sdIp").val().trim();
+    var sdType = $("#sdType").val();
+    var sdUser = $("#sdUser").val().trim();
+    if (sdType === 0) {
+        sdType = null;
+    }
     var heightTable = document.documentElement.clientHeight - 45;
-    $('#tb_seInstalled').bootstrapTable('destroy');
-    $("#tb_seInstalled").bootstrapTable({
-        url: './seInstalled/showInstalled',
+    $('#tb_typeList').bootstrapTable('destroy');
+    $("#tb_typeList").bootstrapTable({
+        url: './typeList/showTypeList',
         dataType: 'json',
         method: 'post',
         contentType: "application/x-www-form-urlencoded", // POST请求需要 编码
@@ -33,8 +29,10 @@ function findSeInstalled() {
             return {
                 pageindex: this.pageNumber,
                 pageSize: params.limit,
-                siSname: encodeURI(siSname),
-                siId: encodeURI(siId)
+                sdIp: encodeURI(sdIp),
+                sdType: encodeURI(sdType),
+                sdType1: sdType,
+                sdUser: encodeURI(sdUser)
             }
         },
         silent: true,
@@ -44,15 +42,15 @@ function findSeInstalled() {
         pageList: [20, 50, 200],
         strictSearch: true,
         clickToSelect: true,
-        uniqueId: 'siId',
+        uniqueId: 'userId',
         cardView: false,
         detailView: false,
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
-            {field: 'siId', title: '明细id', visible: false, valign: 'middle'},
-            {field: 'siSname', title: '通知号码1', align: 'center',width: '120px'},
+            {field: 'sdId', title: '序号', visible: false, valign: 'middle'},
+            {field: 'sdType', title: '设备类型', align: 'center',width:'120px'},
             {
-                field: 'siDate', title: '维护日期', align: 'center', width: '120px',
+                field: 'sdDate', title: '维护日期', align: 'center',width:'120px',
                 formatter: function (value) {
                     return get_Date(value);
                 }
@@ -62,25 +60,24 @@ function findSeInstalled() {
 
 }
 
-
 /**
  * 新增设备
  */
-function addDevice() {
-    var siSname = $("#siSname_add").val();
+function addType() {
+    var sdType = $("#sdType_add").val();
 
     $.ajax({
-        url: './seInstalled/addDevice',
+        url: './typeList/addDevice',
         type: 'post',
         data: {
-            'siSname': siSname
+            'sdType': sdType
         },
         dataType: 'json',
         success: function (result) {
             if (result.success) {
-                $("#seDevice_add").modal("hide");
+                $("#typeList_add").modal("hide");
                 pop("消息提示","新增成功","2000");
-                findSeInstalled();
+                findTypeList();
             } else {
                 $("#messageText").text(result.msg);
                 $("#message").modal("show");
@@ -90,11 +87,12 @@ function addDevice() {
     });
 
 }
+
 /**
  * 批量刪除
  */
-function delSeDevice() {
-    var rows = $("#tb_seInstalled").bootstrapTable('getSelections');
+function delType() {
+    var rows = $("#tb_typeList").bootstrapTable('getSelections');
     if (rows.length < 1) {
         $("#messageText").text("请选择一条数据进行删除！");
         $("#message").modal("show");
@@ -103,21 +101,21 @@ function delSeDevice() {
     $("#delcfmModels").modal("show");
 }
 function dels() {
-    var rows = $("#tb_seInstalled").bootstrapTable('getSelections');
+    var rows = $("#tb_typeList").bootstrapTable('getSelections');
     var ids = "";
     for (var i = 0; i < rows.length; i++) {
-        ids += "," + rows[i].siId;
+        ids += "," + rows[i].sdId;
     }
     $.ajax({
-        url: './seInstalled/delDeviceByIds',
+        url: './typeList/delDeviceByIds',
         type: 'post',
-        data: {'siIds': ids.substring(1)},
+        data: {'sdIds': ids.substring(1)},
         dataType: 'json',
         success: function (result) {
             if (result.success) {
                 $("#delcfmModels").modal("hide");
                 pop("消息提示","删除成功","2000");
-                findSeInstalled();
+                findTypeList();
             } else {
                 $("#messageText").text(result.msg);
                 pop("消息提示","删除失败","2000");
@@ -127,6 +125,14 @@ function dels() {
         }
     })
 }
+/**
+ * 显示安装详情
+ * @param sdid
+ */
+function detailview(sdid) {
+    window.location.href = "sMPlatform?id=" + sdid;
+}
+
 
 /**
  * date转换成String
@@ -156,16 +162,26 @@ function get_Date(time) {
         } else {
             str += ("-" + day);
         }
-        /*     if (hour < 10) {
-         str += ("&nbsp;0" + hour);
-         } else {
-         str += ("&nbsp;" + hour);
-         }
-         if (minutes < 10) {
-         str += ("&nbsp;:0" + minutes);
-         } else {
-         str += ("&nbsp;:" + minutes);
-         }*/
+      /*  if (hour < 10) {
+            str += ("&nbsp;0" + hour);
+        } else {
+            str += ("&nbsp;" + hour);
+        }
+        if (minutes < 10) {
+            str += ("&nbsp;:0" + minutes);
+        } else {
+            str += ("&nbsp;:" + minutes);
+        }*/
         return str;
     }
+}
+
+/**
+ * 判断是否为ip地址
+ * @param ip
+ * @returns {boolean}
+ */
+function isValidIP(ip) {
+    var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+    return reg.test(ip);
 }

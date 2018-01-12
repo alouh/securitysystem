@@ -52,9 +52,9 @@ function findRules() {
         srType = null;
     }
     var heightTable = document.documentElement.clientHeight - 45;
-    $('#tb_seRules').bootstrapTable('destroy');
-    $("#tb_seRules").bootstrapTable({
-        url: './seRules/showRules',
+    $('#tb_illegalDevice').bootstrapTable('destroy');
+    $("#tb_illegalDevice").bootstrapTable({
+        url: './illegalDevice/showRules',
         dataType: 'json',
         method: 'post',
         contentType: "application/x-www-form-urlencoded", // POST请求需要 编码
@@ -66,7 +66,7 @@ function findRules() {
         sortOrder: 'desc',
         queryParams: function (params) {
             return {
-                pageindex: this.pageNumber,
+                pageIndex: this.pageNumber,
                 pageSize: params.limit,
                 sdType: encodeURI(sdType),
                 sdType1: sdType,

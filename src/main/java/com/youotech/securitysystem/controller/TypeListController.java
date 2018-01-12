@@ -1,10 +1,9 @@
 package com.youotech.securitysystem.controller;
 
-import com.youotech.securitysystem.bo.SeDevice;
+import com.youotech.securitysystem.bo.TypeList;
 import com.youotech.securitysystem.exception.BizException;
-import com.youotech.securitysystem.service.SeDeviceService;
+import com.youotech.securitysystem.service.TypeListService;
 import com.youotech.securitysystem.utils.Pager;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +19,10 @@ import java.util.*;
  * Created by chenzc on 2017-11-23.
  */
 @Controller
-@RequestMapping("seDevice")
-public class SeDeviceController {
+@RequestMapping("typeList")
+public class TypeListController {
     @Autowired
-    private SeDeviceService seDeviceService;
+    private TypeListService typeListService;
 
     /**
      * 展示台账管理列表
@@ -32,18 +31,15 @@ public class SeDeviceController {
      * @return
      * @throws BizException
      */
-    @RequestMapping("showSeDevice")
+    @RequestMapping("showTypeList")
     @ResponseBody
-    public Pager<SeDevice> showSeDevice(HttpServletRequest request) throws BizException,IOException {
+    public Pager<TypeList> showTypeList(HttpServletRequest request) throws BizException,IOException {
         Integer pageindex = Integer.valueOf(request.getParameter("pageindex"));
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
-        String sdIp = URLDecoder.decode(request.getParameter("sdIp"));
-        String sdType = URLDecoder.decode(request.getParameter("sdType"));
-        SeDevice seDevice = new SeDevice();
+        TypeList typeList = new TypeList();
         int start = (pageindex - 1) * pageSize;
         int end = pageSize;
-        Pager<SeDevice> seUserPager = seDeviceService.findByParamPage(seDevice, start, end);
-        return seUserPager;
+        return typeListService.findByParamPage(typeList, start, end);
     }
 
     /**
@@ -56,11 +52,11 @@ public class SeDeviceController {
     @RequestMapping("addDevice")
     @ResponseBody
     public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
-        SeDevice seDevice = new SeDevice();
+        TypeList typeList = new TypeList();
         String sdType = request.getParameter("sdType");
-        seDevice.setSdType(sdType);
-        seDevice.setSdDate(new Date());
-        seDeviceService.save(seDevice);
+        typeList.setSdType(sdType);
+        typeList.setSdDate(new Date());
+        typeListService.save(typeList);
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
@@ -75,7 +71,7 @@ public class SeDeviceController {
     @RequestMapping("delDeviceByIds")
     @ResponseBody
     public Map<String, Object> delDeviceByIds(HttpServletRequest request) throws BizException {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         String sdId = request.getParameter("sdIds");
         String[] sdIds = sdId.split(",");
         Integer[] intTemp = new Integer[sdIds.length];
@@ -83,7 +79,7 @@ public class SeDeviceController {
             intTemp[i] = Integer.parseInt(sdIds[i]);
         }
         List<Integer> ids = Arrays.asList(intTemp);
-        seDeviceService.deleteByIds(ids);
+        typeListService.deleteByIds(ids);
         map.put("success", true);
         return map;
     }

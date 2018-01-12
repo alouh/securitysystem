@@ -1,7 +1,4 @@
-<%@ page import="com.youotech.securitysystem.service.SeDeviceService" %>
-<%@ page import="com.youotech.securitysystem.service.impl.SeDeviceServiceImpl" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.youotech.securitysystem.bo.SeDevice" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017-11-23
@@ -33,7 +30,7 @@
     <script src="<%=basePath%>resources/plug/bootstrap-table/bootstrap-table.js"></script>
     <script src="<%=basePath%>resources/plug/jeryCzc.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
-    <script src="<%=basePath%>resources/js/seDevice.js"></script>
+    <script src="<%=basePath%>resources/js/TypeList.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-select-1.12.4/js/i18n/defaults-zh_CN.js"></script>
     <script src="<%=basePath%>resources/plug/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 </head>
@@ -54,8 +51,7 @@
                 <div class="col-sm-8">
                     <select id="sdType_add" name="sdType_add" class="selectpicker show-tick form-control">
                         <option value="便携设备" selected="selected">便携设备</option>
-                        <option value="无线WiFi">无线WiFi</option>
-                        <option value="大容量存储">大容量存储</option>
+                        <option value="大容量存储设备">大容量存储设备</option>
                     </select>
                 </div>
             </div>
@@ -65,17 +61,17 @@
                 </div>
             </div>
 
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addDevice()">
+            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addType()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
             </button>
 
             <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#delcfmModelsSeUser" onclick="delSeDevice()">
+                    data-target="#delcfmModelsSeUser" onclick="delType()">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true">移除</span>
             </button>
         </form>
     </div>
-    <table id="tb_seDevice" style="table-layout: auto" class="table table-condensed table-bordered table-hover table-striped"></table>
+    <table id="tb_typeList" style="table-layout: auto" class="table table-condensed table-bordered table-hover table-striped"></table>
 </div>
 
 <%@ include file="jeryCzc.jsp" %>

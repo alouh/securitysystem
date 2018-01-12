@@ -1,6 +1,6 @@
 package com.youotech.securitysystem.service.impl;
 
-import com.youotech.securitysystem.bo.SeDevice;
+import com.youotech.securitysystem.bo.TypeList;
 import com.youotech.securitysystem.bo.SeUser;
 import com.youotech.securitysystem.dao.SeUserMapper;
 import com.youotech.securitysystem.exception.BizException;
@@ -115,7 +115,7 @@ public class SeUserServiceImpl implements SeUserService {
     }
 
     @Override
-    public List<SeDevice> findEntityByParamFuzzy(SeDevice entity) {
+    public List<TypeList> findEntityByParamFuzzy(TypeList entity) {
         return null;
     }
 

@@ -56,9 +56,9 @@
     <mvc:view-controller path="/top" view-name="top"/>
     <mvc:view-controller path="/left" view-name="left"/>
     <mvc:view-controller path="/updatePwd" view-name="updatePwd"/>
-    <mvc:view-controller path="/seDevice" view-name="seDevice"/>
-    <mvc:view-controller path="/seInstalled" view-name="seInstalled"/>
-    <mvc:view-controller path="/seRules" view-name="seRules"/>
+    <mvc:view-controller path="/typeList" view-name="TypeList"/>
+    <mvc:view-controller path="/sMPlatform" view-name="SMPlatform"/>
+    <mvc:view-controller path="/illegalDevice" view-name="IllegalDevice"/>
 
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>

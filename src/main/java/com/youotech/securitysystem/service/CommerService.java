@@ -1,6 +1,6 @@
 package com.youotech.securitysystem.service;
 
-import com.youotech.securitysystem.bo.SeDevice;
+import com.youotech.securitysystem.bo.TypeList;
 import com.youotech.securitysystem.utils.Pager;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public interface CommerService<T> {
      * @param entity
      * @return
      */
-    List<SeDevice> findEntityByParamFuzzy(SeDevice entity);
+    List<TypeList> findEntityByParamFuzzy(TypeList entity);
 
     /**
      * 分页、模糊、排序查询实体

@@ -1,9 +1,9 @@
 package com.youotech.securitysystem.controller;
 
-import com.youotech.securitysystem.bo.SeInstalled;
+import com.youotech.securitysystem.bo.SMPlatform;
 import com.youotech.securitysystem.exception.BizException;
-import com.youotech.securitysystem.service.SeDeviceService;
-import com.youotech.securitysystem.service.SeInstalledService;
+import com.youotech.securitysystem.service.TypeListService;
+import com.youotech.securitysystem.service.SMPlatformService;
 import com.youotech.securitysystem.utils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +19,13 @@ import java.util.*;
  * Created by chenzc on 2017-11-27.
  */
 @Controller
-@RequestMapping("seInstalled")
-public class SeInstalledController {
+@RequestMapping("sMPlatform")
+public class SMPlatformController {
     @Autowired
-    private SeInstalledService seInstalledService;
+    private SMPlatformService sMPlatformService;
 
     @Autowired
-    private SeDeviceService seDeviceService;
+    private TypeListService typeListService;
 
     /**
      * 展示软件/补丁/漏洞安装明细
@@ -36,18 +36,18 @@ public class SeInstalledController {
      */
     @RequestMapping("showInstalled")
     @ResponseBody
-    public Pager<SeInstalled> showInstalled(HttpServletRequest request) throws BizException,IOException {
+    public Pager<SMPlatform> showInstalled(HttpServletRequest request) throws BizException,IOException {
         Integer pageindex = Integer.valueOf(request.getParameter("pageindex"));
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
         int start = (pageindex - 1) * pageSize;
         int end = pageSize;
         /*String siSname = URLDecoder.decode(request.getParameter("siSname"), "UTF-8");*/
-        SeInstalled seInstalled = new SeInstalled();
+        SMPlatform sMPlatform = new SMPlatform();
         /*if (StringUtils.isNotBlank(siSname)) {
-            seInstalled.setSiSname(siSname);
+            sMPlatform.setSiSname(siSname);
         }*/
 
-        return seInstalledService.findByParamPage(seInstalled, start, end);
+        return sMPlatformService.findByParamPage(sMPlatform, start, end);
     }
 
     /**
@@ -60,11 +60,11 @@ public class SeInstalledController {
     @RequestMapping("addDevice")
     @ResponseBody
     public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
-        SeInstalled seInstalled = new SeInstalled();
+        SMPlatform sMPlatform = new SMPlatform();
         String siSname = request.getParameter("siSname");
-        seInstalled.setSiSname(siSname);
-        seInstalled.setSiDate(new Date());
-        seInstalledService.save(seInstalled);
+        sMPlatform.setSiSname(siSname);
+        sMPlatform.setSiDate(new Date());
+        sMPlatformService.save(sMPlatform);
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
@@ -87,7 +87,7 @@ public class SeInstalledController {
             intTemp[i] = Integer.parseInt(sdIds[i]);
         }
         List<Integer> ids = Arrays.asList(intTemp);
-        seInstalledService.deleteByIds(ids);
+        sMPlatformService.deleteByIds(ids);
         map.put("success", true);
         return map;
     }

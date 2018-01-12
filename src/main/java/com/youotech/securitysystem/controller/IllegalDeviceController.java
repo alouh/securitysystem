@@ -1,8 +1,8 @@
 package com.youotech.securitysystem.controller;
 
-import com.youotech.securitysystem.bo.SeRules;
+import com.youotech.securitysystem.bo.IllegalDevice;
 import com.youotech.securitysystem.exception.BizException;
-import com.youotech.securitysystem.service.SeRulesService;
+import com.youotech.securitysystem.service.IllegalDeviceService;
 import com.youotech.securitysystem.utils.Pager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,39 +20,36 @@ import java.util.*;
  * Created by chenzc on 2017-11-27.
  */
 @Controller
-@RequestMapping("seRules")
-public class SeRulesController {
+@RequestMapping("illegalDevice")
+public class IllegalDeviceController {
 
     @Autowired
-    private SeRulesService seRulesService;
+    private IllegalDeviceService illegalDeviceService;
 
     /**
      * 展示安全审计规则
      *
-     * @param request
-     * @return
+     * @param request 请求
+     * @return page
      * @throws BizException
      */
     @RequestMapping("showRules")
     @ResponseBody
-    public Pager<SeRules> showRules(HttpServletRequest request) throws BizException,IOException {
-        Integer pageindex = Integer.valueOf(request.getParameter("pageindex"));
+    public Pager<IllegalDevice> showRules(HttpServletRequest request) throws BizException,IOException {
+        Integer pageIndex = Integer.valueOf(request.getParameter("pageIndex"));
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
-        int start = (pageindex - 1) * pageSize;
+        int start = (pageIndex - 1) * pageSize;
         int end = pageSize;
         String srType = request.getParameter("srType");
-        String sdType = URLDecoder.decode(request.getParameter("sdType"));
-        String sdType1 = URLDecoder.decode(request.getParameter("sdType1"));
-        SeRules seRules = new SeRules();
+        String sdType1 = URLDecoder.decode(request.getParameter("sdType1"), "UTF-8");
+        IllegalDevice illegalDevice = new IllegalDevice();
         if (StringUtils.isNotBlank(srType)) {
-            /*seRules.setSrType(Integer.valueOf(srType));*/
-            seRules.setSrType(srType);
+            illegalDevice.setSrType(srType);
         }
         if (StringUtils.isNotBlank(sdType1)) {
-            seRules.setSdType(URLDecoder.decode(request.getParameter("sdType"), "UTF-8"));
+            illegalDevice.setSdType(URLDecoder.decode(request.getParameter("sdType"), "UTF-8"));
         }
-        Pager<SeRules> seRulesPager = seRulesService.findByParamPage(seRules, start, end);
-        return seRulesPager;
+        return illegalDeviceService.findByParamPage(illegalDevice, start, end);
     }
 
     /**
@@ -73,30 +70,30 @@ public class SeRulesController {
         String srRules = request.getParameter("srRules");
         String srRname = request.getParameter("srRname");
 
-        SeRules seRules = new SeRules();
-        seRules.setSdType(sdType);
-        seRules.setSdOstype(sdOsType);
+        IllegalDevice illegalDevice = new IllegalDevice();
+        illegalDevice.setSdType(sdType);
+        illegalDevice.setSdOstype(sdOsType);
 
         if (StringUtils.isNotBlank(srType)) {
-            /*seRules.setSrType(Integer.valueOf(srType));*/
-            seRules.setSrType(srType);
+            /*illegalDevice.setSrType(Integer.valueOf(srType));*/
+            illegalDevice.setSrType(srType);
         }
         if (StringUtils.isNotBlank(srRules)) {
-            seRules.setSrRules(Integer.valueOf(srRules));
+            illegalDevice.setSrRules(Integer.valueOf(srRules));
         }
         if (StringUtils.isNotBlank(sdOs)) {
-            seRules.setSdOs(sdOs);
+            illegalDevice.setSdOs(sdOs);
         } else {
-            seRules.setSdOs("无");
+            illegalDevice.setSdOs("无");
         }
         if (StringUtils.isNotBlank(sdOsType)) {
-            seRules.setSdOstype(sdOsType);
+            illegalDevice.setSdOstype(sdOsType);
         } else {
-            seRules.setSdOstype("无");
+            illegalDevice.setSdOstype("无");
         }
-        seRules.setSrRname(srRname);
-        seRules.setSrDate(new Date());
-        seRulesService.save(seRules);
+        illegalDevice.setSrRname(srRname);
+        illegalDevice.setSrDate(new Date());
+        illegalDeviceService.save(illegalDevice);
         map.put("success", true);
         return map;
     }
@@ -120,23 +117,23 @@ public class SeRulesController {
         String srRules = request.getParameter("srRules");
         String srRname = request.getParameter("srRname");
 
-        SeRules seRules = new SeRules();
-        seRules.setSdType(sdType);
-        seRules.setSdOstype(sdOsType);
-        seRules.setSdOs(sdOs);
+        IllegalDevice illegalDevice = new IllegalDevice();
+        illegalDevice.setSdType(sdType);
+        illegalDevice.setSdOstype(sdOsType);
+        illegalDevice.setSdOs(sdOs);
         if (StringUtils.isNotBlank(srId)) {
-            seRules.setSrId(Integer.valueOf(srId));
+            illegalDevice.setSrId(Integer.valueOf(srId));
         }
         if (StringUtils.isNotBlank(srType)) {
-            /*seRules.setSrType(Integer.valueOf(srType));*/
-            seRules.setSrType(srType);
+            /*illegalDevice.setSrType(Integer.valueOf(srType));*/
+            illegalDevice.setSrType(srType);
         }
         if (StringUtils.isNotBlank(srRules)) {
-            seRules.setSrRules(Integer.valueOf(srRules));
+            illegalDevice.setSrRules(Integer.valueOf(srRules));
         }
-        seRules.setSrRname(srRname);
-        seRules.setSrDate(new Date());
-        seRulesService.update(seRules);
+        illegalDevice.setSrRname(srRname);
+        illegalDevice.setSrDate(new Date());
+        illegalDeviceService.update(illegalDevice);
         map.put("success", true);
         return map;
     }
@@ -159,7 +156,7 @@ public class SeRulesController {
             intTemp[i] = Integer.parseInt(srIds[i]);
         }
         List<Integer> ids = Arrays.asList(intTemp);
-        seRulesService.deleteByIds(ids);
+        illegalDeviceService.deleteByIds(ids);
         map.put("success", true);
         return map;
     }

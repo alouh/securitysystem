@@ -2,7 +2,7 @@ package com.youotech.securitysystem.bo;
 
 import java.util.Date;
 
-public class SeRules {
+public class IllegalDevice {
     private Integer srId;
 
     private String sdType;
@@ -85,6 +85,6 @@ public class SeRules {
 
     @Override
     public String toString() {
-        return "SeRules(srId:" + srId + ",sdType:" + sdType + ",sdOs:" + sdOs + ",sdOstype:" + sdOstype + ",srType:" + srType + ",srRname:" + srRname + ",srRules:" + srRules + ",srDate:" + srDate + ")";
+        return "IllegalDevice(srId:" + srId + ",sdType:" + sdType + ",sdOs:" + sdOs + ",sdOstype:" + sdOstype + ",srType:" + srType + ",srRname:" + srRname + ",srRules:" + srRules + ",srDate:" + srDate + ")";
     }
 }

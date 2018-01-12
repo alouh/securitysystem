@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.SeInstalledMapper" >
-  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeInstalled" >
+<mapper namespace="com.youotech.securitysystem.dao.SMPlatformMapper" >
+  <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SMPlatform" >
     <id column="SI_ID" property="siId" jdbcType="INTEGER" />
     <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR" />
     <result column="SI_DATE" property="siDate" jdbcType="TIMESTAMP" />
   </resultMap>
-    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.SeInstalled">
+    <resultMap id="BaseMap" type="com.youotech.securitysystem.bo.SMPlatform">
         <id column="SI_ID" property="siId" jdbcType="INTEGER"/>
         <result column="SD_ID" property="sdId" jdbcType="INTEGER"/>
         <result column="SI_SNAME" property="siSname" jdbcType="VARCHAR"/>
@@ -25,11 +25,11 @@
     delete from SE_INSTALLED
     where SI_ID = #{siId,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SMPlatform">
     insert into SE_INSTALLED (SI_ID, SI_SNAME, SI_DATE)
     values (#{siId,jdbcType=INTEGER},#{siSname,jdbcType=VARCHAR}, #{siDate,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         insert into SE_INSTALLED
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="siId != null">
@@ -54,7 +54,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         update SE_INSTALLED
         <set>
             <if test="siSname != null">
@@ -66,13 +66,13 @@
         </set>
         where SI_ID = #{siId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SMPlatform">
     update SE_INSTALLED
     set SI_SNAME = #{siSname,jdbcType=VARCHAR},
       SI_DATE = #{siDate,jdbcType=TIMESTAMP}
     where SI_ID = #{siId,jdbcType=INTEGER}
   </update>
-    <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_INSTALLED
@@ -89,7 +89,7 @@
         </trim>
     </select>
 
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_INSTALLED
@@ -106,11 +106,11 @@
         </trim>
         limit ${start},${end}
     </select>
-    <!--<select id="insteadDeviceID" parameterType="com.youotech.securitysystem.bo.SeInstalled" resultMap="insteadMap">
+    <!--<select id="insteadDeviceID" parameterType="com.youotech.securitysystem.bo.SMPlatform" resultMap="insteadMap">
         SELECT SD_ID,#{siType,jdbcType=VARCHAR} AS 'SoftwareType',#{siSname,jdbcType=VARCHAR} AS 'SoftwareName',#{siDate,jdbcType=VARCHAR} AS 'FindTime' FROM SE_DEVICE WHERE SD_MAC = #{sdMac,jdbcType=VARCHAR} LIMIT 1
     </select>-->
 
-    <select id="findByParamPagePlus" resultMap="BaseMap" parameterType="com.youotech.securitysystem.bo.SeInstalled">
+    <select id="findByParamPagePlus" resultMap="BaseMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM SE_INSTALLED t, SE_DEVICE t1
