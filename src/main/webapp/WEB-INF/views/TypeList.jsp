@@ -40,7 +40,7 @@
         <h3 class="panel-title">白名单管理</h3>
     </div>
     <div class="panel-body" id="toolbar">
-        <form role="formSearch" class="form-inline">
+        <form role="form" class="form-inline">
             <%--<div class="form-group">
                 <div class="col-sm-8">
                     <input class="form-control" id="sdIp" type="hidden"/>
@@ -68,6 +68,10 @@
             <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#typeList_add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
+            </button>
+
+            <button id="btn-update" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="updateTypeList()">修改</span>
             </button>
 
             <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
@@ -115,6 +119,52 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="upload" onclick="addType()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--修改USB设备类型--%>
+<div class="modal fade" id="typeList_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+     data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel2">新增USB设备类型</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Type_update">USB设备类型：</label>
+                        <div class="col-sm-8">
+                            <input id="tl_Type_update" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Path_update">注册表路径：</label>
+                        <div class="col-sm-8">
+                            <input id="tl_Path_update" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_Allow_update">禁用/允许：</label>
+                        <div class="col-sm-8">
+                            <select id="tl_Allow_update" name="sdOsType_add" class="selectpicker show-tick form-control">
+                                <option value="禁用">禁用</option>
+                                <option value="允许">允许</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                <button id="btn_update" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#updateModels">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true">确定</span>
+                </button>
+                <%--<button type="button" class="btn btn-primary" id="update" onclick="updateType()">确定</button>--%>
             </div>
         </div>
     </div>

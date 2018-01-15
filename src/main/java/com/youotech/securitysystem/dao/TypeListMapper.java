@@ -26,7 +26,14 @@ public interface TypeListMapper {
 
     List<TypeList> findEntityByParamFuzzy(TypeList entity);
 
-    int  updateByIds(List<Integer> ids);
+    void updateByIds(List<Integer> ids);
 
 	List<TypeList> initDeviceList();
+
+    /**
+     * 根据指定的实体,查找数据库中是否有符合的值
+     * @param entity 实体类
+     * @return 重复数目
+     */
+	int findRepetitionByParam(TypeList entity);
 }

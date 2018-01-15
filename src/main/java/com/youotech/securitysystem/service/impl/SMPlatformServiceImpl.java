@@ -33,13 +33,13 @@ public class SMPlatformServiceImpl implements SMPlatformService {
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Integer save(SMPlatform entity) {
-        LOGGER.info("【SMPlatformServiceImpl.save】入参" + entity);
+        LOGGER.info("[SMPlatformServiceImpl.save]入参" + entity);
 
         List<SMPlatform> sMPlatforms = sMPlatformMapper.findByParamFuzzy(new SMPlatform());
         for (SMPlatform sMPlatform : sMPlatforms){
             String phoneNum = sMPlatform.getPn_Number();
             if (entity.getPn_Number().equals(phoneNum)){
-                LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
+                LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
                 throw new BizException("号码已存在，请重新输入");
             }
         }
@@ -47,11 +47,11 @@ public class SMPlatformServiceImpl implements SMPlatformService {
         try {
             count = sMPlatformMapper.insertSelective(entity);
         } catch (Exception e) {
-            LOGGER.error("【SMPlatformServiceImpl.save】新增软件/补丁/漏洞异常信息失败");
+            LOGGER.error("[SMPlatformServiceImpl.save]新增软件/补丁/漏洞异常信息失败");
             throw new BizException("新增软件/补丁/漏洞异常信息失败！请联系管理员");
         }
         if (count != 1) {
-            LOGGER.error("【SMPlatformServiceImpl.save】新增软件/补丁/漏洞异常信息失败");
+            LOGGER.error("[SMPlatformServiceImpl.save]新增软件/补丁/漏洞异常信息失败");
             throw new BizException("新增软件/补丁/漏洞异常信息失败,请联系管理员");
         }
         return entity.getPn_Id();
@@ -73,9 +73,9 @@ public class SMPlatformServiceImpl implements SMPlatformService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean deleteByIds(List<Integer> ids) {
 
-        LOGGER.info("【SMPlatformServiceImpl.deleteByIds】【批量更改设备入参】" + ids);
+        LOGGER.info("[SMPlatformServiceImpl.deleteByIds][批量更改设备入参]" + ids);
         if (ids.size() == 0) {
-            LOGGER.error("【SMPlatformServiceImpl.deleteByIds】【传入设备ID不能为空！】");
+            LOGGER.error("[SMPlatformServiceImpl.deleteByIds][传入设备ID不能为空！]");
             return false;
         }
         try {
@@ -90,15 +90,29 @@ public class SMPlatformServiceImpl implements SMPlatformService {
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean update(SMPlatform entity) {
-        return null;
+
+        LOGGER.info("[SMPlatformServiceImpl.update]入参" + entity);
+
+        int count;
+        try {
+            count = sMPlatformMapper.updateByPrimaryKeySelective(entity);
+        } catch (Exception e) {
+            LOGGER.error("[SMPlatformServiceImpl.update]更新USB设备类型失败");
+            throw new BizException("更新USB设备类型失败！请联系管理员");
+        }
+        if (count != 1) {
+            LOGGER.error("[SMPlatformServiceImpl.update]更新USB设备类型失败");
+            throw new BizException("更新USB设备类型失败,请联系管理员");
+        }
+        return true;
     }
 
     @Override
     public List<SMPlatform> findEntityByParam(SMPlatform entity) {
-        LOGGER.info("【SMPlatformServiceImpl.findEntityByParam条件查询动态信息】入参" + entity);
+        LOGGER.info("[SMPlatformServiceImpl.findEntityByParam条件查询动态信息]入参" + entity);
         List<SMPlatform> sMPlatformList = sMPlatformMapper.findByParam(entity);
         if (CollectionUtils.isEmpty(sMPlatformList)) {
-            LOGGER.info("【SMPlatformServiceImpl.findEntityByParam软件/补丁/漏洞异常信息为空！】");
+            LOGGER.info("[SMPlatformServiceImpl.findEntityByParam软件/补丁/漏洞异常信息为空！]");
             return new ArrayList<SMPlatform>();
         }
         return sMPlatformList;

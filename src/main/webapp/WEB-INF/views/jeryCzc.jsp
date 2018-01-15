@@ -20,6 +20,25 @@
     <div id="popTxt" class="popContext"></div>
 </div>
 
+<%--修改信息--%>
+<div class="modal fade" id="updateModels">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">提示信息</h4>
+            </div>
+            <div class="modal-body">
+                <p>您确认要修改吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-success" data-dismiss="modal" onclick="update()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- 批量信息删除确认modal -->
 <div class="modal fade" id="delcfmModels">
@@ -54,7 +73,6 @@
                 <p id="messageText"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button class="btn btn-success" data-dismiss="modal">确定</button>
             </div>
         </div>

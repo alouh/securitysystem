@@ -23,15 +23,14 @@ public class SMPlatformController {
     private SMPlatformService sMPlatformService;
 
     /**
-     * 展示软件/补丁/漏洞安装明细
-     *
+     * 展示短信平台号码
      * @param request 请求
      * @return page
      * @throws BizException 异常
      */
     @RequestMapping("showSMPlatform")
     @ResponseBody
-    public Pager<SMPlatform> showInstalled(HttpServletRequest request) throws BizException {
+    public Pager<SMPlatform> showPhoneNumber(HttpServletRequest request) throws BizException {
         Integer pageIndex = Integer.valueOf(request.getParameter("pageIndex"));
         Integer pageSize = Integer.valueOf(request.getParameter("pageSize"));
         int start = (pageIndex - 1) * pageSize;
@@ -42,15 +41,15 @@ public class SMPlatformController {
     }
 
     /**
-     * 手动维护 添加设备
-     *
+     * 添加短信平台号码
      * @param request 请求
      * @return page
      * @throws BizException 异常
      */
     @RequestMapping("addPhoneNumber")
     @ResponseBody
-    public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
+    public Map<String, Object> addPhoneNumber(HttpServletRequest request) throws BizException {
+
         SMPlatform sMPlatform = new SMPlatform();
         String pn_Number = request.getParameter("pn_Number");
         sMPlatform.setPn_Number(pn_Number);
@@ -59,10 +58,33 @@ public class SMPlatformController {
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
+
     }
 
     /**
-     * 批量刪除设备
+     * 修改短信平台号码
+     *
+     * @param request 请求
+     * @return page
+     * @throws BizException 异常
+     */
+    @RequestMapping("updatePhoneNumber")
+    @ResponseBody
+    public Map<String, Object> updatePhoneNumber(HttpServletRequest request) throws BizException {
+        SMPlatform sMPlatform = new SMPlatform();
+        String idStr = request.getParameter("selectedId");
+        String pn_Number = request.getParameter("pn_Number");
+        int idInt = Integer.valueOf(idStr);
+        sMPlatform.setPn_Id(idInt);
+        sMPlatform.setPn_Number(pn_Number);
+        sMPlatformService.update(sMPlatform);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
+
+    /**
+     * 批量刪除短信平台号码
      * @param request 请求
      * @return page
      * @throws BizException 异常

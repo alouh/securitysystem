@@ -39,7 +39,7 @@ function findTypeList() {
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'tl_Id', title: '序号', visible: false, valign: 'middle'},
             {field: 'tl_Type', title: 'USB设备类型', align: 'center', width: '150px'},
-            {field: 'tl_Path', title: '注册表路径', align: 'center', width: '350px'},
+            {field: 'tl_Path', title: '注册表路径', align: 'center', width: '500px'},
             {field: 'tl_Allow', title: '禁用/允许', align: 'center', width: '120px'},
             {
                 field: 'tl_Date', title: '维护日期', align: 'center', width: '120px',
@@ -74,6 +74,56 @@ function addType() {
             if (result.success) {
                 $("#typeList_add").modal("hide");
                 pop("消息提示","新增成功","2000");
+                findTypeList();
+            } else {
+                $("#messageText").text(result.msg);
+                $("#message").modal("show");
+                return false;
+            }
+        }
+    });
+
+}
+
+/**
+ * 修改USB设备类型
+ */
+function updateTypeList() {
+
+    var rows = $("#tb_typeList").bootstrapTable('getSelections');
+    if (rows.length !== 1) {
+        $("#messageText").text("请选择且只选择一条数据进行修改！");
+        $("#message").modal("show");
+        return false;
+    }
+
+    $("#typeList_update").modal("show");
+}
+
+function update() {
+
+    var rows = $("#tb_typeList").bootstrapTable('getSelections');
+    var id = rows[0].tl_Id;
+    var tl_Type = $("#tl_Type_update").val();
+    var tl_Path = $("#tl_Path_update").val();
+    var tl_Allow = $("#tl_Allow_update").val();
+
+    $.ajax({
+        url: './typeList/updateTypeList',
+        type: 'post',
+        data: {
+            selectedId:id,
+            tl_Type:tl_Type,
+            tl_Path:tl_Path,
+            tl_Allow:tl_Allow
+
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                $("#updateModels").modal("hide");
+                $("#typeList_update").modal("hide");
+                pop("消息提示","修改成功","2000");
                 findTypeList();
             } else {
                 $("#messageText").text(result.msg);

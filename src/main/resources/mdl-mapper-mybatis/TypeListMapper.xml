@@ -129,6 +129,7 @@
         </trim>
         ORDER BY TL_ID
     </select>
+
     <select id="findEntityByParamFuzzy" parameterType="com.youotech.securitysystem.bo.TypeList"
             resultMap="BaseResultMap">
         SELECT
@@ -178,7 +179,21 @@
         ORDER BY TL_ID
         limit ${start},${end}
     </select>
-    
+
+    <select id="findRepetitionByParam" resultType="java.lang.Integer" parameterType="com.youotech.securitysystem.bo.TypeList">
+        SELECT
+        COUNT(*)
+        FROM usb_typelist
+        <trim prefix="where" prefixOverrides="OR">
+            <if test="tl_Type != null">
+                OR TL_Type = #{tl_Type,jdbcType=VARCHAR}
+            </if>
+            <if test="tl_Path != null">
+                OR TL_Path = #{tl_Path,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
     <delete id="deleteByIds" parameterType="java.lang.Integer">
         DELETE FROM usb_typelist WHERE TL_ID IN
         <foreach collection="list" item="tl_Ids" open="(" separator="," close=")">

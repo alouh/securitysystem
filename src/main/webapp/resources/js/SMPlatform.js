@@ -11,12 +11,9 @@ var GetQueryString = function (key) {
     return search.replace(reg, "$1");
 };
 /**
- * 软件、漏洞/补丁安装明细
+ * 展示短信配置平台
  */
 function findSMPlatform() {
-
-    /*var siId = GetQueryString("id");
-    var siSname = $("#siSname_add").val().trim();*/
 
     var pn_Number = $("#pn_Number_add").val();
     var heightTable = document.documentElement.clientHeight - 45;
@@ -66,12 +63,17 @@ function findSMPlatform() {
 
 }
 
-
 /**
- * 新增设备
+ * 新增号码
  */
 function addPhoneNumber() {
     var number = $("#pn_Number_add").val();
+
+    if (!checkMobile(number)){
+        $("#messageText").text("请输入正确的手机号码");
+        $("#message").modal("show");
+        return false;
+    }
 
     $.ajax({
         url: './sMPlatform/addPhoneNumber',
@@ -94,6 +96,59 @@ function addPhoneNumber() {
     });
 
 }
+
+/**
+ * 修改号码
+ */
+function updatePhoneNumber() {
+
+    var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
+
+    if (rows.length !== 1) {
+        $("#messageText").text("请选择且只选择一条数据进行修改！");
+        $("#message").modal("show");
+        return false;
+    }
+
+    $("#sMPlatform_update").modal("show");
+}
+
+function update() {
+
+    var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
+    var id = rows[0].pn_Id;
+    var number = $("#pn_Number_update").val();
+
+    if (!checkMobile(number)){
+        $("#messageText").text("请输入正确的手机号码");
+        $("#message").modal("show");
+        return false;
+    }
+
+    $.ajax({
+        url: './sMPlatform/updatePhoneNumber',
+        type: 'post',
+        data: {
+            pn_Number: number,
+            selectedId:id
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                $("#updateModels").modal("hide");
+                $("#sMPlatform_update").modal("hide");
+                pop("消息提示","修改成功","2000");
+                findSMPlatform();
+            } else {
+                $("#messageText").text(result.msg);
+                $("#message").modal("show");
+                return false;
+            }
+        }
+    });
+
+}
+
 /**
  * 批量刪除
  */
@@ -106,6 +161,7 @@ function delTypeList() {
     }
     $("#delcfmModels").modal("show");
 }
+
 function dels() {
     var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
     var ids = "";
@@ -159,4 +215,13 @@ function get_Date(time) {
         }
         return str;
     }
+}
+
+/**
+ * 检测手机号码格式
+ */
+function checkMobile(phoneNumber){
+    var reg = /^1[34578]\d{9}$/;
+
+    return reg.test(phoneNumber);
 }

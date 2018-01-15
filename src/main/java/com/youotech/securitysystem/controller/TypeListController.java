@@ -4,6 +4,7 @@ import com.youotech.securitysystem.bo.TypeList;
 import com.youotech.securitysystem.exception.BizException;
 import com.youotech.securitysystem.service.TypeListService;
 import com.youotech.securitysystem.utils.Pager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,18 +43,14 @@ public class TypeListController {
 
     /**
      * 手动维护 添加设备
-     *
      * @param request 请求
      * @return page
      * @throws BizException 异常
      */
     @RequestMapping("addType")
     @ResponseBody
-    public Map<String, Object> addDevice(HttpServletRequest request) throws BizException {
+    public Map<String, Object> addType(HttpServletRequest request) throws BizException {
         TypeList typeList = new TypeList();
-        /*String sdType = request.getParameter("sdType");
-        typeList.setSdType(sdType);
-        typeList.setSdDate(new Date());*/
         String tl_Type = request.getParameter("tl_Type");
         String tl_Path = request.getParameter("tl_Path");
         String tl_Allow = request.getParameter("tl_Allow");
@@ -68,6 +65,43 @@ public class TypeListController {
         return map;
     }
 
+
+    /**
+     * 修改USB设备类型
+     * @param request 请求
+     * @return page
+     * @throws BizException 异常
+     */
+    @RequestMapping("updateTypeList")
+    @ResponseBody
+    public Map<String, Object> updateTypeList(HttpServletRequest request) throws BizException {
+
+        TypeList typeList = new TypeList();
+
+        String tl_IdStr = request.getParameter("selectedId");
+        String tl_Type = request.getParameter("tl_Type");
+        String tl_Path = request.getParameter("tl_Path");
+        String tl_Allow = request.getParameter("tl_Allow");
+        int tl_Id = Integer.valueOf(tl_IdStr);
+
+        typeList.setTl_Id(tl_Id);
+
+        if (StringUtils.isNotBlank(tl_Type)){
+            typeList.setTl_Type(tl_Type);
+        }
+        if (StringUtils.isNotBlank(tl_Path)){
+            typeList.setTl_Path(tl_Path);
+        }
+        if (StringUtils.isNotBlank(tl_Allow)){
+            typeList.setTl_Allow(tl_Allow);
+        }
+
+        typeListService.update(typeList);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
+
     /**
      * 批量刪除设备
      * @param request 请求
@@ -76,7 +110,7 @@ public class TypeListController {
      */
     @RequestMapping("delTypeByIds")
     @ResponseBody
-    public Map<String, Object> delDeviceByIds(HttpServletRequest request) throws BizException {
+    public Map<String, Object> delTypeByIds(HttpServletRequest request) throws BizException {
         Map<String, Object> map = new HashMap<>();
         String sdId = request.getParameter("tl_Ids");
         String[] sdIds = sdId.split(",");

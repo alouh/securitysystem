@@ -32,7 +32,7 @@
     <a href="home" target="_parent">
         <img src="<%=basePath%>resources/images/logo3.png" title="系统首页" />
     </a>
-        <div class="logo_name">网络及信息系统安全过程管理</div>
+        <div class="logo_name">USB设备检测辅助运维工具</div>
 </div>
 
 <ul class="nav">
@@ -42,7 +42,7 @@
 <div class="topright">
     <ul>
         <li>
-            <a href="/securitysystem/updatePwd" onclick="updatepwd()" target="rightFrame"><span class="changepwd">修改密码</span></a>
+            <a href="/updatePwd" onclick="updatepwd()" target="rightFrame"><span class="changepwd">修改密码</span></a>
         </li>
         <li>
             <a href="#" onclick="logout()" target="_parent">  <span class="logout">注销</span></a>

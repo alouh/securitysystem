@@ -31,32 +31,49 @@ public class TypeListServiceImpl implements TypeListService {
     private TypeListMapper typeListMapper;
 
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Integer save(TypeList entity) {
-        LOGGER.info("【TypeListServiceImpl.save】入参" + entity);
-        int count = 0;
-        List<TypeList> typeListList = typeListMapper.findByParam(new TypeList());
+        LOGGER.info("[TypeListServiceImpl.save]入参" + entity);
+        int count;
         if (entity.getTl_Type().equals("")){
-            LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
+            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
             throw new BizException("设备类型不能为空，请重新输入");
         }
+        if (entity.getTl_Path().equals("")){
+            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
+            throw new BizException("注册表路径不能为空，请重新输入");
+        }
+
+        int repetitionCount = typeListMapper.findRepetitionByParam(entity);
+        if (repetitionCount != 0){
+
+            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
+            throw new BizException("USB设备类型或者注册表路径不能重复，请检查您的输入");
+        }
+        /*List<TypeList> typeListList = typeListMapper.findByParam(new TypeList());
         for (TypeList typeList : typeListList)
         {
             String type = typeList.getTl_Type();
             String newType = entity.getTl_Type();
             if (newType.equals(type)){
-                LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
+                LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
                 throw new BizException("设备类型已存在，请重新输入");
             }
-        }
+            String path = typeList.getTl_Path();
+            String newPath = entity.getTl_Path();
+            if (newPath.equals(path)){
+                LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
+                throw new BizException("注册表路径已存在,请重新输入");
+            }
+        }*/
         try {
             count = typeListMapper.insertSelective(entity);
         } catch (Exception e) {
-            LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
+            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
             throw new BizException("新增设备失败！请联系管理员");
         }
         if (count != 1) {
-            LOGGER.error("【TypeListServiceImpl.save】新增设备失败");
+            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
             throw new BizException("新增设备失败,请联系管理员");
         }
         return entity.getTl_Id();
@@ -68,17 +85,17 @@ public class TypeListServiceImpl implements TypeListService {
     }
 
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean deleteByPrimaryKey(Integer id) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean deleteByIds(List<Integer> ids) {
-        LOGGER.info("【TypeListServiceImpl.deleteByIds】【批量更改设备入参】" + ids);
+        LOGGER.info("[TypeListServiceImpl.deleteByIds][批量更改设备入参]" + ids);
         if (ids.size() == 0) {
-            LOGGER.error("【TypeListServiceImpl.deleteByIds】【传入设备ID不能为空！】");
+            LOGGER.error("[TypeListServiceImpl.deleteByIds][传入设备ID不能为空！]");
             return false;
         }
         try {
@@ -91,17 +108,30 @@ public class TypeListServiceImpl implements TypeListService {
     }
 
     @Override
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {BizException.class, Exception.class})
     public Boolean update(TypeList entity) {
-        return null;
+        
+        LOGGER.info("[TypeListServiceImpl.update]入参" + entity);
+        int count;
+        try {
+            count = typeListMapper.updateByPrimaryKeySelective(entity);
+        } catch (Exception e) {
+            LOGGER.error("[TypeListServiceImpl.update]新增设备失败");
+            throw new BizException("更新USB设备类型失败！请联系管理员");
+        }
+        if (count != 1) {
+            LOGGER.error("[TypeListServiceImpl.update]新增设备失败");
+            throw new BizException("更新USB设备类型失败,请联系管理员");
+        }
+        return true;
     }
 
     @Override
     public List<TypeList> findEntityByParam(TypeList entity) {
-        LOGGER.info("【TypeListServiceImpl.findEntityByParam条件查询动态信息】入参" + entity);
+        LOGGER.info("[TypeListServiceImpl.findEntityByParam条件查询动态信息]入参" + entity);
         List<TypeList> typeListList = typeListMapper.findByParam(entity);
         if (CollectionUtils.isEmpty(typeListList)) {
-            LOGGER.info("【TypeListServiceImpl.findEntityByParam台账信息为空！】");
+            LOGGER.info("[TypeListServiceImpl.findEntityByParam台账信息为空！]");
             return new ArrayList<TypeList>();
         }
         return typeListList;
@@ -109,10 +139,10 @@ public class TypeListServiceImpl implements TypeListService {
 
     @Override
     public List<TypeList> findEntityByParamFuzzy(TypeList entity) {
-        LOGGER.info("【TypeListServiceImpl.findEntityByParamFuzzy】入参" + entity);
+        LOGGER.info("[TypeListServiceImpl.findEntityByParamFuzzy]入参" + entity);
         List<TypeList> typeListList = typeListMapper.findEntityByParamFuzzy(entity);
         if (CollectionUtils.isEmpty(typeListList)) {
-            LOGGER.info("【TypeListServiceImpl.findEntityByParamFuzzy！】");
+            LOGGER.info("[TypeListServiceImpl.findEntityByParamFuzzy！]");
             return new ArrayList<TypeList>();
         }
         return typeListList;
@@ -133,9 +163,9 @@ public class TypeListServiceImpl implements TypeListService {
 
     @Override
     public Boolean updateByIds(List<Integer> ids) {
-        LOGGER.info("【TypeListServiceImpl.updateByIds】【批量更改设备入参】" + ids);
+        LOGGER.info("[TypeListServiceImpl.updateByIds][批量更改设备入参]" + ids);
         if (ids.size() == 0) {
-            LOGGER.error("【TypeListServiceImpl.updateByIds】【传入设备ID不能为空！】");
+            LOGGER.error("[TypeListServiceImpl.updateByIds][传入设备ID不能为空！]");
             return false;
         }
         try {
