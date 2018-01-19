@@ -5,7 +5,7 @@
   Time: 下午 7:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -42,7 +42,7 @@
 <div class="topright">
     <ul>
         <li>
-            <a href="/updatePwd" onclick="updatepwd()" target="rightFrame"><span class="changepwd">修改密码</span></a>
+            <a href="updatePwd" onclick="updatepwd()" target="rightFrame"><span class="changepwd">修改密码</span></a>
         </li>
         <li>
             <a href="#" onclick="logout()" target="_parent">  <span class="logout">注销</span></a>

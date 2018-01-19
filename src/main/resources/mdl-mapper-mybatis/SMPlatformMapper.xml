@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.SMPlatformMapper" >
-    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SMPlatform" >
+<mapper namespace="com.youotech.usbmonitor.dao.SMPlatformMapper" >
+    <resultMap id="BaseResultMap" type="com.youotech.usbmonitor.bo.SMPlatform" >
         <id column="PN_id" property="pn_Id" jdbcType="INTEGER" />
         <result column="PN_NUMBER" property="pn_Number" jdbcType="VARCHAR" />
         <result column="PN_DATE" property="pn_Date" jdbcType="TIMESTAMP" />
@@ -23,12 +23,12 @@
         where PN_ID = #{pn_Id,jdbcType=INTEGER}
     </delete>
     
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <insert id="insert" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         insert into usb_phonenumber (PN_ID, PN_NUMBER, PN_DATE)
         values (#{pn_Id,jdbcType=INTEGER},#{pn_Number,jdbcType=VARCHAR}, #{pn_Date,jdbcType=TIMESTAMP})
     </insert>
     
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <insert id="insertSelective" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         insert into usb_phonenumber
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pn_Id != null">
@@ -54,7 +54,7 @@
         </trim>
     </insert>
     
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         update usb_phonenumber
         <set>
             <if test="pn_Number != null">
@@ -67,14 +67,14 @@
         where PN_ID = #{pn_Id,jdbcType=INTEGER}
     </update>
     
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <update id="updateByPrimaryKey" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         update usb_phonenumber
         set PN_NUMBER = #{pn_Number,jdbcType=VARCHAR},
             PN_DATE = #{pn_Date,jdbcType=TIMESTAMP}
         where PN_ID = #{pn_Id,jdbcType=INTEGER}
     </update>
     
-    <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <select id="findByParamFuzzy" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_phonenumber
@@ -91,7 +91,7 @@
         </trim>
     </select>
 
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_phonenumber
@@ -109,11 +109,11 @@
         limit ${start},${end}
     </select>
     
-    <!--<select id="insteadDeviceID" parameterType="com.youotech.securitysystem.bo.SMPlatform" resultMap="insteadMap">
+    <!--<select id="insteadDeviceID" parameterType="com.youotech.usbmonitor.bo.SMPlatform" resultMap="insteadMap">
         SELECT SD_ID,#{siType,jdbcType=VARCHAR} AS 'SoftwareType',#{pn_Number,jdbcType=VARCHAR} AS 'SoftwareName',#{pn_Date,jdbcType=VARCHAR} AS 'FindTime' FROM SE_DEVICE WHERE SD_MAC = #{sdMac,jdbcType=VARCHAR} LIMIT 1
     </select>-->
 
-    <select id="findByParamPagePlus" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.SMPlatform">
+    <select id="findByParamPagePlus" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.SMPlatform">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_phonenumber t, SE_DEVICE t1

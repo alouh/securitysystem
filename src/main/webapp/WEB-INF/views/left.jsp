@@ -5,7 +5,7 @@
   Time: 下午 7:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -50,25 +50,11 @@
             <span><img src="<%=basePath%>resources/images/leftico01.png"/></span>首页
         </div>
         <ul class="menuson">
-            <%--<li class="active"><cite></cite>
-                <a href="index" target="rightFrame">首页</a><i></i>
-            </li>--%>
             <li class="active"><cite></cite>
                 <a href="illegalDevice" target="rightFrame">外接非法USB设备终端</a><i></i>
             </li>
         </ul>
     </dd>
-
-    <%--<dd>
-        <div class="title">
-            <span><img src="<%=basePath%>resources/images/leftico02.png"/></span>系统管理
-        </div>
-        <ul class="menuson">
-            <li><cite></cite>
-                <a href="seUser" target="rightFrame">账号管理</a><i></i></li>
-
-        </ul>
-    </dd>--%>
 
     <dd>
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico03.png"/></span>参数配置</div>
@@ -81,26 +67,6 @@
             </li>
         </ul>
     </dd>
-
-    <%--<dd>
-        <div class="title"><span><img src="<%=basePath%>resources/images/leftico04.png"/></span>功能管理</div>
-        <ul class="menuson">
-            <li><cite></cite>
-                <a href="sMPlatform" target="rightFrame">短信平台</a><i></i>
-            </li>
-        </ul>
-
-    </dd>--%>
-
-    <%--<dd>
-        <div class="title"><span><img src="<%=basePath%>resources/images/leftico04.png"/></span>安全管理</div>
-        <ul class="menuson">
-            <li><cite></cite>
-                <a href="illegalDevice" target="rightFrame">外接非法USB设备终端</a><i></i>
-            </li>
-        </ul>
-
-    </dd>--%>
 </dl>
 
 </body>

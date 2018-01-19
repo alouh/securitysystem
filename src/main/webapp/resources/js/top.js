@@ -12,7 +12,7 @@ function logout() {
         dataType: 'json',
         success: function (result) {
             if (result) {
-               window.location.href="/securitysystem/";
+               window.location.href="/usbmonitor/";
             }
         }
     });

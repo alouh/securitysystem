@@ -5,7 +5,7 @@ Date: 2017/8/14 0014
 Time: 11:16
 To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -39,8 +39,4 @@ To change this template use File | Settings | File Templates.
         <frame src="illegalDevice" name="rightFrame" id="rightFrame" title="rightFrame"/>
     </frameset>
 </frameset>
-<noframes>
-    <body>
-    </body>
-</noframes>
 </html>

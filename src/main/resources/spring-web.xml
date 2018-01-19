@@ -27,7 +27,7 @@
     <mvc:annotation-driven/>
 
     <!-- 扫描包 -->
-    <context:component-scan base-package="com.youotech.securitysystem.controller"/>
+    <context:component-scan base-package="com.youotech.usbmonitor.controller"/>
 
     <!-- 允许访问路径 -->
     <mvc:resources location="/resources/" mapping="/resources/**" cache-period="3600"/>
@@ -64,7 +64,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!-- springMVC统一异常处理 -->
-    <bean id="exceptionResolver" class="com.youotech.securitysystem.exception.ExceptionHandler"/>
+    <bean id="exceptionResolver" class="com.youotech.usbmonitor.exception.ExceptionHandler"/>
 
     <!-- 文件上传配置 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -79,7 +79,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/><!-- 拦截哪些请求的设置 -->
             <mvc:exclude-mapping path="/resources/**"/><!-- 使用拦截器时，需加上这句话，否则静态资源被拦截 -->
-            <bean class="com.youotech.securitysystem.interceptor.LoginInterceptor"></bean>
+            <bean class="com.youotech.usbmonitor.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 

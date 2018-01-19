@@ -12,15 +12,15 @@ function updatePwd() {
     var pwd = getCookie("passWord");
     var userId = getCookie("userId");
 
-    if ("" == oldPassword || null == oldPassword || "" == newPassword ||
-        null == newPassword || "" == newPasswordAgain || null == newPasswordAgain) {
+    if ("" === oldPassword || null == oldPassword || "" === newPassword ||
+        null == newPassword || "" === newPasswordAgain || null == newPasswordAgain) {
         $("#messageText").text("请输入密码！");
         $("#message").modal("show");
         return false;
     }
 
     // 原始密码校验
-    if (pwd != hex_md5(oldPassword)) {
+    if (pwd !== hex_md5(oldPassword)) {
         $("#messageText").text("原始密码与登陆密码不一致，请确认！");
         $("#message").modal("show");
         return false;
@@ -28,12 +28,12 @@ function updatePwd() {
 
 
     // 两次输入的密码校验
-    if (newPassword != newPasswordAgain) {
+    if (newPassword !== newPasswordAgain) {
         $("#messageText").text("新密码两次输入的不一致，请确认！");
         $("#message").modal("show");
         return false;
     }
-    if (newPasswordAgain == oldPassword) {
+    if (newPasswordAgain === oldPassword) {
         $("#messageText").text("新密码不能和原密码相同，请确认！");
         $("#message").modal("show");
         return false;
@@ -59,7 +59,6 @@ function updatePwd() {
                 addCookie("passWord", hex_md5(newPassword));
                 $("#msgText").text("密码修改成功");
                 $("#msg").modal("show");
-                return;
             } else {
                 $("#messageText").text(result.msg);
                 $("#message").modal("show");
@@ -70,5 +69,5 @@ function updatePwd() {
 }
 
 function returnIndex() {
-    location.href = "index"
+    location.href = "illegalDevice"
 }

@@ -5,7 +5,7 @@
   Time: 下午 4:08
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -41,7 +41,7 @@
         <h3 class="panel-title">外接非法USB设备终端</h3>
     </div>
     <div class="panel-body" id="toolbar">
-        <form role="formSearch" class="form-inline">
+        <form role="form" class="form-inline">
             <%--<div class="form-group" style="width:400px">
                 <label class="col-sm-3 control-label" for="sdType">USB设备类型：</label>
                 <div class="col-sm-8">
@@ -54,7 +54,7 @@
                 </div>
             </div>--%>
             <div class="form-group" style="width:280px; margin-left: 30px">
-                <label class="col-sm-3 control-label" for="id_Ip">终端IP：</label>
+                <label class="col-sm-3 control-label" for="id_Ip">网络地址：</label>
                 <div class="col-sm-8">
                     <input class="form-control" id="id_Ip" type="text"/>
                 </div>

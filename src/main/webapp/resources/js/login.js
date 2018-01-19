@@ -1,7 +1,6 @@
 $(function () {
     $('#btn').click(function () {
         login();
-        return;
     });
 });
 /**
@@ -11,7 +10,7 @@ $(function () {
 function login() {
     var userName = $("#userName").val().trim();
     var passWord = $("#pwd").val().trim();
-    if ("" == userName || null == userName || "" == passWord || null == passWord) {
+    if ("" === userName || null == userName || "" === passWord || null == passWord) {
         //登录失败报错显示
         $(".login-error").show();
         //input获取焦点，登录失败报错消失
@@ -37,7 +36,7 @@ function login() {
                 addCookie("userId", result.userId);
                 // 密码强度校验
                 location.href = "home";
-                return;
+
             } else {
                 //登录失败报错显示
                 $(".login-error").show();

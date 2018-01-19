@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.youotech.securitysystem.dao.SeUserMapper">
-    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.SeUser">
+<mapper namespace="com.youotech.usbmonitor.dao.SeUserMapper">
+    <resultMap id="BaseResultMap" type="com.youotech.usbmonitor.bo.SeUser">
         <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
         <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
-        <result column="REAL_NAME" jdbcType="VARCHAR" property="realName"/>
-        <result column="SEX" jdbcType="INTEGER" property="sex"/>
-        <result column="CREAT_TIME" jdbcType="TIMESTAMP" property="creatTime"/>
-        <result column="PASSWORD" jdbcType="VARCHAR" property="passWord"/>
+        <result column="USER_PWD" jdbcType="VARCHAR" property="passWord"/>
     </resultMap>
     <sql id="Base_Column_List">
-     USER_ID, USER_NAME, REAL_NAME, SEX, CREAT_TIME, PASSWORD
+     USER_ID, USER_NAME, USER_PWD
    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from SE_USER
+        from usb_user
         where USER_ID = #{userId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-     delete from SE_USER
+     delete from usb_user
      where USER_ID = #{userId,jdbcType=INTEGER}
    </delete>
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.SeUser">
-     insert into SE_USER (USER_ID, USER_NAME, REAL_NAME,
-       SEX, CREAT_TIME, PASSWORD
+    <insert id="insert" parameterType="com.youotech.usbmonitor.bo.SeUser">
+     insert into usb_user (USER_ID, USER_NAME,USER_PWD
        )
-     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
-       #{sex,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{passWord,jdbcType=VARCHAR}
+     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}
        )
    </insert>
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.SeUser">
-        insert into SE_USER
+    <insert id="insertSelective" parameterType="com.youotech.usbmonitor.bo.SeUser">
+        insert into usb_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 USER_ID,
@@ -39,17 +34,8 @@
             <if test="userName != null">
                 USER_NAME,
             </if>
-            <if test="realName != null">
-                REAL_NAME,
-            </if>
-            <if test="sex != null">
-                SEX,
-            </if>
-            <if test="creatTime != null">
-                CREAT_TIME,
-            </if>
             <if test="passWord != null">
-                PASSWORD,
+                USER_PWD,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -59,54 +45,33 @@
             <if test="userName != null">
                 #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="realName != null">
-                #{realName,jdbcType=VARCHAR},
-            </if>
-            <if test="sex != null">
-                #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="creatTime != null">
-                #{creatTime,jdbcType=TIMESTAMP},
-            </if>
             <if test="passWord != null">
                 #{passWord,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.SeUser">
-        update SE_USER
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.usbmonitor.bo.SeUser">
+        update usb_user
         <set>
             <if test="userName != null">
                 USER_NAME = #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="realName != null">
-                REAL_NAME = #{realName,jdbcType=VARCHAR},
-            </if>
-            <if test="sex != null">
-                SEX = #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="creatTime != null">
-                CREAT_TIME = #{creatTime,jdbcType=TIMESTAMP},
-            </if>
             <if test="passWord != null">
-                PASSWORD = #{passWord,jdbcType=VARCHAR},
+                USER_PWD = #{passWord,jdbcType=VARCHAR},
             </if>
         </set>
         where USER_ID = #{userId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.SeUser">
-       update SE_USER
+    <update id="updateByPrimaryKey" parameterType="com.youotech.usbmonitor.bo.SeUser">
+       update usb_user
        set USER_NAME = #{userName,jdbcType=VARCHAR},
-         REAL_NAME = #{realName,jdbcType=VARCHAR},
-         SEX = #{sex,jdbcType=INTEGER},
-         CREAT_TIME = #{creatTime,jdbcType=TIMESTAMP},
-         PASSWORD = #{passWord,jdbcType=VARCHAR}
+         USER_PWD = #{passWord,jdbcType=VARCHAR}
        where USER_ID = #{userId,jdbcType=INTEGER}
      </update>
-    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.SeUser" resultMap="BaseResultMap">
+    <select id="findByParam" parameterType="com.youotech.usbmonitor.bo.SeUser" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_USER
+        FROM usb_user
         <trim prefix="where" prefixOverrides="and">
             <if test="userId != null">
                 and USER_ID = #{userId,jdbcType=INTEGER}
@@ -114,31 +79,21 @@
             <if test="userName != null">
                 and USER_NAME = #{userName,jdbcType=VARCHAR}
             </if>
-            <if test="realName != null">
-                and REAL_NAME = #{realName,jdbcType=VARCHAR}
-            </if>
-            <if test="sex != null">
-                and SEX = #{sex,jdbcType=INTEGER}
-            </if>
-            <if test="creatTime != null">
-                and CREAT_TIME = #{creatTime,jdbcType=TIMESTAMP}
-            </if>
             <if test="passWord != null">
-                and PASSWORD = #{passWord,jdbcType=VARCHAR}
+                and USER_PWD = #{passWord,jdbcType=VARCHAR}
             </if>
         </trim>
-        ORDER BY CREAT_TIME DESC
     </select>
 
     <select id="findByParamPage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM SE_USER
+        FROM usb_user
         limit ${start},${end}
     </select>
 
     <delete id="deleteByIds" parameterType="list">
-        DELETE FROM SE_USER WHERE USER_ID IN
+        DELETE FROM usb_user WHERE USER_ID IN
         <foreach collection="list" item="userIds" open="(" separator="," close=")">
             #{userIds}
         </foreach>

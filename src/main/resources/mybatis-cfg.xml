@@ -22,7 +22,7 @@
 
     <!-- 别名 -->
     <typeAliases>
-        <package name="com.youotech.securitysystem.bo"/>
+        <package name="com.youotech.usbmonitor.bo"/>
     </typeAliases>
 
 </configuration>

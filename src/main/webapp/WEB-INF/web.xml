@@ -42,7 +42,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.youotech.securitysystem.session.SessionListener</listener-class>
+        <listener-class>com.youotech.usbmonitor.session.SessionListener</listener-class>
     </listener>
 </web-app>
 

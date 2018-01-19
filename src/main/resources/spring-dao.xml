@@ -75,7 +75,7 @@
     </bean>
     <!-- 创建数据映射器-->
     <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.youotech.securitysystem.dao"/>
+        <property name="basePackage" value="com.youotech.usbmonitor.dao"/>
 
     </bean>
     <!-- 对数据源进行事务管理 -->
@@ -83,7 +83,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--<bean id="dataSource" class="com.youotech.securitysystem.datasource.ChooseDataSource">
+    <!--<bean id="dataSource" class="com.youotech.usbmonitor.datasource.ChooseDataSource">
         <property name="targetDataSources">
             <map key-type="java.lang.String">
                 &lt;!&ndash; mysql &ndash;&gt;
@@ -101,7 +101,7 @@
 
     &lt;!&ndash; 配置扫描DAO接口包，动态实现DAO接口，注入到spring容器 &ndash;&gt;
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.youotech.securitysystem.dao" />
+        <property name="basePackage" value="com.youotech.usbmonitor.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -109,10 +109,10 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     &lt;!&ndash; 配置数据库注解aop &ndash;&gt;
-    <bean id="dataSourceAspect" class="com.youotech.securitysystem.datasource.DataSourceAspect"/>
+    <bean id="dataSourceAspect" class="com.youotech.usbmonitor.datasource.DataSourceAspect"/>
     <aop:config>
         <aop:aspect id="c" ref="dataSourceAspect">
-            <aop:pointcut id="tx" expression="execution(* com.youotech.securitysystem.service.*.*(..))"/>
+            <aop:pointcut id="tx" expression="execution(* com.youotech.usbmonitor.service.*.*(..))"/>
             <aop:before pointcut-ref="tx" method="before"/>
         </aop:aspect>
     </aop:config>-->

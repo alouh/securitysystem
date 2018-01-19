@@ -5,7 +5,7 @@
   Time: 14:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -88,7 +88,6 @@
                 <p id="msgText"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button class="btn btn-success" data-dismiss="modal" onclick="returnIndex()">确定</button>
             </div>
         </div>

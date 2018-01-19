@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.IllegalDeviceMapper">
-    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.IllegalDevice">
+<mapper namespace="com.youotech.usbmonitor.dao.IllegalDeviceMapper">
+    <resultMap id="BaseResultMap" type="com.youotech.usbmonitor.bo.IllegalDevice">
         <id column="ID_ID" property="id_Id" jdbcType="INTEGER"/>
         <result column="ID_IP" property="id_Ip" jdbcType="VARCHAR"/>
         <result column="ID_TYPE" property="id_Type" jdbcType="VARCHAR"/>
@@ -27,11 +27,11 @@
         where ID_ID = #{id_Id,jdbcType=INTEGER}
     </delete>
 
-    <!--<insert id="insert" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <!--<insert id="insert" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
         insert into usb_illegaldevice (<include refid="Base_Column_List"/>)
         values (#{srId,jdbcType=INTEGER}, #{sdType,jdbcType=VARCHAR}, #{srType,jdbcType=VARCHAR},#{srDate,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <insert id="insertSelective" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
         insert into SE_RULES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="srId != null">
@@ -63,7 +63,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
         update SE_RULES
         <set>
             <if test="sdType != null">
@@ -78,7 +78,7 @@
         </set>
         where SR_ID = #{srId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <update id="updateByPrimaryKey" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
     update SE_RULES
     set SD_TYPE = #{sdType,jdbcType=VARCHAR},
       SR_TYPE = #{srType,jdbcType=VARCHAR},
@@ -86,7 +86,7 @@
     where SR_ID = #{srId,jdbcType=INTEGER}
   </update>-->
 
-    <select id="findByParam" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <select id="findByParam" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_illegaldevice
@@ -115,7 +115,7 @@
         </trim>
     </select>
 
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.IllegalDevice">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.IllegalDevice">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_illegaldevice

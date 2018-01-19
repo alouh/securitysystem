@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.youotech.securitysystem.dao.TypeListMapper" >
-    <resultMap id="BaseResultMap" type="com.youotech.securitysystem.bo.TypeList" >
+<mapper namespace="com.youotech.usbmonitor.dao.TypeListMapper" >
+    <resultMap id="BaseResultMap" type="com.youotech.usbmonitor.bo.TypeList" >
         <id column="TL_ID" property="tl_Id" jdbcType="INTEGER" />
         <id column="TL_TYPE" property="tl_Type" jdbcType="VARCHAR" />
         <id column="TL_PATH" property="tl_Path" jdbcType="VARCHAR" />
@@ -25,7 +25,7 @@
         where TL_ID = #{tl_Id,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insert" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <insert id="insert" parameterType="com.youotech.usbmonitor.bo.TypeList">
         insert into
         usb_typelist
         (<include refid="Base_Column_List"/>)
@@ -37,7 +37,7 @@
         #{tl_Date,jdbcType=TIMESTAMP})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <insert id="insertSelective" parameterType="com.youotech.usbmonitor.bo.TypeList">
         insert into usb_typelist
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tl_Id != null">
@@ -75,7 +75,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <update id="updateByPrimaryKeySelective" parameterType="com.youotech.usbmonitor.bo.TypeList">
         update usb_typelist
         <set>
             <if test="tl_Type != null">
@@ -91,7 +91,7 @@
         where TL_ID = #{tl_Id,jdbcType=INTEGER}
     </update>
 
-    <!--<update id="updateByPrimaryKey" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <!--<update id="updateByPrimaryKey" parameterType="com.youotech.usbmonitor.bo.TypeList">
     update usb_typelist
     set TL_TYPE = #{tl_Type,jdbcType=VARCHAR},
       SD_DATE = #{sdDate,jdbcType=TIMESTAMP}
@@ -106,7 +106,7 @@
         </foreach>
     </insert>-->
 
-    <select id="findByParam" parameterType="com.youotech.securitysystem.bo.TypeList" resultMap="BaseResultMap">
+    <select id="findByParam" parameterType="com.youotech.usbmonitor.bo.TypeList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_typelist
@@ -130,7 +130,7 @@
         ORDER BY TL_ID
     </select>
 
-    <select id="findEntityByParamFuzzy" parameterType="com.youotech.securitysystem.bo.TypeList"
+    <select id="findEntityByParamFuzzy" parameterType="com.youotech.usbmonitor.bo.TypeList"
             resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -155,7 +155,7 @@
         ORDER BY TL_ID
     </select>
 
-    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <select id="findByParamPage" resultMap="BaseResultMap" parameterType="com.youotech.usbmonitor.bo.TypeList">
         SELECT
         <include refid="Base_Column_List"/>
         FROM usb_typelist
@@ -180,7 +180,7 @@
         limit ${start},${end}
     </select>
 
-    <select id="findRepetitionByParam" resultType="java.lang.Integer" parameterType="com.youotech.securitysystem.bo.TypeList">
+    <select id="findRepetitionByParam" resultType="java.lang.Integer" parameterType="com.youotech.usbmonitor.bo.TypeList">
         SELECT
         COUNT(*)
         FROM usb_typelist
