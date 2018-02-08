@@ -49,7 +49,7 @@ public class IllegalDeviceServiceImpl implements IllegalDeviceService {
     }
 
     @Override
-    public List<IllegalDevice> selectByPrimaryKey(Integer id) {
+    public IllegalDevice selectByPrimaryKey(Integer id) {
         return null;
     }
 

@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="securitysystem" />
+        <module name="usbmonitor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="securitysystem" target="1.8" />
+      <module name="usbmonitor" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

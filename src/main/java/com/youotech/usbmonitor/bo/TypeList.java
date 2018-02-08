@@ -5,6 +5,7 @@ import java.util.Date;
 public class TypeList {
 
     private Integer tl_Id;//索引ID
+    private String tl_OsName;//操作系统名称
     private String tl_Type;//USB设备类型
     private String tl_Path;//对应注册表中的路径
     private String tl_Allow;//设备类型是否可用
@@ -48,5 +49,13 @@ public class TypeList {
 
     public void setTl_Type(String tl_Type) {
         this.tl_Type = tl_Type;
+    }
+
+    public String getTl_OsName() {
+        return tl_OsName;
+    }
+
+    public void setTl_OsName(String tl_OsName) {
+        this.tl_OsName = tl_OsName;
     }
 }

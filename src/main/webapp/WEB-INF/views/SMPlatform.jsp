@@ -41,20 +41,15 @@
         <h3 class="panel-title">短信平台配置</h3>
     </div>
     <%--formSearch--%>
-    <div class="panel-body" id="toolbar">
+    <div class="panel-head" id="toolbar" style="margin-left: 30px">
         <form role="form" class="form-inline">
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sMPlatform_add">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
-            </button>
+            <input id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sMPlatform_add"
+                value="新增">
 
-            <button id="btn-update" type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="updatePhoneNumber()">修改</span>
-            </button>
+            <input id="btn-update" type="button" class="btn btn-primary" onclick="updatePhoneNumber()" value="修改">
 
-            <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#delcfmModelsSeUser" onclick="delTypeList()">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true">移除</span>
-            </button>
+            <input id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#delcfmModelsSeUser" onclick="delTypeList()" value="移除">
         </form>
     </div>
     <table id="tb_sMPlatform" class="table table-striped"></table>

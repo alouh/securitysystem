@@ -59,8 +59,9 @@ public class SMPlatformServiceImpl implements SMPlatformService {
     }
 
     @Override
-    public List<SMPlatform> selectByPrimaryKey(Integer id) {
-        return null;
+    public SMPlatform selectByPrimaryKey(Integer id) {
+
+        return sMPlatformMapper.selectByPrimaryKey(id);
     }
 
     @Override

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="usbmonitor:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="usbmonitor.war">
+      <element id="artifact" artifact-name="usbmonitor:war exploded" />
+    </root>
+  </artifact>
+</component>

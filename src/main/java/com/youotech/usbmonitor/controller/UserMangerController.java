@@ -38,8 +38,7 @@ public class UserMangerController {
         int start = (pageindex - 1) * pageSize;
         int end = pageSize;
         SeUser seUser = new SeUser();
-        Pager<SeUser> seUserPager = seUserService.findByParamPage(seUser, start, end);
-        return seUserPager;
+        return seUserService.findByParamPage(seUser, start, end);
     }
 
     /**

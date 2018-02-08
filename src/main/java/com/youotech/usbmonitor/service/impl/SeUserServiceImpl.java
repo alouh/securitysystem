@@ -56,7 +56,7 @@ public class SeUserServiceImpl implements SeUserService {
 
     }
 
-    public List<SeUser> selectByPrimaryKey(Integer id) {
+    public SeUser selectByPrimaryKey(Integer id) {
         return null;
     }
 

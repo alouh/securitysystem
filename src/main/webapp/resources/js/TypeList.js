@@ -38,6 +38,7 @@ function findTypeList() {
         columns: [
             {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
             {field: 'tl_Id', title: '序号', visible: false, valign: 'middle'},
+            {field: 'tl_OsName', title: '操作系统', align: 'center', width: '150px'},
             {field: 'tl_Type', title: 'USB设备类型', align: 'center', width: '150px'},
             {field: 'tl_Path', title: '注册表路径', align: 'center', width: '500px'},
             {field: 'tl_Allow', title: '禁用/允许', align: 'center', width: '120px'},
@@ -57,6 +58,7 @@ function findTypeList() {
  */
 function addType() {
 
+    var tl_OsName = $("#tl_OsName_add").val();
     var tl_Type = $("#tl_Type_add").val();
     var tl_Path = $("#tl_Path_add").val();
     var tl_Allow = $("#tl_Allow_add").val();
@@ -65,6 +67,7 @@ function addType() {
         url: './typeList/addType',
         type: 'post',
         data: {
+            tl_OsName:tl_OsName,
             tl_Type:tl_Type,
             tl_Path:tl_Path,
             tl_Allow:tl_Allow
@@ -92,18 +95,45 @@ function updateTypeList() {
 
     var rows = $("#tb_typeList").bootstrapTable('getSelections');
     if (rows.length !== 1) {
-        $("#messageText").text("请选择且只选择一条数据进行修改！");
+        $("#messageText").text("请选择一条数据进行修改！");
         $("#message").modal("show");
         return false;
     }
-
+    getEditData();
     $("#typeList_update").modal("show");
+}
+
+function getEditData() {
+
+    var rows = $("#tb_typeList").bootstrapTable('getSelections');
+    var id = rows[0].tl_Id;
+
+    $.ajax({
+        url:'./typeList/getEditData',
+        type:'post',
+        data:{
+            selectedId:id
+        },
+        dataType:'json',
+        success:function (result) {
+            if (result.success){
+                document.getElementById("tl_Type_update").value = result.type;
+                document.getElementById("tl_Path_update").value = result.path;
+                $("#tl_Allow_update").val(result.allow);
+                $("#tl_OsName_update").val(result.osName);
+            }else{
+                $("#messageText").text("获取编辑信息失败");
+                $("#message").modal("show");
+            }
+        }
+    })
 }
 
 function update() {
 
     var rows = $("#tb_typeList").bootstrapTable('getSelections');
     var id = rows[0].tl_Id;
+    var tl_OsName = $("#tl_OsName_update").val();
     var tl_Type = $("#tl_Type_update").val();
     var tl_Path = $("#tl_Path_update").val();
     var tl_Allow = $("#tl_Allow_update").val();
@@ -113,6 +143,7 @@ function update() {
         type: 'post',
         data: {
             selectedId:id,
+            tl_OsName:tl_OsName,
             tl_Type:tl_Type,
             tl_Path:tl_Path,
             tl_Allow:tl_Allow
@@ -132,7 +163,6 @@ function update() {
             }
         }
     });
-
 }
 
 /**

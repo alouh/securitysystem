@@ -1,22 +1,21 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="securitysystem:war exploded">
-    <output-path>$PROJECT_DIR$/target/securitysystem</output-path>
+  <artifact type="exploded-war" name="usbmonitor:war exploded">
+    <output-path>$PROJECT_DIR$/target/usbmonitor</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="securitysystem" />
+          <element id="module-output" name="usbmonitor" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.6.RELEASE" />
-          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.6.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.6.RELEASE" />
-          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.5" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.6.RELEASE" />
@@ -32,6 +31,7 @@
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.0" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.4.1" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.12" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
@@ -74,11 +74,8 @@
           <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8" />
           <element id="library" level="project" name="Maven: com.microsoft.azure:azure-keyvault:0.9.3" />
           <element id="library" level="project" name="Maven: com.microsoft.azure:azure-core:0.9.3" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.6" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3.3" />
           <element id="library" level="project" name="Maven: javax.mail:mail:1.4.5" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
-          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-client:1.13" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.13" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-json:1.13" />
@@ -88,6 +85,9 @@
           <element id="library" level="project" name="Maven: javax.xml.stream:stax-api:1.0-2" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.2" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.9.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.6" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3.3" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: com.microsoft.azure:adal4j:1.0.0" />
           <element id="library" level="project" name="Maven: com.nimbusds:oauth2-oidc-sdk:4.5" />
           <element id="library" level="project" name="Maven: net.jcip:jcip-annotations:1.0" />
@@ -100,9 +100,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/securitysystem/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/usbmonitor/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="securitysystem/web/Web" />
+      <element id="javaee-facet-resources" facet="usbmonitor/web/Web" />
     </root>
   </artifact>
 </component>

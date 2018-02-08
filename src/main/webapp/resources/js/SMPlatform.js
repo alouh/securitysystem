@@ -105,14 +105,36 @@ function updatePhoneNumber() {
     var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
 
     if (rows.length !== 1) {
-        $("#messageText").text("请选择且只选择一条数据进行修改！");
+        $("#messageText").text("请选择一条数据进行修改！");
         $("#message").modal("show");
         return false;
     }
-
+    getUpdateDate();
     $("#sMPlatform_update").modal("show");
 }
 
+function getUpdateDate() {
+    var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');
+    var id = rows[0].pn_Id;
+
+    $.ajax({
+        url: './sMPlatform/getUpdateDate',
+        type: 'post',
+        data: {
+            selectedId:id
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.success) {
+                document.getElementById("pn_Number_update").value = result.number;
+            } else {
+                $("#messageText").text(result.msg);
+                $("#message").modal("show");
+                return false;
+            }
+        }
+    });
+}
 function update() {
 
     var rows = $("#tb_sMPlatform").bootstrapTable('getSelections');

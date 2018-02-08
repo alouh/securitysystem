@@ -3,6 +3,7 @@
 <mapper namespace="com.youotech.usbmonitor.dao.TypeListMapper" >
     <resultMap id="BaseResultMap" type="com.youotech.usbmonitor.bo.TypeList" >
         <id column="TL_ID" property="tl_Id" jdbcType="INTEGER" />
+        <id column="TL_OSNAME" property="tl_OsName" jdbcType="VARCHAR" />
         <id column="TL_TYPE" property="tl_Type" jdbcType="VARCHAR" />
         <id column="TL_PATH" property="tl_Path" jdbcType="VARCHAR" />
         <id column="TL_ALLOW" property="tl_Allow" jdbcType="VARCHAR" />
@@ -10,7 +11,7 @@
     </resultMap>
 
     <sql id="Base_Column_List" >
-        TL_ID,TL_TYPE,TL_PATH,TL_ALLOW,TL_DATE
+        TL_ID,TL_OSNAME,TL_TYPE,TL_PATH,TL_ALLOW,TL_DATE
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -27,10 +28,11 @@
 
     <insert id="insert" parameterType="com.youotech.usbmonitor.bo.TypeList">
         insert into
-        usb_typelist
+        
         (<include refid="Base_Column_List"/>)
-        values
+        valuesusb_typelist
         (#{tl_Id,jdbcType=INTEGER},
+        #{tl_OsName,jdbcType=VARCHAR},
         #{tl_Type,jdbcType=VARCHAR},
         #{tl_Path,jdbcType=VARCHAR},
         #{tl_Allow,jdbcType=VARCHAR},
@@ -42,6 +44,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tl_Id != null">
                 TL_ID,
+            </if>
+            <if test="tl_OsName != null">
+                TL_OSNAME,
             </if>
             <if test="tl_Type != null">
                 TL_TYPE,
@@ -59,6 +64,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="tl_Id != null">
                 #{tl_Id,jdbcType=INTEGER},
+            </if>
+            <if test="tl_OsName != null">
+                #{tl_OsName,jdbcType=VARCHAR},
             </if>
             <if test="tl_Type != null">
                 #{tl_Type,jdbcType=VARCHAR},
@@ -78,6 +86,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.youotech.usbmonitor.bo.TypeList">
         update usb_typelist
         <set>
+            <if test="tl_OsName != null">
+                TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR},
+            </if>
             <if test="tl_Type != null">
                 TL_TYPE = #{tl_Type,jdbcType=VARCHAR},
             </if>
@@ -114,17 +125,20 @@
             <if test="tl_Id != null">
                 and TL_ID = #{tl_Id,jdbcType=INTEGER}
             </if>
+            <if test="tl_OsName != null">
+                and TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR}
+            </if>
             <if test="tl_Type != null">
-                and TL_Type = #{tl_Type,jdbcType=VARCHAR}
+                and TL_TYPE = #{tl_Type,jdbcType=VARCHAR}
             </if>
             <if test="tl_Path != null">
-                and TL_Path = #{tl_Path,jdbcType=VARCHAR}
+                and TL_PATH = #{tl_Path,jdbcType=VARCHAR}
             </if>
             <if test="tl_Allow != null">
-                and TL_Allow = #{tl_Allow,jdbcType=VARCHAR}
+                and TL_ALLOW = #{tl_Allow,jdbcType=VARCHAR}
             </if>
             <if test="tl_Date != null">
-                and TL_Date = #{tl_Date,jdbcType=TIMESTAMP}
+                and TL_DATE = #{tl_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
         ORDER BY TL_ID
@@ -139,17 +153,20 @@
             <if test="tl_Id != null">
                 and TL_ID = #{tl_Id,jdbcType=INTEGER}
             </if>
+            <if test="tl_OsName != null">
+                and TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR}
+            </if>
             <if test="tl_Type != null">
-                and TL_Type = #{tl_Type,jdbcType=VARCHAR}
+                and TL_TYPE = #{tl_Type,jdbcType=VARCHAR}
             </if>
             <if test="tl_Path != null">
-                and TL_Path = #{tl_Path,jdbcType=VARCHAR}
+                and TL_PATH = #{tl_Path,jdbcType=VARCHAR}
             </if>
             <if test="tl_Allow != null">
-                and TL_Allow = #{tl_Allow,jdbcType=VARCHAR}
+                and TL_ALLOW = #{tl_Allow,jdbcType=VARCHAR}
             </if>
             <if test="tl_Date != null">
-                and TL_Date = #{tl_Date,jdbcType=TIMESTAMP}
+                and TL_DATE = #{tl_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
         ORDER BY TL_ID
@@ -163,17 +180,20 @@
             <if test="tl_Id != null">
                 and TL_ID = #{tl_Id,jdbcType=INTEGER}
             </if>
+            <if test="tl_OsName != null">
+                and TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR}
+            </if>
             <if test="tl_Type != null">
-                and TL_Type = #{tl_Type,jdbcType=VARCHAR}
+                and TL_TYPE = #{tl_Type,jdbcType=VARCHAR}
             </if>
             <if test="tl_Path != null">
-                and TL_Path = #{tl_Path,jdbcType=VARCHAR}
+                and TL_PATH = #{tl_Path,jdbcType=VARCHAR}
             </if>
             <if test="tl_Allow != null">
-                and TL_Allow = #{tl_Allow,jdbcType=VARCHAR}
+                and TL_ALLOW = #{tl_Allow,jdbcType=VARCHAR}
             </if>
             <if test="tl_Date != null">
-                and TL_Date = #{tl_Date,jdbcType=TIMESTAMP}
+                and TL_DATE = #{tl_Date,jdbcType=TIMESTAMP}
             </if>
         </trim>
         ORDER BY TL_ID
@@ -184,14 +204,18 @@
         SELECT
         COUNT(*)
         FROM usb_typelist
-        <trim prefix="where" prefixOverrides="OR">
+        WHERE TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR} AND (TL_TYPE = #{tl_Type,jdbcType=VARCHAR} OR TL_PATH = #{tl_Path,jdbcType=VARCHAR})
+        <!--<trim prefix="where" prefixOverrides="OR">
+            <if test="tl_OsName != null">
+                OR TL_OSNAME = #{tl_OsName,jdbcType=VARCHAR}
+            </if>
             <if test="tl_Type != null">
-                OR TL_Type = #{tl_Type,jdbcType=VARCHAR}
+                OR TL_TYPE = #{tl_Type,jdbcType=VARCHAR}
             </if>
             <if test="tl_Path != null">
-                OR TL_Path = #{tl_Path,jdbcType=VARCHAR}
+                OR TL_PATH = #{tl_Path,jdbcType=VARCHAR}
             </if>
-        </trim>
+        </trim>-->
     </select>
 
     <delete id="deleteByIds" parameterType="java.lang.Integer">

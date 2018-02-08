@@ -4,6 +4,8 @@ import com.youotech.usbmonitor.bo.SMPlatform;
 import com.youotech.usbmonitor.exception.BizException;
 import com.youotech.usbmonitor.service.SMPlatformService;
 import com.youotech.usbmonitor.utils.Pager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ import java.util.*;
 public class SMPlatformController {
     @Autowired
     private SMPlatformService sMPlatformService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SMPlatformController.class);
 
     /**
      * 展示短信平台号码
@@ -63,7 +67,32 @@ public class SMPlatformController {
 
     /**
      * 修改短信平台号码
-     *
+     * @param request 请求
+     * @return page
+     * @throws BizException 异常
+     */
+    @RequestMapping("getUpdateDate")
+    @ResponseBody
+    public Map<String, Object> getUpdateDate(HttpServletRequest request) throws BizException {
+
+        Map<String, Object> map = new HashMap<>();
+        try {
+            String idStr = request.getParameter("selectedId");
+            int idInt = Integer.valueOf(idStr);
+            SMPlatform smPlatform = sMPlatformService.selectByPrimaryKey(idInt);
+
+            map.put("success", true);
+            map.put("number", smPlatform.getPn_Number() );
+        }catch (Exception e){
+            LOGGER.error("获取编辑数据失败");
+            map.put("success",false);
+            map.put("msg",e.getMessage());
+        }
+        return map;
+    }
+
+    /**
+     * 修改短信平台号码
      * @param request 请求
      * @return page
      * @throws BizException 异常

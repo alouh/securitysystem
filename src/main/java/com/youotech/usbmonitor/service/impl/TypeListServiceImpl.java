@@ -36,19 +36,19 @@ public class TypeListServiceImpl implements TypeListService {
         LOGGER.info("[TypeListServiceImpl.save]入参" + entity);
         int count;
         if (entity.getTl_Type().equals("")){
-            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
+            LOGGER.error("[TypeListServiceImpl.save]新增类型失败");
             throw new BizException("设备类型不能为空，请重新输入");
         }
         if (entity.getTl_Path().equals("")){
-            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
+            LOGGER.error("[TypeListServiceImpl.save]新增类型失败");
             throw new BizException("注册表路径不能为空，请重新输入");
         }
 
         int repetitionCount = typeListMapper.findRepetitionByParam(entity);
         if (repetitionCount != 0){
 
-            LOGGER.error("[TypeListServiceImpl.save]新增设备失败");
-            throw new BizException("USB设备类型或者注册表路径不能重复，请检查您的输入");
+            LOGGER.error("新增类型失败");
+            throw new BizException("统一操作系统下USB设备类型或者注册表路径不能重复，请检查您的输入");
         }
         /*List<TypeList> typeListList = typeListMapper.findByParam(new TypeList());
         for (TypeList typeList : typeListList)
@@ -80,8 +80,11 @@ public class TypeListServiceImpl implements TypeListService {
     }
 
     @Override
-    public List<TypeList> selectByPrimaryKey(Integer id) {
-        return null;
+    public TypeList selectByPrimaryKey(Integer id) {
+
+        LOGGER.info("传入参数:" + id);
+
+        return typeListMapper.selectByPrimaryKey(id);
     }
 
     @Override

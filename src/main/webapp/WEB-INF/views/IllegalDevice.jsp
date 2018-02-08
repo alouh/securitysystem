@@ -40,28 +40,15 @@
     <div class="panel-heading">
         <h3 class="panel-title">外接非法USB设备终端</h3>
     </div>
-    <div class="panel-body" id="toolbar">
+    <div class="panel-head" id="toolbar">
         <form role="form" class="form-inline">
-            <%--<div class="form-group" style="width:400px">
-                <label class="col-sm-3 control-label" for="sdType">USB设备类型：</label>
-                <div class="col-sm-8">
-                    <select id="sdType" name="sdType" class="selectpicker show-tick form-control">
-                        <option value="0" selected="selected">全部</option>
-                        <option value="便携设备" >便携设备</option>
-                        <option value="无线WiFi">无线WiFi</option>
-                        <option value="大容量存储设备">大容量存储设备</option>
-                    </select>
-                </div>
-            </div>--%>
             <div class="form-group" style="width:280px; margin-left: 30px">
                 <label class="col-sm-3 control-label" for="id_Ip">网络地址：</label>
                 <div class="col-sm-8">
                     <input class="form-control" id="id_Ip" type="text"/>
                 </div>
             </div>
-            <button id="btn-search" type="button" class="btn btn-primary" style="margin-left: 20px;">
-                <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="findRules()">查询</span>
-            </button>
+            <input id="btn-search" type="button" class="btn btn-primary" onclick="findRules()" value="查询">
         </form>
     </div>
     <table id="tb_illegalDevice" class="table table-striped"></table>

@@ -24,7 +24,7 @@ public interface CommerService<T> {
      * @param id
      * @return
      */
-    List<T> selectByPrimaryKey(Integer id);
+    T selectByPrimaryKey(Integer id);
 
 
     /**

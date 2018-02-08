@@ -60,7 +60,7 @@
         <div class="title"><span><img src="<%=basePath%>resources/images/leftico03.png"/></span>参数配置</div>
         <ul class="menuson">
             <li><cite></cite>
-                <a href="typeList" target="rightFrame">白名单配置</a><i></i>
+                <a href="typeList" target="rightFrame">黑名单配置</a><i></i>
             </li>
             <li><cite></cite>
                 <a href="sMPlatform" target="rightFrame">短信平台配置</a><i></i>

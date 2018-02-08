@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <title>白名单管理</title>
+    <title>黑名单管理</title>
     <link rel="stylesheet" href="<%=basePath%>resources/plug/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="<%=basePath%>resources/plug/bootstrap-table/bootstrap-table.css"/>
     <link rel="stylesheet" href="<%=basePath%>resources/css/jeryCzc.css"/>
@@ -37,35 +37,12 @@
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">白名单管理</h3>
+        <h3 class="panel-title">黑名单管理</h3>
     </div>
-    <div class="panel-body" id="toolbar">
+    <div class="panel-head" id="toolbar" style="margin-left: 30px">
         <form role="form" class="form-inline">
-            <%--<div class="form-group">
-                <div class="col-sm-8">
-                    <input class="form-control" id="sdIp" type="hidden"/>
-                </div>
-            </div>
-            <div class="form-group" style="width:400px">
-                <label class="col-sm-3 control-label" for="sdType_add">USB设备类型:</label>
-                <div class="col-sm-8">
-                    <select id="sdType_add" name="sdType_add" class="selectpicker show-tick form-control">
-                        <option value="便携设备" selected="selected">便携设备</option>
-                        <option value="大容量存储设备">大容量存储设备</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-8">
-                    <input class="form-control" id="sdUser" type="hidden"/>
-                </div>
-            </div>--%>
 
-            <%--<button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="addType()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
-            </button>--%>
-
-            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
+            <%--<button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#typeList_add">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">新增</span>
             </button>
@@ -77,7 +54,16 @@
             <button id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#delcfmModelsSeUser" onclick="delType()">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true">移除</span>
-            </button>
+            </button>--%>
+
+
+            <input id="btn_add" type="button" class="btn btn-primary" data-toggle="modal"
+                   data-target="#typeList_add" value="新增">
+
+            <input id="btn-update" type="button" class="btn btn-primary" onclick="updateTypeList()" value="修改">
+
+            <input id="btn_delete" type="button" class="btn btn-primary" data-toggle="modal"<%--
+                   data-target="#delcfmModelsSeUser"--%> onclick="delType()" value="删除">
         </form>
     </div>
     <table id="tb_typeList" style="table-layout: auto" class="table table-condensed table-bordered table-hover table-striped"></table>
@@ -94,6 +80,17 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="post">
                     <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_OsName_add">操作系统：</label>
+                        <div class="col-sm-8">
+                            <select id="tl_OsName_add" class="selectpicker show-tick form-control">
+                                <option value="WINDOWS XP">WINDOWS XP</option>
+                                <option value="WINDOWS 7">WINDOWS 7</option>
+                                <option value="WINDOWS 8">WINDOWS 8</option>
+                                <option value="WINDOWS 10">WINDOWS 10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label" for="tl_Type_add">USB设备类型：</label>
                         <div class="col-sm-8">
                             <input id="tl_Type_add" class="form-control" type="text"/>
@@ -108,7 +105,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="tl_Allow_add">禁用/允许：</label>
                         <div class="col-sm-8">
-                            <select id="tl_Allow_add" name="sdOsType_add" class="selectpicker show-tick form-control">
+                            <select id="tl_Allow_add" class="selectpicker show-tick form-control">
                                 <option value="禁用">禁用</option>
                                 <option value="允许">允许</option>
                             </select>
@@ -130,10 +127,21 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel2">新增USB设备类型</h4>
+                <h4 class="modal-title" id="myModalLabel2">修改USB设备类型</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="tl_OsName_update">操作系统：</label>
+                        <div class="col-sm-8">
+                            <select id="tl_OsName_update" class="show-tick form-control">
+                                <option value="WINDOWS XP">WINDOWS XP</option>
+                                <option value="WINDOWS 7">WINDOWS 7</option>
+                                <option value="WINDOWS 8">WINDOWS 8</option>
+                                <option value="WINDOWS 10">WINDOWS 10</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="tl_Type_update">USB设备类型：</label>
                         <div class="col-sm-8">
@@ -149,7 +157,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="tl_Allow_update">禁用/允许：</label>
                         <div class="col-sm-8">
-                            <select id="tl_Allow_update" name="sdOsType_add" class="selectpicker show-tick form-control">
+                            <select id="tl_Allow_update" class="show-tick form-control">
                                 <option value="禁用">禁用</option>
                                 <option value="允许">允许</option>
                             </select>
@@ -162,7 +170,7 @@
 
                 <button id="btn_update" type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#updateModels">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true">确定</span>
+                    <span aria-hidden="true">确定</span>
                 </button>
                 <%--<button type="button" class="btn btn-primary" id="update" onclick="updateType()">确定</button>--%>
             </div>
